@@ -3,16 +3,6 @@ module(
     version = "1.0.0",
 )
 
-# Align with resolved dependency graph to suppress warnings
-bazel_dep(name = "rules_python", version = "1.7.0")
-bazel_dep(name = "rules_cc", version = "0.2.14")
-bazel_dep(name = "rules_rust", version = "0.56.0")
-bazel_dep(name = "platforms", version = "1.0.0")
+# Only require rules_shell for the current sh_test orchestration strategy
 bazel_dep(name = "rules_shell", version = "0.6.1")
-bazel_dep(name = "rules_foreign_cc", version = "0.13.0")
-
-python = use_extension("@rules_python//python/extensions:python.bzl", "python")
-python.toolchain(python_version = "3.13")
-
-rust = use_extension("@rules_rust//rust:extensions.bzl", "rust")
-rust.toolchain(edition = "2021", versions = ["1.93.1"])
+bazel_dep(name = "platforms", version = "0.0.10")
