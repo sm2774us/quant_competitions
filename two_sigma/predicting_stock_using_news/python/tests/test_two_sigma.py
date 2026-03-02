@@ -96,10 +96,12 @@ def test_main_run(mock_eval, mock_model, mock_proc, mock_loader, mock_market_dat
     mock_loader.return_value.load_news_data.return_value = mock_news_data
     
     # Preprocessor mock
-    mock_proc.return_value.process.return_value = mock_market_data # Use market data as merged for simplicity
+    # Merge them to ensure all columns (sentiment, etc) are present for the main logic
+    merged = pd.merge(mock_market_data, mock_news_data, on=['time', 'assetName'])
+    mock_proc.return_value.process.return_value = merged
     
     # Model mock
-    mock_model.return_value.predict.return_value = np.zeros(len(mock_market_data))
+    mock_model.return_value.predict.return_value = np.zeros(len(merged))
     
     # Evaluator mock
     mock_eval.return_value.evaluate_with_time.return_value = 0.5
