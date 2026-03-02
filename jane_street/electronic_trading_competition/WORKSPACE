@@ -1,0 +1,42 @@
+workspace(name = "electronic_trading_competition")
+
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+# rules_python
+http_archive(
+    name = "rules_python",
+    sha256 = "d70a28531a7741f021949a239b5fa016911c0338cc14e2d3343a41b2123f1464",
+    strip_prefix = "rules_python-0.21.0",
+    url = "https://github.com/bazelbuild/rules_python/releases/download/0.21.0/rules_python-0.21.0.tar.gz",
+)
+
+# rules_foreign_cc for CMake (C++)
+http_archive(
+    name = "rules_foreign_cc",
+    sha256 = "294a7509a204d733830bbca4afbcff626503b599da544d6da21a97f2666f7d98",
+    strip_prefix = "rules_foreign_cc-0.9.0",
+    url = "https://github.com/bazelbuild/rules_foreign_cc/archive/0.9.0.tar.gz",
+)
+load("@rules_foreign_cc//foreign_cc:repositories.bzl", "rules_foreign_cc_dependencies")
+rules_foreign_cc_dependencies()
+
+# rules_rust
+http_archive(
+    name = "rules_rust",
+    sha256 = "50d60d3d5f309d4351a2d4b8e2b8519f0742a786311026027a0f7692be43274f",
+    strip_prefix = "rules_rust-0.20.0",
+    url = "https://github.com/bazelbuild/rules_rust/releases/download/0.20.0/rules_rust-0.20.0.tar.gz",
+)
+load("@rules_rust//rust:repositories.bzl", "rules_rust_dependencies", "rust_register_toolchains")
+rules_rust_dependencies()
+rust_register_toolchains(edition = "2024")
+
+# rules_docker
+http_archive(
+    name = "io_bazel_rules_docker",
+    sha256 = "b1e87969509348e3ac575c5b4e8242e5d17c46101e4e30bc07e997419e119930",
+    strip_prefix = "rules_docker-0.25.0",
+    url = "https://github.com/bazelbuild/rules_docker/releases/download/v0.25.0/rules_docker-v0.25.0.tar.gz",
+)
+load("@io_bazel_rules_docker//repositories:repositories.bzl", "rules_docker_dependencies")
+rules_docker_dependencies()

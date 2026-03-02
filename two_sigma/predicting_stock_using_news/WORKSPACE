@@ -1,0 +1,21 @@
+workspace(name = "two_sigma_news")
+
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+# Rules Python
+http_archive(
+    name = "rules_python",
+    sha256 = "...",
+    strip_prefix = "rules_python-0.29.0",
+    url = "https://github.com/bazelbuild/rules_python/archive/0.29.0.tar.gz",
+)
+
+# Rules Rust
+http_archive(
+    name = "rules_rust",
+    sha256 = "...",
+    urls = ["https://github.com/bazelbuild/rules_rust/releases/download/0.38.0/rules_rust-v0.38.0.tar.gz"],
+)
+
+# Rules CC (Standard)
+# No archive needed for standard C++, but GTest and CLI11 archives would go here.

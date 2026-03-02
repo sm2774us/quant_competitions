@@ -1,0 +1,28 @@
+cc_library(
+    name = "two_sigma_core",
+    srcs = [
+        "src/DataLoader.cpp",
+        "src/Preprocessor.cpp",
+        "src/Model.cpp",
+        "src/Evaluator.cpp",
+    ],
+    hdrs = ["src/Interfaces.hpp"],
+    deps = [
+        # CLI11 would be linked here
+    ],
+)
+
+cc_binary(
+    name = "two_sigma_news",
+    srcs = ["src/main.cpp"],
+    deps = [":two_sigma_core"],
+)
+
+cc_test(
+    name = "two_sigma_test",
+    srcs = ["tests/test_two_sigma.cpp"],
+    deps = [
+        ":two_sigma_core",
+        # GTest would be linked here
+    ],
+)

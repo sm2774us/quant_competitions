@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "trading_bot"
+version = "0.1.0"
+description = "Jane Street ETC Trading Bot"
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+packages = [{include = "trading_bot"}]
+
+[tool.poetry.dependencies]
+python = "^3.13"
+click = "^8.1.7"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+pytest-cov = "^4.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+trading-bot = "trading_bot.cli:main"

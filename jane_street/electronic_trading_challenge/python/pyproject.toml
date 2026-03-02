@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "jane-street-etc"
+version = "0.1.0"
+description = "Jane Street Electronic Trading Challenge Solution"
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+packages = [{include = "etc", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.13"
+click = "^8.1.8"
+numpy = "^2.2.3"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.4"
+pytest-cov = "^6.0.0"
+pytest-mock = "^3.14.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+etc-bot = "etc.main:main"

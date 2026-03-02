@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "two-sigma-financial-modeling"
+version = "0.1.0"
+description = "Python solution for Two Sigma Financial Modeling Challenge"
+authors = ["Gemini CLI"]
+readme = "README.md"
+packages = [{include = "two_sigma", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.13"
+pandas = "^3.0.1"
+numpy = "^2.4.2"
+scikit-learn = "^1.8.0"
+click = "^8.3.1"
+pytest = "^9.0.2"
+pytest-cov = "^7.0.0"
+tables = "^3.11.0"
+joblib = "^1.4.2"
+
+[tool.poetry.scripts]
+two-sigma = "two_sigma.cli:cli"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

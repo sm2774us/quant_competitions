@@ -1,0 +1,6 @@
+workspace(name = "citadel_trading_comp")
+
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+# Add rules_python, rules_cc, rules_rust as needed if I were to fully integrate them.
+# For simplicity and given the constraints, I'll provide a common entry point to call the respective build systems.

@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "trading-bot"
+version = "0.1.0"
+description = "A robust trading bot for Jane Street competition"
+authors = ["Gemini CLI <gemini-cli@google.com>"]
+readme = "README.md"
+packages = [{include = "trading_bot", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.13"
+click = "^8.1.7"
+pydantic = "^2.6.1"
+numpy = "^1.26.4"
+pandas = "^2.2.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+pytest-cov = "^4.1.0"
+pytest-mock = "^3.12.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+trading-bot = "trading_bot.cli:main"

@@ -1,0 +1,22 @@
+load("@rules_rust//rust:defs.bzl", "rust_binary", "rust_library", "rust_test")
+
+rust_library(
+    name = "two_sigma_lib",
+    srcs = glob(["src/*.rs"], exclude=["src/main.rs"]),
+    edition = "2021",
+)
+
+rust_binary(
+    name = "two_sigma_news",
+    srcs = ["src/main.rs"],
+    edition = "2021",
+    deps = [
+        ":two_sigma_lib",
+        # Crate dependencies (clap, csv, etc.) would be handled via cargo_build_script or similar
+    ],
+)
+
+rust_test(
+    name = "two_sigma_test",
+    crate = ":two_sigma_lib",
+)

@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "market-prediction"
+version = "0.1.0"
+description = "Jane Street Market Prediction Python Solution"
+authors = ["Jane Street"]
+readme = "README.md"
+packages = [{include = "market_prediction", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.13"
+click = "^8.3.1"
+numpy = "^2.4.2"
+pandas = "^3.0.1"
+scikit-learn = "^1.8.0"
+torch = "2.10.0"
+pytest = "^9.0.2"
+pytest-cov = "^7.0.0"
+mock = "^5.2.0"
+
+[tool.poetry.scripts]
+market-prediction = "market_prediction.cli:cli"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

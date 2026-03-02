@@ -1,0 +1,26 @@
+# BUILD.bazel in root
+
+sh_binary(
+    name = "build_python",
+    srcs = ["//python:build.sh"],
+)
+
+sh_binary(
+    name = "build_cpp",
+    srcs = ["//cpp:build.sh"],
+)
+
+sh_binary(
+    name = "build_rust",
+    srcs = ["//rust:build.sh"],
+)
+
+sh_test(
+    name = "test_all",
+    srcs = ["test_all.sh"],
+    data = [
+        "//python:test.sh",
+        "//cpp:test.sh",
+        "//rust:test.sh",
+    ],
+)

@@ -1,0 +1,23 @@
+load("@rules_python//python:defs.bzl", "py_binary", "py_library", "py_test")
+
+py_library(
+    name = "two_sigma_lib",
+    srcs = glob(["src/two_sigma_news/*.py"]),
+    imports = ["src"],
+    deps = [
+        # List of pip dependencies would go here (e.g., pandas, numpy)
+    ],
+)
+
+py_binary(
+    name = "two-sigma-news",
+    srcs = ["src/two_sigma_news/main.py"],
+    main = "src/two_sigma_news/main.py",
+    deps = [":two_sigma_lib"],
+)
+
+py_test(
+    name = "two_sigma_test",
+    srcs = ["tests/test_two_sigma.py"],
+    deps = [":two_sigma_lib"],
+)

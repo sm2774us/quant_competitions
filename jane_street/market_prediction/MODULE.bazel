@@ -1,0 +1,4 @@
+module(
+    name = "market_prediction",
+    version = "1.0.0",
+)
