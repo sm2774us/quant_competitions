@@ -33,7 +33,7 @@ jobs:
       # --- Bazel Setup & Execution ---
       - name: Install Bazelisk
         run: |
-          npm install -g @bazel/bazelisk
+          sudo npm install -g @bazel/bazelisk
 
       - name: Run All Tests via Bazel
         run: |
