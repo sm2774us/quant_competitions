@@ -3,7 +3,7 @@ from unittest.mock import AsyncMock, patch
 from trading_bot.client import ExchangeClient
 from trading_bot.models import Order
 
-@pytest.mark.asyncio
+pytestmark = pytest.mark.asyncio
 async def test_client_connect():
     client = ExchangeClient("localhost", 25000, "TEAM")
     with patch("asyncio.open_connection", return_value=(AsyncMock(), AsyncMock())) as mock_conn:

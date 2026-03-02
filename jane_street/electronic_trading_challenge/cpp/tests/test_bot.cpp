@@ -13,7 +13,7 @@ class MockExchangeConnection : public ExchangeConnection {
 public:
     MOCK_METHOD(void, connect, (const std::string& host, int port), (override));
     MOCK_METHOD(void, close, (), (override));
-    MOCK_METHOD(std::optional<nlohmann::json>, read, (), (override));
+    MOCK_METHOD((std::optional<nlohmann::json>), read, (), (override));
     MOCK_METHOD(void, write, (const nlohmann::json& message), (override));
 };
 

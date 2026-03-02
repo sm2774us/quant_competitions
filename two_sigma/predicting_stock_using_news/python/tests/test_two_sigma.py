@@ -106,6 +106,7 @@ def test_main_run(mock_eval, mock_model, mock_proc, mock_loader, mock_market_dat
     
     runner = CliRunner()
     with patch('os.path.exists', return_value=True):
-        result = runner.invoke(run, ['--market', 'm.csv', '--news', 'n.csv'])
+        from two_sigma_news.main import main
+        result = runner.invoke(main, ['run', '--market', 'm.csv', '--news', 'n.csv'])
         assert result.exit_code == 0
         assert "Final Score" in result.output

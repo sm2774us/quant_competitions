@@ -5,10 +5,12 @@ import os
 from .processors import TwoSigmaDataLoader, TwoSigmaPreprocessor
 from .models import TwoSigmaModel, TwoSigmaEvaluator
 
-@click.group()
-def main():
+@click.group(invoke_without_command=True)
+@click.pass_context
+def main(ctx):
     """Two Sigma Stock News Challenge - Python Solution"""
-    pass
+    if ctx.invoked_subcommand is None:
+        pass
 
 @main.command()
 @click.option('--market', type=click.Path(exists=True), help='Path to market data (CSV/PKL)')

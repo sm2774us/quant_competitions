@@ -10,8 +10,8 @@ csv = "1.4.0"
 linreg = "0.2.0"
 mockall = "0.14.0"
 ndarray = { version = "0.17.2", features = ["serde"] }
-rand = "0.10.0"
-rand_distr = "0.5.0"
+rand = "0.8.5"
+rand_distr = "0.4.3"
 rstest = "0.26.1"
 serde = { version = "1.0.228", features = ["derive"] }
 serde_json = "1.0.149"
