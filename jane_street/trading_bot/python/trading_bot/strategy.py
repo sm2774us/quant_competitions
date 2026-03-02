@@ -19,7 +19,8 @@ class Strategy:
         if fill.symbol not in self.positions:
             self.positions[fill.symbol] = 0
         
-        delta = fill.size if fill.dir == Direction::BUY else -fill.size
+        delta = fill.size if fill.dir == Direction.BUY else -fill.size
+
         self.positions[fill.symbol] += delta
 
     def decide(self, book: BookUpdate) -> List[Order]:
@@ -46,7 +47,7 @@ class Strategy:
             if price < 1000:
                 buy_size = min(size, limit - pos)
                 if buy_size > 0:
-                    orders.append(Order(self.next_order_id(), symbol, Direction::BUY, price, buy_size))
+                    orders.append(Order(self.next_order_id(), symbol, Direction.BUY, price, buy_size))
                     pos += buy_size
 
         # Check buy orders in book (someone is buying, we can sell)
@@ -54,13 +55,13 @@ class Strategy:
             if price > 1000:
                 sell_size = min(size, limit + pos)
                 if sell_size > 0:
-                    orders.append(Order(self.next_order_id(), symbol, Direction::SELL, price, sell_size))
+                    orders.append(Order(self.next_order_id(), symbol, Direction.SELL, price, sell_size))
                     pos -= sell_size
 
         # Passive orders
         if pos < limit:
-            orders.append(Order(self.next_order_id(), symbol, Direction::BUY, 999, limit - pos))
+            orders.append(Order(self.next_order_id(), symbol, Direction.BUY, 999, limit - pos))
         if pos > -limit:
-            orders.append(Order(self.next_order_id(), symbol, Direction::SELL, 1001, limit + pos))
+            orders.append(Order(self.next_order_id(), symbol, Direction.SELL, 1001, limit + pos))
 
         return orders
