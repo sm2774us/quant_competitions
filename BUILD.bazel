@@ -1,0 +1,16 @@
+# Global BUILD file for the monorepo
+
+package(default_visibility = ["//visibility:public"])
+
+# Aliases to sub-projects for easier access
+alias(
+    name = "citadel_trading_comp",
+    actual = "//citadel/citadel-trading-comp:build",
+)
+
+alias(
+    name = "jane_street_etc",
+    actual = "//jane_street/electronic_trading_challenge:build",
+)
+
+# ... further aliases as needed
