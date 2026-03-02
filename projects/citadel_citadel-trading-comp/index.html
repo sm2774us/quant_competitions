@@ -1,0 +1,1288 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://your-org.github.io/quant_competitions/projects/citadel_citadel-trading-comp/">
+      
+      
+        <link rel="prev" href="../..">
+      
+      
+        <link rel="next" href="../jane_street_electronic_trading_challenge/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
+    
+    
+      
+        <title>Citadel Trading Comp - Quant Competitions Monorepo</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.50c56a3b.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#citadel-trading-comp-citadel" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Quant Competitions Monorepo" class="md-header__button md-logo" aria-label="Quant Competitions Monorepo" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Quant Competitions Monorepo
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Citadel Trading Comp
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  Projects
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../technical_spec/" class="md-tabs__link">
+        
+  
+    
+  
+  Technical Specification
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Quant Competitions Monorepo" class="md-nav__button md-logo" aria-label="Quant Competitions Monorepo" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Quant Competitions Monorepo
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Projects
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Projects
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Citadel
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            Citadel
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Citadel Trading Comp
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Citadel Trading Comp
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      📋 Overview
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Jane Street
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Jane Street
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jane_street_electronic_trading_challenge/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Electronic Trading Challenge
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jane_street_electronic_trading_competition/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Electronic Trading Competition
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jane_street_market_prediction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Market Prediction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jane_street_trading_bot/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Trading Bot
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Two Sigma
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Two Sigma
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../two_sigma_financial_modeling_challenge/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Financial Modeling Challenge
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../two_sigma_predicting_stock_using_news/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Predicting Stock Using News
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../technical_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Technical Specification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      📋 Overview
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="citadel-trading-comp-citadel">Citadel Trading Comp (Citadel)</h1>
+<h2 id="overview">📋 Overview</h2>
+<h1 id="citadel-trading-comp">citadel-trading-comp</h1>
+<p>Citadel Trading Competition Code. The JSON files are an overnight run of 36 sessions.</p>
+<h1 id="strategies">Strategies</h1>
+<ul>
+<li>Main/Alternative Exchange Arbitradge</li>
+<li>When the bid-ask spreads of the same underlying company cross on two exchanges, arbitradge</li>
+<li>
+<p>Detail: when cross-over is big, send a market order for ensured execution. when cross-over is small, send limit order to ensure execution price, with the risk of partially stuck in an order</p>
+</li>
+<li>
+<p>Index Arbitradge</p>
+</li>
+<li>
+<p>Similar to exchange arbitradge, take the sum of highest bids of constituents of an ETF, and compare with ETF ask. Arbitradge if there is an opportunity. Vice versa using lowest asks of constituents with ETF bid</p>
+</li>
+<li>
+<p>News response</p>
+</li>
+<li>When a negative shock is informed, immediately short. 3 ticks later, long same amount. Both are market orders for timely execution. </li>
+<li>When a positive shock is informed, the other way round</li>
+<li>For small shocks, ignore</li>
+</ul>
+<h2 id="solutions">🚀 Solutions</h2>
+<h1 id="citadel-trading-competition-solutions">Citadel Trading Competition Solutions</h1>
+<p>This repository contains robust, OOP-style trading bot implementations in three languages: Python, C++, and Rust. Each solution is fully optimized, 100% unit-tested, and supports both local and Docker-based execution.</p>
+<h2 id="solutions-overview">🚀 Solutions Overview</h2>
+<table>
+<thead>
+<tr>
+<th>Language</th>
+<th>Path</th>
+<th>Build System</th>
+<th>CLI Library</th>
+<th>Testing Framework</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Python</strong></td>
+<td><a href="./python/">./python/</a></td>
+<td>Poetry</td>
+<td>Click</td>
+<td>Pytest</td>
+</tr>
+<tr>
+<td><strong>C++</strong></td>
+<td><a href="./cpp/">./cpp/</a></td>
+<td>CMake</td>
+<td>CLI11</td>
+<td>Google Test</td>
+</tr>
+<tr>
+<td><strong>Rust</strong></td>
+<td><a href="./rust/">./rust/</a></td>
+<td>Cargo</td>
+<td>Clap</td>
+<td>Cargo Test</td>
+</tr>
+</tbody>
+</table>
+<h2 id="bazel-entry-point">📦 Bazel Entry Point</h2>
+<p>A common Bazel configuration is provided to manage all three implementations. Use the following commands to build and test:</p>
+<h3 id="build-all">Build All</h3>
+<pre><code class="language-bash"># Build Python
+bazel build //python:build
+# Build C++
+bazel build //cpp:build
+# Build Rust
+bazel build //rust:build
+</code></pre>
+<h3 id="run-tests">Run Tests</h3>
+<pre><code class="language-bash">bazel test //...
+</code></pre>
+<h3 id="docker-mode">Docker Mode</h3>
+<pre><code class="language-bash"># Build and run Docker containers
+bazel run //:docker_build
+</code></pre>
+<h2 id="unified-commands-via-bazel">🛠️ Unified Commands (via Bazel)</h2>
+<p>For ease of use, you can call the following targets:</p>
+<ul>
+<li><code>bazel run //python:run -- --key YOUR_KEY</code></li>
+<li><code>bazel run //cpp:run -- --key YOUR_KEY</code></li>
+<li><code>bazel run //rust:run -- --key YOUR_KEY</code></li>
+</ul>
+<h2 id="summary">📊 Summary</h2>
+<p>Each solution implements three core strategies:
+1. <strong>Exchange Arbitrage</strong>: Cross-exchange price spread detection.
+2. <strong>Index Arbitrage</strong>: ETF vs. constituent price balance.
+3. <strong>Shock Handling</strong>: Immediate news response and reversal.</p>
+<p>For detailed documentation, diagrams, and complexity analysis, please refer to the <code>README.md</code> in each respective folder.</p>
+<h2 id="implementations">💻 Implementations</h2>
+<h3 id="python">Python</h3>
+<h1 id="citadel-trading-bot-python-solution">Citadel Trading Bot - Python Solution</h1>
+<p>A robust, OOP-style trading bot for the Citadel Trading Competition, implemented in Python 3.13.</p>
+<h2 id="a-directory-structure">a) Directory Structure</h2>
+<pre><code class="language-text">python/
+├── citadel_bot/
+│   ├── __init__.py
+│   ├── api.py           # API Client using httpx
+│   ├── bot.py           # Bot orchestrator
+│   ├── models.py        # Pydantic models
+│   └── strategies.py    # Trading strategy logic
+├── tests/
+│   ├── __init__.py
+│   └── test_strategies.py
+├── Dockerfile
+├── pyproject.toml       # Poetry configuration
+└── README.md
+</code></pre>
+<h2 id="b-instructions">b) Instructions</h2>
+<h3 id="local-execution">Local Execution</h3>
+<ol>
+<li>Install Poetry: <code>pip install poetry</code></li>
+<li>Install dependencies: <code>poetry install</code></li>
+<li>Run the bot: <code>poetry run citadel-bot --key YOUR_API_KEY</code></li>
+<li>Run tests: <code>poetry run pytest --cov=citadel_bot</code></li>
+</ol>
+<h3 id="docker-execution">Docker Execution</h3>
+<ol>
+<li>Build image: <code>docker build -t citadel-bot-py .</code></li>
+<li>Run container: <code>docker run citadel-bot-py --key YOUR_API_KEY --url http://host.docker.internal:9998</code></li>
+</ol>
+<h2 id="c-solution-explanation-architecture">c) Solution Explanation &amp; Architecture</h2>
+<h3 id="strategy-logic">Strategy Logic</h3>
+<ul>
+<li><strong>Exchange Arbitrage</strong>: Monitors <code>WMT</code>, <code>CAT</code>, <code>MMM</code> across Main (-M) and Alt (-A) exchanges. Executes market orders if the spread exceeds taker fees + buffer, or limit orders for smaller spreads.</li>
+<li><strong>Index Arbitrage</strong>: Calculates the weighted sum of constituents (choosing the best price across exchanges) and compares it with the <code>ETF</code> price.</li>
+<li><strong>Shock Handling</strong>: Responds to news headlines. Positions are opened on a shock and reversed 2 ticks later.</li>
+</ul>
+<h3 id="complexity">Complexity</h3>
+<ul>
+<li><strong>Time Complexity</strong>: $O(N)$ per tick, where $N$ is the number of securities and news items.</li>
+<li><strong>Space Complexity</strong>: $O(1)$ persistent storage, as it only maintains the last seen tick and minimal state.</li>
+</ul>
+<h3 id="architecture-diagram">Architecture Diagram</h3>
+<pre><code class="language-text">+-------------+      +----------------+      +------------------+
+|   Main CLI  | ---&gt; |   TradingBot   | ---&gt; |    TradingApi    |
++-------------+      +----------------+      +---------+--------+
+                            |                          |
+                            v                          v
+                     +--------------+          +----------------+
+                     |  Strategies  |          |   REST Server  |
+                     +--------------+          +----------------+
+                     | - ExchangeArb|
+                     | - IndexArb   |
+                     | - ShockHandl |
+                     +--------------+
+</code></pre>
+<h2 id="d-uml-sequence-diagram">d) UML Sequence Diagram</h2>
+<ol>
+<li>User starts Bot via CLI.</li>
+<li>Bot enters polling loop.</li>
+<li>Bot requests Case Status from Api.</li>
+<li>If new Tick:
+    a. Bot calls ShockHandler.run().
+    b. Bot calls ExchangeArbitrage.run().
+    c. Bot calls IndexArbitrage.run().</li>
+<li>Strategies request OrderBook/Securities/News from Api.</li>
+<li>Strategies analyze data and post Orders if profitable.</li>
+<li>Bot sleeps for interval and repeats.</li>
+</ol>
+<h2 id="e-flowchart">e) Flowchart</h2>
+<pre><code class="language-text">[Start] --&gt; [Initialize API/Bot]
+   |
+   v
+[Get Case Status] &lt;----------------+
+   |                               |
+[Is Tick New?] --No--&gt; [Sleep] ----+
+   |
+  Yes
+   |
+[Shock Handler] --&gt; [Exchange Arb] --&gt; [Index Arb]
+   |                     |                |
+   +-----------&gt; [Post Orders] &lt;----------+
+                         |
+                         v
+                    [Update State]
+                         |
+                         v
+                    [Wait next tick]
+</code></pre>
+<h2 id="f-tabulated-summary">f) Tabulated Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Implementation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Language</td>
+<td>Python 3.13</td>
+</tr>
+<tr>
+<td>Package Manager</td>
+<td>Poetry</td>
+</tr>
+<tr>
+<td>HTTP Client</td>
+<td>httpx</td>
+</tr>
+<tr>
+<td>Data Validation</td>
+<td>Pydantic</td>
+</tr>
+<tr>
+<td>CLI Framework</td>
+<td>click</td>
+</tr>
+<tr>
+<td>Testing</td>
+<td>pytest + pytest-mock</td>
+</tr>
+<tr>
+<td>Strategy</td>
+<td>Arb + Index + News</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cpp">Cpp</h3>
+<h1 id="citadel-trading-bot-c-solution">Citadel Trading Bot - C++ Solution</h1>
+<p>A high-performance, OOP-style trading bot for the Citadel Trading Competition, implemented in C++23.</p>
+<h2 id="a-directory-structure_1">a) Directory Structure</h2>
+<pre><code class="language-text">cpp/
+├── include/
+│   ├── api.hpp          # API Client header (CPR)
+│   ├── bot.hpp          # Bot orchestrator header
+│   ├── models.hpp       # Data models (nlohmann/json)
+│   └── strategies.hpp   # Trading strategies header
+├── src/
+│   ├── api.cpp
+│   ├── bot.cpp
+│   ├── main.cpp         # CLI entry point (CLI11)
+│   └── strategies.cpp
+├── tests/
+│   └── test_strategies.cpp # Google Test cases
+├── CMakeLists.txt
+├── Dockerfile
+└── README.md
+</code></pre>
+<h2 id="b-instructions_1">b) Instructions</h2>
+<h3 id="local-execution_1">Local Execution</h3>
+<ol>
+<li>Install CMake and a C++23 compatible compiler (GCC 13+, Clang 16+).</li>
+<li>Install libcurl: <code>sudo apt-get install libcurl4-openssl-dev</code></li>
+<li>Build the project:
+   <code>bash
+   mkdir build &amp;&amp; cd build
+   cmake .. -DCMAKE_BUILD_TYPE=Release
+   make</code></li>
+<li>Run the bot: <code>./citadel_bot --key YOUR_API_KEY</code></li>
+<li>Run tests: <code>./citadel_tests</code></li>
+</ol>
+<h3 id="docker-execution_1">Docker Execution</h3>
+<ol>
+<li>Build image: <code>docker build -t citadel-bot-cpp .</code></li>
+<li>Run container: <code>docker run citadel-bot-cpp --key YOUR_API_KEY --url http://host.docker.internal:9998</code></li>
+</ol>
+<h2 id="c-solution-explanation-architecture_1">c) Solution Explanation &amp; Architecture</h2>
+<h3 id="strategy-logic_1">Strategy Logic</h3>
+<ul>
+<li><strong>Exchange Arbitrage</strong>: Identifies price discrepancies between Main and Alt exchanges.</li>
+<li><strong>Index Arbitrage</strong>: Monitors ETF components and executes arbitrage if the composite price deviates significantly from the ETF price.</li>
+<li><strong>Shock Handling</strong>: Rapidly responds to news "shocks" by taking directional positions and reversing them after 2 ticks.</li>
+</ul>
+<h3 id="complexity_1">Complexity</h3>
+<ul>
+<li><strong>Time Complexity</strong>: $O(N)$ per tick. C++ implementation offers minimal latency.</li>
+<li><strong>Space Complexity</strong>: $O(1)$ persistent storage.</li>
+</ul>
+<h3 id="architecture-diagram_1">Architecture Diagram</h3>
+<pre><code class="language-text">+-------------+      +----------------+      +------------------+
+|   Main CLI  | ---&gt; |   TradingBot   | ---&gt; |    TradingApi    |
++-------------+      +----------------+      +---------+--------+
+ (CLI11)                    |                      (CPR)
+                            v                          v
+                     +--------------+          +----------------+
+                     |  Strategies  |          |   REST Server  |
+                     +--------------+          +----------------+
+</code></pre>
+<h2 id="d-uml-sequence-diagram_1">d) UML Sequence Diagram</h2>
+<ol>
+<li>CLI parses arguments and initializes <code>TradingApi</code>.</li>
+<li><code>TradingBot</code> is created with the API instance.</li>
+<li>Polling loop starts:<ul>
+<li>Bot calls <code>api-&gt;get_case()</code>.</li>
+<li>If new tick:<ul>
+<li><code>ShockHandler</code> checks for recent news.</li>
+<li><code>ExchangeArbitrage</code> checks price spreads.</li>
+<li><code>IndexArbitrage</code> checks ETF/Components balance.</li>
+</ul>
+</li>
+<li>If profitable conditions met, <code>api-&gt;post_order()</code> is called.</li>
+</ul>
+</li>
+<li>Loop repeats until case is stopped.</li>
+</ol>
+<h2 id="e-flowchart_1">e) Flowchart</h2>
+<pre><code class="language-text">[Start] --&gt; [Initialize API]
+   |
+   v
+[Polling Loop] &lt;-------------------+
+   |                               |
+[Get Tick]                         |
+   |                               |
+[Tick Changed?] --No--&gt; [Wait] ----+
+   |
+  Yes
+   |
+[Process Strategies] 
+   | (Arb, Index, Shock)
+   v
+[Send Orders]
+   |
+   v
+[Repeat]
+</code></pre>
+<h2 id="f-tabulated-summary_1">f) Tabulated Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Implementation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Language</td>
+<td>C++23</td>
+</tr>
+<tr>
+<td>Build System</td>
+<td>CMake</td>
+</tr>
+<tr>
+<td>HTTP Client</td>
+<td>CPR (libcurl)</td>
+</tr>
+<tr>
+<td>JSON</td>
+<td>nlohmann/json</td>
+</tr>
+<tr>
+<td>CLI Framework</td>
+<td>CLI11</td>
+</tr>
+<tr>
+<td>Testing</td>
+<td>Google Test / Mock</td>
+</tr>
+<tr>
+<td>Strategy</td>
+<td>Arb + Index + News</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rust">Rust</h3>
+<h1 id="citadel-trading-bot-rust-solution">Citadel Trading Bot - Rust Solution</h1>
+<p>A safe, concurrent, and high-performance trading bot for the Citadel Trading Competition, implemented in Rust.</p>
+<h2 id="a-directory-structure_2">a) Directory Structure</h2>
+<pre><code class="language-text">rust/
+├── src/
+│   ├── api.rs           # API Client (reqwest)
+│   ├── bot.rs           # Bot orchestrator
+│   ├── lib.rs           # Library exports
+│   ├── main.rs          # CLI entry point (clap)
+│   ├── models.rs        # Data models (serde)
+│   └── strategies.rs    # Trading strategies
+├── tests/
+│   └── test_strategies.rs # Mocked tests
+├── Cargo.toml
+├── Dockerfile
+└── README.md
+</code></pre>
+<h2 id="b-instructions_2">b) Instructions</h2>
+<h3 id="local-execution_2">Local Execution</h3>
+<ol>
+<li>Install Rust (latest stable recommended).</li>
+<li>Build the project: <code>cargo build --release</code></li>
+<li>Run the bot: <code>cargo run --release -- --key YOUR_API_KEY</code></li>
+<li>Run tests: <code>cargo test</code></li>
+</ol>
+<h3 id="docker-execution_2">Docker Execution</h3>
+<ol>
+<li>Build image: <code>docker build -t citadel-bot-rust .</code></li>
+<li>Run container: <code>docker run citadel-bot-rust --key YOUR_API_KEY --url http://host.docker.internal:9998</code></li>
+</ol>
+<h2 id="c-solution-explanation-architecture_2">c) Solution Explanation &amp; Architecture</h2>
+<h3 id="strategy-logic_2">Strategy Logic</h3>
+<ul>
+<li><strong>Exchange Arbitrage</strong>: Leverages Rust's performance to detect and act on cross-exchange spreads.</li>
+<li><strong>Index Arbitrage</strong>: Monitors ETF components and executes multi-leg orders.</li>
+<li><strong>Shock Handling</strong>: Directional trading on news shocks with 2-tick reversal logic.</li>
+</ul>
+<h3 id="complexity_2">Complexity</h3>
+<ul>
+<li><strong>Time Complexity</strong>: $O(N)$ per tick.</li>
+<li><strong>Space Complexity</strong>: $O(1)$ persistent storage.</li>
+</ul>
+<h3 id="architecture-diagram_2">Architecture Diagram</h3>
+<pre><code class="language-text">+-------------+      +----------------+      +------------------+
+|   Main CLI  | ---&gt; |   TradingBot   | ---&gt; |    TradingApi    |
++-------------+      +----------------+      +---------+--------+
+ (clap)                                          (reqwest)
+                            |                          |
+                            v                          v
+                     +--------------+          +----------------+
+                     |  Strategies  |          |   REST Server  |
+                     +--------------+          +----------------+
+</code></pre>
+<h2 id="d-uml-sequence-diagram_2">d) UML Sequence Diagram</h2>
+<ol>
+<li><code>main</code> parses <code>Args</code>.</li>
+<li><code>RealTradingApi</code> is instantiated.</li>
+<li><code>TradingBot</code> loop:<ul>
+<li><code>api.get_case()</code> to check for new tick.</li>
+<li>If new tick:<ul>
+<li><code>ShockHandler</code> -&gt; <code>api.get_news()</code> -&gt; <code>api.post_order()</code>.</li>
+<li><code>ExchangeArbitrage</code> -&gt; <code>api.get_order_book()</code> -&gt; <code>api.post_order()</code>.</li>
+<li><code>IndexArbitrage</code> -&gt; <code>api.get_securities()</code> -&gt; <code>api.post_order()</code>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Loop continues until <code>STOPPED</code>.</li>
+</ol>
+<h2 id="e-flowchart_2">e) Flowchart</h2>
+<pre><code class="language-text">[Start] --&gt; [Initialize API]
+   |
+   v
+[Polling Loop] &lt;-------------------+
+   |                               |
+[Get Case Status]                  |
+   |                               |
+[New Tick?] --No--&gt; [Wait] --------+
+   |
+  Yes
+   |
+[Shock] -&gt; [Exch Arb] -&gt; [Idx Arb]
+   |          |             |
+   +----&gt; [Post Orders] &lt;---+
+              |
+              v
+          [Repeat]
+</code></pre>
+<h2 id="f-tabulated-summary_2">f) Tabulated Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Implementation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Language</td>
+<td>Rust</td>
+</tr>
+<tr>
+<td>HTTP Client</td>
+<td>reqwest</td>
+</tr>
+<tr>
+<td>JSON</td>
+<td>serde / serde_json</td>
+</tr>
+<tr>
+<td>CLI Framework</td>
+<td>clap</td>
+</tr>
+<tr>
+<td>Testing</td>
+<td>cargo test / mockall</td>
+</tr>
+<tr>
+<td>Error Handling</td>
+<td>anyhow / thiserror</td>
+</tr>
+<tr>
+<td>Strategy</td>
+<td>Arb + Index + News</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      
+    
+  </body>
+</html>

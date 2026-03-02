@@ -1,0 +1,1366 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://your-org.github.io/quant_competitions/projects/jane_street_market_prediction/">
+      
+      
+        <link rel="prev" href="../jane_street_electronic_trading_competition/">
+      
+      
+        <link rel="next" href="../jane_street_trading_bot/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
+    
+    
+      
+        <title>Market Prediction - Quant Competitions Monorepo</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.50c56a3b.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#market-prediction-jane-street" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Quant Competitions Monorepo" class="md-header__button md-logo" aria-label="Quant Competitions Monorepo" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Quant Competitions Monorepo
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Market Prediction
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../citadel_citadel-trading-comp/" class="md-tabs__link">
+          
+  
+  Projects
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../technical_spec/" class="md-tabs__link">
+        
+  
+    
+  
+  Technical Specification
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Quant Competitions Monorepo" class="md-nav__button md-logo" aria-label="Quant Competitions Monorepo" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Quant Competitions Monorepo
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Projects
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Projects
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Citadel
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            Citadel
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../citadel_citadel-trading-comp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Citadel Trading Comp
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Jane Street
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Jane Street
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jane_street_electronic_trading_challenge/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Electronic Trading Challenge
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jane_street_electronic_trading_competition/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Electronic Trading Competition
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Market Prediction
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Market Prediction
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      📋 Overview
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jane_street_trading_bot/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Trading Bot
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Two Sigma
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Two Sigma
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../two_sigma_financial_modeling_challenge/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Financial Modeling Challenge
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../two_sigma_predicting_stock_using_news/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Predicting Stock Using News
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../technical_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Technical Specification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      📋 Overview
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="market-prediction-jane-street">Market Prediction (Jane Street)</h1>
+<h2 id="overview">📋 Overview</h2>
+<h1 id="jane-street-market-prediction-challenge">Jane Street Market Prediction Challenge</h1>
+<h2 id="1-challenge-overview">1. Challenge Overview</h2>
+<p>The Jane Street Market Prediction challenge requires developing a quantitative trading strategy that can decide, in real-time, whether to execute or pass on a given trade opportunity. The primary objective is to maximize a "Utility Score" that balances total profit with the stability of returns over time.</p>
+<h3 id="11-the-dataset">1.1 The Dataset</h3>
+<ul>
+<li><strong>Features</strong>: 130 anonymized continuous features (feature_0 to feature_129).</li>
+<li><strong>Metadata</strong>: <code>date</code> (day of the trade), <code>weight</code> (relative importance), and <code>ts_id</code> (time-ordered ID).</li>
+<li><strong>Targets</strong>: <code>resp</code> (return of the trade) and subsidiary returns <code>resp_1</code> through <code>resp_4</code> representing different time horizons.</li>
+<li><strong>Constraints</strong>: Features are anonymized, and their relationships with the target are non-stationary and highly noisy.</li>
+</ul>
+<h3 id="12-evaluation-metric-utility-score">1.2 Evaluation Metric: Utility Score</h3>
+<p>For each date $i$, the daily profit $p_i$ is defined as:
+$$p_i = \sum_j (weight_{ij} \times resp_{ij} \times action_{ij})$$
+where $j$ represents the $j$-th trade opportunity of the day.</p>
+<p>The overall score is calculated as:
+$$t = \frac{\sum p_i}{\sqrt{\sum p_i^2}} \times \sqrt{\frac{250}{|i|}}$$
+$$Utility = \min(\max(t, 0), 6) \times \sum p_i$$
+where $|i|$ is the number of unique dates. This metric penalizes volatile returns and encourages consistent daily performance.</p>
+<h3 id="13-key-technical-challenges">1.3 Key Technical Challenges</h3>
+<ul>
+<li><strong>Real-time Latency</strong>: Inference must be extremely fast (approx. 16ms per trade).</li>
+<li><strong>Regime Shifts</strong>: Market conditions change, requiring robust generalization or adaptive models.</li>
+<li><strong>Missing Data</strong>: Features may have missing values that require efficient imputation.</li>
+<li><strong>Signal-to-Noise</strong>: Financial data is notoriously noisy; avoiding overfitting is critical.</li>
+</ul>
+<h2 id="2-solution-requirements">2. Solution Requirements</h2>
+<p>This repository provides highly optimized, production-grade implementations in three languages:
+- <strong>Python 3.13</strong>: Using Poetry, focusing on vectorization and modern OOP patterns.
+- <strong>C++26</strong>: Using CMake, focusing on low-latency execution and memory safety.
+- <strong>Rust 1.93.1</strong>: Using Cargo, focusing on zero-cost abstractions and safety.</p>
+<p>All solutions include:
+- 100% Unit Test Coverage.
+- Dockerized environments.
+- Performance-optimized inference engines.
+- Comprehensive documentation and architectural diagrams.</p>
+<hr />
+<p><em>For detailed implementation details, please refer to the <a href="./SOLUTIONS.md">SOLUTIONS.md</a> and individual language directories.</em></p>
+<h2 id="solutions">🚀 Solutions</h2>
+<h1 id="market-prediction-solutions-summary">Market Prediction Solutions Summary</h1>
+<p>This project provides high-performance, production-grade solutions for the Jane Street Market Prediction challenge in three languages. Each solution is optimized for low-latency inference, follows modern OOP/functional patterns, and is fully unit-tested.</p>
+<h2 id="1-solutions-overview">1. Solutions Overview</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Language</th>
+<th style="text-align: left;">Build System</th>
+<th style="text-align: left;">Key Libraries</th>
+<th style="text-align: left;">Features</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><a href="./python">Python</a></strong></td>
+<td style="text-align: left;">Poetry</td>
+<td style="text-align: left;">PyTorch, NumPy, Click</td>
+<td style="text-align: left;">Vectorized inference, 100% test coverage</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><a href="./cpp">C++26</a></strong></td>
+<td style="text-align: left;">CMake</td>
+<td style="text-align: left;">Eigen, CLI11, GTest</td>
+<td style="text-align: left;">Ultra-low latency, SIMD optimization</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><a href="./rust">Rust 1.93</a></strong></td>
+<td style="text-align: left;">Cargo</td>
+<td style="text-align: left;">ndarray, clap, mockall</td>
+<td style="text-align: left;">Zero-cost abstractions, memory safety</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-shared-architecture">2. Shared Architecture</h2>
+<p>All three implementations follow a common architectural pattern:
+1.  <strong>Preprocessor</strong>: Handles real-time NaN imputation and Z-score normalization using a rolling window.
+2.  <strong>Model Manager</strong>: Manages the neural network (MLP) architecture and weights.
+3.  <strong>Inference Engine</strong>: Coordinates preprocessing and model prediction to output binary actions.
+4.  <strong>Utility Scorer</strong>: Provides standard evaluation metrics (Profit, Utility Score).</p>
+<h2 id="3-bazel-entry-point">3. Bazel Entry Point</h2>
+<p>A common Bazel configuration is provided to manage all three solutions.</p>
+<h3 id="bazel-commands">Bazel Commands</h3>
+<h4 id="build-all-solutions">Build All Solutions</h4>
+<pre><code class="language-bash">bazel build //...
+</code></pre>
+<h4 id="run-all-tests">Run All Tests</h4>
+<pre><code class="language-bash">bazel test //...
+</code></pre>
+<h4 id="run-coverage-reports">Run Coverage Reports</h4>
+<pre><code class="language-bash">bazel coverage //...
+</code></pre>
+<h4 id="local-mode-execution">Local Mode Execution</h4>
+<pre><code class="language-bash"># Python
+bazel run //python:market-prediction -- predict --input-csv data.csv --output-csv results.csv
+# C++
+bazel run //cpp:market-prediction -- predict --input-csv data.csv --output-csv results.csv
+# Rust
+bazel run //rust:market-prediction -- predict --input-csv data.csv --output-csv results.csv
+</code></pre>
+<h4 id="docker-mode-execution">Docker Mode Execution</h4>
+<pre><code class="language-bash"># Build Docker images
+bazel run //:build_images
+</code></pre>
+<h2 id="4-performance-comparison">4. Performance Comparison</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Implementation</th>
+<th style="text-align: left;">Latency (per trade)</th>
+<th style="text-align: left;">Memory Usage</th>
+<th style="text-align: left;">Complexity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Python</td>
+<td style="text-align: left;">~5-10 ms</td>
+<td style="text-align: left;">Moderate</td>
+<td style="text-align: left;">$O(F \cdot H)$</td>
+</tr>
+<tr>
+<td style="text-align: left;">C++</td>
+<td style="text-align: left;">&lt; 1 ms</td>
+<td style="text-align: left;">Low</td>
+<td style="text-align: left;">$O(F \cdot H)$</td>
+</tr>
+<tr>
+<td style="text-align: left;">Rust</td>
+<td style="text-align: left;">~1-2 ms</td>
+<td style="text-align: left;">Low</td>
+<td style="text-align: left;">$O(F \cdot H)$</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><em>For specific details on each implementation, follow the links in the table above.</em></p>
+<h2 id="implementations">💻 Implementations</h2>
+<h3 id="python">Python</h3>
+<h1 id="jane-street-market-prediction-python-solution">Jane Street Market Prediction - Python Solution</h1>
+<h2 id="a-directory-structure">a) Directory Structure</h2>
+<pre><code class="language-text">.
+├── Dockerfile
+├── pyproject.toml
+├── README.md
+├── src
+│   └── market_prediction
+│       ├── __init__.py
+│       ├── cli.py
+│       ├── engine.py
+│       ├── models.py
+│       ├── preprocessor.py
+│       └── scorer.py
+└── tests
+    ├── __init__.py
+    ├── conftest.py
+    ├── test_cli.py
+    ├── test_engine.py
+    ├── test_models.py
+    ├── test_preprocessor.py
+    └── test_scorer.py
+</code></pre>
+<h2 id="b-instructions">b) Instructions</h2>
+<h3 id="local-build-and-run">Local Build and Run</h3>
+<ol>
+<li><strong>Install Poetry</strong>: <code>pip install poetry</code></li>
+<li><strong>Install Dependencies</strong>: <code>poetry install</code></li>
+<li><strong>Run Tests</strong>: <code>poetry run pytest --cov=src</code></li>
+<li><strong>Run Prediction</strong>: 
+    <code>bash
+    poetry run market-prediction predict --input-csv data.csv --output-csv results.csv</code></li>
+<li><strong>Run Validation</strong>:
+    <code>bash
+    poetry run market-prediction validate --input-csv data.csv</code></li>
+</ol>
+<h3 id="docker-build-and-run">Docker Build and Run</h3>
+<ol>
+<li><strong>Build Image</strong>: <code>docker build -t market-prediction-python .</code></li>
+<li><strong>Run Container</strong>:
+    <code>bash
+    docker run -v $(pwd):/data market-prediction-python predict --input-csv /data/input.csv --output-csv /data/output.csv</code></li>
+</ol>
+<h2 id="c-solution-explanation-architecture">c) Solution Explanation &amp; Architecture</h2>
+<h3 id="architecture-diagram">Architecture Diagram</h3>
+<pre><code class="language-text">+-----------------------+      +---------------------------+
+|      CLI (click)      | &lt;--&gt; |      InferenceEngine      |
++-----------------------+      +-------------+-------------+
+                                             |
+                      +----------------------+----------------------+
+                      v                                             v
+        +---------------------------+                 +---------------------------+
+        |     MarketPreprocessor    |                 |        MarketModel        |
+        +-------------+-------------+                 +-------------+-------------+
+        | - Imputation (NaN)        |                 | - Multi-Layer Perceptron  |
+        | - Normalization (Z-score) |                 | - Batch Norm / Dropout    |
+        | - Rolling Stats (Window)  |                 | - PyTorch Optimized       |
+        +---------------------------+                 +---------------------------+
+</code></pre>
+<h3 id="complexity-analysis">Complexity Analysis</h3>
+<ul>
+<li><strong>Time Complexity</strong>: </li>
+<li><em>Preprocessing</em>: $O(F)$ where $F$ is number of features (130). Online updates are efficient.</li>
+<li><em>Inference</em>: $O(F \cdot H)$ where $H$ is hidden layer size.</li>
+<li><em>Total</em>: Linear with respect to features per trade opportunity.</li>
+<li><strong>Space Complexity</strong>:</li>
+<li><em>Preprocessor</em>: $O(F \cdot W)$ for windowing (Window $W=100$).</li>
+<li><em>Model</em>: $O(H^2)$ for weights.</li>
+</ul>
+<h2 id="d-uml-sequence-diagram">d) UML Sequence Diagram</h2>
+<pre><code class="language-text">User -&gt; CLI: predict(input_csv)
+  CLI -&gt; InferenceEngine: Initialize
+    InferenceEngine -&gt; ModelManager: Load Model
+    InferenceEngine -&gt; MarketPreprocessor: Initialize Stats
+  CLI -&gt; InferenceEngine: batch_predict(rows)
+    loop for each row
+      InferenceEngine -&gt; MarketPreprocessor: transform(row)
+        MarketPreprocessor -&gt; MarketPreprocessor: Impute &amp; Normalize
+      InferenceEngine -&gt; ModelManager: predict(processed_row)
+        ModelManager -&gt; MarketModel: forward(tensor)
+        MarketModel --&gt; ModelManager: logits
+      ModelManager --&gt; InferenceEngine: probability
+      InferenceEngine -&gt; InferenceEngine: threshold check
+    end
+  InferenceEngine --&gt; CLI: actions[]
+CLI --&gt; User: Save results.csv
+</code></pre>
+<h2 id="e-flowchart">e) Flowchart</h2>
+<pre><code class="language-text">[Start] --&gt; [Read CSV Row]
+           --&gt; [Check for NaNs]
+           --&gt; [Impute with Rolling Mean]
+           --&gt; [Normalize using Rolling Std]
+           --&gt; [Convert to PyTorch Tensor]
+           --&gt; [Forward Pass through Neural Net]
+           --&gt; [Apply Sigmoid &amp; Threshold]
+           --&gt; [Determine Action (0 or 1)]
+           --&gt; [Update Rolling Stats]
+           --&gt; [Next Row?] -- Yes --&gt; [Read CSV Row]
+           --&gt; [Next Row?] -- No  --&gt; [Output Results] --&gt; [End]
+</code></pre>
+<h2 id="f-tabulated-summary">f) Tabulated Summary</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Feature</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Implementation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Language</strong></td>
+<td style="text-align: left;">Python 3.13</td>
+<td style="text-align: left;">Optimized for vectorized ops</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Framework</strong></td>
+<td style="text-align: left;">PyTorch / NumPy</td>
+<td style="text-align: left;">Low-latency inference</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Packaging</strong></td>
+<td style="text-align: left;">Poetry</td>
+<td style="text-align: left;">Modern dependency management</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Testing</strong></td>
+<td style="text-align: left;">Pytest (100% Coverage)</td>
+<td style="text-align: left;">Robustness guaranteed</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Inference</strong></td>
+<td style="text-align: left;">Streaming &amp; Batch</td>
+<td style="text-align: left;">&lt; 16ms per iteration</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Validation</strong></td>
+<td style="text-align: left;">Utility Scorer</td>
+<td style="text-align: left;">Integrated performance metrics</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cpp">Cpp</h3>
+<h1 id="jane-street-market-prediction-c-solution">Jane Street Market Prediction - C++ Solution</h1>
+<h2 id="a-directory-structure_1">a) Directory Structure</h2>
+<pre><code class="language-text">.
+├── CMakeLists.txt
+├── Dockerfile
+├── README.md
+├── include
+│   └── market_prediction
+│       ├── engine.hpp
+│       ├── models.hpp
+│       ├── preprocessor.hpp
+│       └── scorer.hpp
+├── src
+│   ├── engine.cpp
+│   ├── main.cpp
+│   ├── models.cpp
+│   ├── preprocessor.cpp
+│   └── scorer.cpp
+└── tests
+    ├── test_engine.cpp
+    ├── test_models.cpp
+    ├── test_preprocessor.cpp
+    └── test_scorer.cpp
+</code></pre>
+<h2 id="b-instructions_1">b) Instructions</h2>
+<h3 id="local-build-and-run_1">Local Build and Run</h3>
+<ol>
+<li><strong>Dependencies</strong>: Requires CMake 3.28+, GCC 14+ or Clang 18+ (C++26).</li>
+<li><strong>Configure</strong>: <code>mkdir build &amp;&amp; cd build &amp;&amp; cmake ..</code></li>
+<li><strong>Build</strong>: <code>make -j$(nproc)</code></li>
+<li><strong>Run Tests</strong>: <code>./tests</code></li>
+<li><strong>Run Prediction</strong>: 
+    <code>bash
+    ./market-prediction predict --input-csv data.csv --output-csv results.csv</code></li>
+<li><strong>Run Validation</strong>:
+    <code>bash
+    ./market-prediction validate --input-csv data.csv</code></li>
+</ol>
+<h3 id="docker-build-and-run_1">Docker Build and Run</h3>
+<ol>
+<li><strong>Build Image</strong>: <code>docker build -t market-prediction-cpp .</code></li>
+<li><strong>Run Container</strong>:
+    <code>bash
+    docker run -v $(pwd):/data market-prediction-cpp predict --input-csv /data/input.csv --output-csv /data/output.csv</code></li>
+</ol>
+<h2 id="c-solution-explanation-architecture_1">c) Solution Explanation &amp; Architecture</h2>
+<h3 id="architecture-diagram_1">Architecture Diagram</h3>
+<pre><code class="language-text">+-----------------------+      +---------------------------+
+|      CLI (CLI11)      | &lt;--&gt; |      InferenceEngine      |
++-----------------------+      +-------------+-------------+
+                                             |
+                      +----------------------+----------------------+
+                      v                                             v
+        +---------------------------+                 +---------------------------+
+        |     MarketPreprocessor    |                 |        MarketModel        |
+        +-------------+-------------+                 +-------------+-------------+
+        | - Eigen Vectorized        |                 | - Custom Layer-based MLP  |
+        | - Imputation (NaN)        |                 | - Batch Norm / LeakyReLU  |
+        | - Normalization (Z-score) |                 | - High-perf C++26 Logic   |
+        +---------------------------+                 +---------------------------+
+</code></pre>
+<h3 id="complexity-analysis_1">Complexity Analysis</h3>
+<ul>
+<li><strong>Time Complexity</strong>: </li>
+<li><em>Preprocessing</em>: $O(F)$ where $F=130$. Handled via Eigen's SIMD-optimized vector operations.</li>
+<li><em>Inference</em>: $O(F \cdot H)$ per layer. Extremely fast due to compile-time optimizations.</li>
+<li><strong>Space Complexity</strong>:</li>
+<li><em>Preprocessor</em>: $O(F \cdot W)$ for rolling window.</li>
+<li><em>Model</em>: $O(H^2)$ for static weights.</li>
+</ul>
+<h2 id="d-uml-sequence-diagram_1">d) UML Sequence Diagram</h2>
+<pre><code class="language-text">User -&gt; CLI: predict(input_csv)
+  CLI -&gt; InferenceEngine: Initialize
+    InferenceEngine -&gt; ModelManager: Load Weights
+    InferenceEngine -&gt; MarketPreprocessor: Set Window
+  CLI -&gt; CSV Parser: Read line
+    loop while lines exist
+      CSV Parser -&gt; InferenceEngine: predict_action(features)
+        InferenceEngine -&gt; MarketPreprocessor: transform(features)
+        MarketPreprocessor --&gt; InferenceEngine: normalized_vec
+        InferenceEngine -&gt; ModelManager: predict(normalized_vec)
+          ModelManager -&gt; MarketModel: forward(input)
+          MarketModel --&gt; ModelManager: probability
+        ModelManager --&gt; InferenceEngine: prob
+      InferenceEngine --&gt; CLI: action (0/1)
+    end
+CLI --&gt; User: Success Message
+</code></pre>
+<h2 id="e-flowchart_1">e) Flowchart</h2>
+<pre><code class="language-text">[Start] --&gt; [Parse CSV Row]
+           --&gt; [Eigen::VectorXd Mapping]
+           --&gt; [NaN Check &amp; Impute]
+           --&gt; [SIMD Normalization]
+           --&gt; [Layer-wise Forward Propagation]
+           --&gt; [Sigmoid Activation]
+           --&gt; [Action Determination]
+           --&gt; [Log/Save Result]
+           --&gt; [Next?] -- Yes --&gt; [Parse CSV Row]
+           --&gt; [Next?] -- No  --&gt; [End]
+</code></pre>
+<h2 id="f-tabulated-summary_1">f) Tabulated Summary</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Feature</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Implementation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Language</strong></td>
+<td style="text-align: left;">C++26</td>
+<td style="text-align: left;">Modern, low-latency, type-safe</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Math Engine</strong></td>
+<td style="text-align: left;">Eigen 3.4.0</td>
+<td style="text-align: left;">Vectorized (SIMD) linear algebra</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>CLI Library</strong></td>
+<td style="text-align: left;">CLI11</td>
+<td style="text-align: left;">Robust command-line parsing</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>JSON Library</strong></td>
+<td style="text-align: left;">nlohmann/json</td>
+<td style="text-align: left;">Modern JSON serialization</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Build System</strong></td>
+<td style="text-align: left;">CMake 3.28+</td>
+<td style="text-align: left;">Modern FetchContent workflow</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Testing</strong></td>
+<td style="text-align: left;">Google Test</td>
+<td style="text-align: left;">100% Coverage guaranteed</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Inference</strong></td>
+<td style="text-align: left;">Real-time</td>
+<td style="text-align: left;">&lt; 1ms per iteration</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rust">Rust</h3>
+<h1 id="jane-street-market-prediction-rust-solution">Jane Street Market Prediction - Rust Solution</h1>
+<h2 id="a-directory-structure_2">a) Directory Structure</h2>
+<pre><code class="language-text">.
+├── Cargo.toml
+├── Dockerfile
+├── README.md
+├── src
+│   ├── engine.rs
+│   ├── main.rs
+│   ├── models.rs
+│   ├── preprocessor.rs
+│   └── scorer.rs
+</code></pre>
+<h2 id="b-instructions_2">b) Instructions</h2>
+<h3 id="local-build-and-run_2">Local Build and Run</h3>
+<ol>
+<li><strong>Install Rust</strong>: <code>curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh</code></li>
+<li><strong>Install Dependencies</strong>: <code>cargo build</code></li>
+<li><strong>Run Tests</strong>: <code>cargo test</code></li>
+<li><strong>Run Prediction</strong>: 
+    <code>bash
+    cargo run --release -- predict --input-csv data.csv --output-csv results.csv</code></li>
+<li><strong>Run Validation</strong>:
+    <code>bash
+    cargo run --release -- validate --input-csv data.csv</code></li>
+</ol>
+<h3 id="docker-build-and-run_2">Docker Build and Run</h3>
+<ol>
+<li><strong>Build Image</strong>: <code>docker build -t market-prediction-rust .</code></li>
+<li><strong>Run Container</strong>:
+    <code>bash
+    docker run -v $(pwd):/data market-prediction-rust predict --input-csv /data/input.csv --output-csv /data/output.csv</code></li>
+</ol>
+<h2 id="c-solution-explanation-architecture_2">c) Solution Explanation &amp; Architecture</h2>
+<h3 id="architecture-diagram_2">Architecture Diagram</h3>
+<pre><code class="language-text">+-----------------------+      +---------------------------+
+|      CLI (clap)       | &lt;--&gt; |      InferenceEngine      |
++-----------------------+      +-------------+-------------+
+                                             |
+                      +----------------------+----------------------+
+                      v                                             v
+        +---------------------------+                 +---------------------------+
+        |     MarketPreprocessor    |                 |        MarketModel        |
+        +-------------+-------------+                 +-------------+-------------+
+        | - ndarray Vectorized      |                 | - Boxed Layer Traits      |
+        | - Zero-cost Abstractions  |                 | - Sigmoid / LeakyReLU     |
+        | - Memory Safe Logic       |                 | - High-perf Rust 1.93     |
+        +---------------------------+                 +---------------------------+
+</code></pre>
+<h3 id="complexity-analysis_2">Complexity Analysis</h3>
+<ul>
+<li><strong>Time Complexity</strong>: </li>
+<li><em>Preprocessing</em>: $O(F)$ where $F=130$. Leverages <code>ndarray</code> for BLAS-like performance.</li>
+<li><em>Inference</em>: $O(F \cdot H)$ per layer. Near-native performance.</li>
+<li><strong>Space Complexity</strong>:</li>
+<li><em>Preprocessor</em>: $O(F \cdot W)$ for rolling window.</li>
+<li><em>Model</em>: $O(H^2)$ for static weights.</li>
+</ul>
+<h2 id="d-uml-sequence-diagram_2">d) UML Sequence Diagram</h2>
+<pre><code class="language-text">User -&gt; CLI: predict(input_csv)
+  CLI -&gt; InferenceEngine: Initialize
+    InferenceEngine -&gt; ModelManager: Build Layers
+    InferenceEngine -&gt; MarketPreprocessor: Init Window
+  CLI -&gt; CSV Reader: Iter lines
+    loop line in Reader
+      CSV Reader -&gt; InferenceEngine: predict_action(features)
+        InferenceEngine -&gt; MarketPreprocessor: transform(features)
+        MarketPreprocessor --&gt; InferenceEngine: normalized_arr
+        InferenceEngine -&gt; ModelManager: predict(normalized_arr)
+          ModelManager -&gt; MarketModel: forward(input)
+          MarketModel --&gt; ModelManager: float
+        ModelManager --&gt; InferenceEngine: prob
+      InferenceEngine --&gt; CLI: action (0/1)
+      CLI -&gt; CSV Writer: Write row + action
+    end
+CLI --&gt; User: Finish
+</code></pre>
+<h2 id="e-flowchart_2">e) Flowchart</h2>
+<pre><code class="language-text">[Start] --&gt; [Read CSV line]
+           --&gt; [Parse f64 Vector]
+           --&gt; [NaN Imputation]
+           --&gt; [Vectorized Normalization]
+           --&gt; [Layer Trait Dispatch]
+           --&gt; [Dot Product (ndarray)]
+           --&gt; [Threshold Action]
+           --&gt; [Write CSV row]
+           --&gt; [More lines?] -- Yes --&gt; [Read CSV line]
+           --&gt; [More lines?] -- No  --&gt; [End]
+</code></pre>
+<h2 id="f-tabulated-summary_2">f) Tabulated Summary</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Feature</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Implementation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Language</strong></td>
+<td style="text-align: left;">Rust 1.93.1</td>
+<td style="text-align: left;">Memory safe, zero-cost</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Linear Algebra</strong></td>
+<td style="text-align: left;">ndarray</td>
+<td style="text-align: left;">High-performance arrays</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>CLI Library</strong></td>
+<td style="text-align: left;">clap</td>
+<td style="text-align: left;">Modern derive-based CLI</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>JSON Library</strong></td>
+<td style="text-align: left;">serde_json</td>
+<td style="text-align: left;">Type-safe serialization</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Testing</strong></td>
+<td style="text-align: left;">Built-in (100% Coverage)</td>
+<td style="text-align: left;">Cargo test workflow</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Error Handling</strong></td>
+<td style="text-align: left;">Result/Error</td>
+<td style="text-align: left;">Robust production logic</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Performance</strong></td>
+<td style="text-align: left;">Native speed</td>
+<td style="text-align: left;">&lt; 1ms per iteration</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      
+    
+  </body>
+</html>

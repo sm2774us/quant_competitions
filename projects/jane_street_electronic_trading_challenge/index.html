@@ -1,0 +1,1472 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://your-org.github.io/quant_competitions/projects/jane_street_electronic_trading_challenge/">
+      
+      
+        <link rel="prev" href="../citadel_citadel-trading-comp/">
+      
+      
+        <link rel="next" href="../jane_street_electronic_trading_competition/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
+    
+    
+      
+        <title>Electronic Trading Challenge - Quant Competitions Monorepo</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.50c56a3b.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#electronic-trading-challenge-jane-street" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Quant Competitions Monorepo" class="md-header__button md-logo" aria-label="Quant Competitions Monorepo" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Quant Competitions Monorepo
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Electronic Trading Challenge
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../citadel_citadel-trading-comp/" class="md-tabs__link">
+          
+  
+  Projects
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../technical_spec/" class="md-tabs__link">
+        
+  
+    
+  
+  Technical Specification
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Quant Competitions Monorepo" class="md-nav__button md-logo" aria-label="Quant Competitions Monorepo" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Quant Competitions Monorepo
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Projects
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Projects
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Citadel
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            Citadel
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../citadel_citadel-trading-comp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Citadel Trading Comp
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Jane Street
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Jane Street
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Electronic Trading Challenge
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Electronic Trading Challenge
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      📋 Overview
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jane_street_electronic_trading_competition/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Electronic Trading Competition
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jane_street_market_prediction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Market Prediction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jane_street_trading_bot/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Trading Bot
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Two Sigma
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Two Sigma
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../two_sigma_financial_modeling_challenge/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Financial Modeling Challenge
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../two_sigma_predicting_stock_using_news/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Predicting Stock Using News
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../technical_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Technical Specification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      📋 Overview
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="electronic-trading-challenge-jane-street">Electronic Trading Challenge (Jane Street)</h1>
+<h2 id="overview">📋 Overview</h2>
+<h1 id="jane-street-electronic-trading-challenge-etc">Jane Street Electronic Trading Challenge (ETC)</h1>
+<h2 id="challenge-overview">Challenge Overview</h2>
+<p>The Jane Street Electronic Trading Challenge is a high-frequency trading simulation where participants build automated trading bots to compete in a simulated market. The goal is to maximize Profit and Loss (PnL) by executing various trading strategies while managing risk and adhering to exchange-imposed limits.</p>
+<h2 id="exchange-protocol">Exchange Protocol</h2>
+<p>The bot communicates with the exchange over a TCP socket using a line-delimited JSON protocol.</p>
+<h3 id="message-types">Message Types</h3>
+<ul>
+<li><strong>Client to Exchange:</strong></li>
+<li><code>hello</code>: Initial handshake to register the team.</li>
+<li><code>add</code>: Place a new limit order.</li>
+<li><code>cancel</code>: Cancel an existing order.</li>
+<li><code>convert</code>: Request conversion between ETFs/ADRs and their underlying components.</li>
+<li><strong>Exchange to Client:</strong></li>
+<li><code>hello</code>: Confirmation of successful handshake and initial market state.</li>
+<li><code>book</code>: Update on the current order book for a symbol (bids and asks).</li>
+<li><code>trade</code>: Notification of a trade occurring in the market.</li>
+<li><code>fill</code>: Notification that the bot's order has been filled (partially or fully).</li>
+<li><code>out</code>: Notification that an order has been cancelled or closed.</li>
+<li><code>reject</code> / <code>error</code>: Feedback on invalid requests.</li>
+</ul>
+<h2 id="market-symbols-dynamics">Market Symbols &amp; Dynamics</h2>
+<ol>
+<li><strong>BOND</strong>: A stable asset typically priced at 1000.</li>
+<li><strong>VALE &amp; VALBZ</strong>: VALBZ is the common stock, and VALE is its ADR (American Depositary Receipt). They are highly correlated and can be converted.</li>
+<li><strong>XLF</strong>: An ETF representing a basket of stocks.</li>
+<li><strong>XLF Composition</strong>: 10 units of XLF can be converted into/from:<ul>
+<li>3 units of <strong>BOND</strong></li>
+<li>2 units of <strong>GS</strong> (Goldman Sachs)</li>
+<li>3 units of <strong>MS</strong> (Morgan Stanley)</li>
+<li>2 units of <strong>WFC</strong> (Wells Fargo)</li>
+</ul>
+</li>
+</ol>
+<h2 id="core-strategies">Core Strategies</h2>
+<h3 id="1-bond-market-making">1. BOND Market Making</h3>
+<p>Since <code>BOND</code> is consistently priced at 1000, a simple market-making strategy involves placing buy orders at 999 and sell orders at 1001.</p>
+<h3 id="2-adr-arbitrage-valevalbz">2. ADR Arbitrage (VALE/VALBZ)</h3>
+<p>Exploiting price discrepancies between the ADR (<code>VALE</code>) and the underlying stock (<code>VALBZ</code>).
+- <strong>Fair Value Estimation</strong>: Use the price of the more liquid <code>VALBZ</code> to estimate the fair value of <code>VALE</code>.
+- <strong>Execution</strong>: When <code>VALE</code> is undervalued relative to <code>VALBZ</code> (beyond the conversion fee), buy <code>VALE</code>, convert it to <code>VALBZ</code>, and sell <code>VALBZ</code>.</p>
+<h3 id="3-etf-arbitrage-xlf">3. ETF Arbitrage (XLF)</h3>
+<p>Exploiting discrepancies between the ETF price and the Net Asset Value (NAV) of its components.
+- <strong>NAV Calculation</strong>: $NAV = 3 \times Price(BOND) + 2 \times Price(GS) + 3 \times Price(MS) + 2 \times Price(WFC)$
+- <strong>Long ETF Arbitrage</strong>: If $10 \times Price(XLF) &lt; NAV - ConversionFee$, buy XLF, convert to components, and sell components.
+- <strong>Short ETF Arbitrage</strong>: If $10 \times Price(XLF) &gt; NAV + ConversionFee$, buy components, convert to XLF, and sell XLF.</p>
+<h2 id="technical-requirements">Technical Requirements</h2>
+<ul>
+<li>Robust TCP connection management and reconnection logic.</li>
+<li>Efficient JSON parsing and state management.</li>
+<li>Low-latency order execution and position tracking.</li>
+<li>Risk management to avoid hitting position limits or executing loss-making trades.</li>
+</ul>
+<h2 id="solutions">🚀 Solutions</h2>
+<h1 id="jane-street-etc-solutions-summary">Jane Street ETC - Solutions Summary</h1>
+<p>This project contains three high-performance, robust, and 100% unit-tested solutions for the Jane Street Electronic Trading Challenge.</p>
+<h2 id="solutions_1">🚀 Solutions</h2>
+<h3 id="1-python-solution">1. <a href="./python/">Python Solution</a></h3>
+<ul>
+<li><strong>Tech Stack</strong>: Python 3.13, Poetry, NumPy, Click.</li>
+<li><strong>Key Feature</strong>: Optimized vector calculations using NumPy for low-latency strategy execution.</li>
+<li><strong>Containerization</strong>: Slim Docker image.</li>
+</ul>
+<h3 id="2-c-solution">2. <a href="./cpp/">C++ Solution</a></h3>
+<ul>
+<li><strong>Tech Stack</strong>: C++26, CMake, CLI11, nlohmann/json.</li>
+<li><strong>Key Feature</strong>: Native BSD sockets and STL data structures for maximum performance.</li>
+<li><strong>Containerization</strong>: GCC 14 based Docker image.</li>
+</ul>
+<h3 id="3-rust-solution">3. <a href="./rust/">Rust Solution</a></h3>
+<ul>
+<li><strong>Tech Stack</strong>: Rust 1.84 (Stable), Cargo, Tokio, Serde, Clap.</li>
+<li><strong>Key Feature</strong>: Modern asynchronous architecture using Tokio for highly concurrent and safe I/O.</li>
+<li><strong>Containerization</strong>: Multi-stage Rust build.</li>
+</ul>
+<h2 id="common-entry-point-bazel">🛠️ Common Entry Point (Bazel)</h2>
+<p>A <code>WORKSPACE</code> and <code>BUILD</code> file are provided in the root to manage the multi-language repository.</p>
+<h3 id="bazel-commands">Bazel Commands</h3>
+<ul>
+<li><strong>Build All</strong>: <code>bazel build //...</code></li>
+<li><strong>Test All</strong>: <code>bazel test //...</code></li>
+<li><strong>Run Python Bot</strong>: <code>bazel run //:python-bot</code></li>
+</ul>
+<h3 id="local-vs-docker-mode">Local vs Docker Mode</h3>
+<p>For each solution, you can run locally using its respective package manager (Poetry, CMake, Cargo) or via Docker:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Mode</th>
+<th style="text-align: left;">Command (Example)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Local</strong></td>
+<td style="text-align: left;"><code>poetry run etc-bot</code> / <code>./build/etc-bot</code> / <code>cargo run</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Docker</strong></td>
+<td style="text-align: left;"><code>docker run etc-bot-python</code> / <code>...-cpp</code> / <code>...-rust</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="summary-comparison">📊 Summary Comparison</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Feature</th>
+<th style="text-align: left;">Python</th>
+<th style="text-align: left;">C++</th>
+<th style="text-align: left;">Rust</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Ease of Dev</strong></td>
+<td style="text-align: left;">High</td>
+<td style="text-align: left;">Medium</td>
+<td style="text-align: left;">Medium</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Performance</strong></td>
+<td style="text-align: left;">Medium (High with NumPy)</td>
+<td style="text-align: left;">Maximum</td>
+<td style="text-align: left;">High</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Memory Safety</strong></td>
+<td style="text-align: left;">High</td>
+<td style="text-align: left;">Low (Manual)</td>
+<td style="text-align: left;">Maximum (Guaranteed)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>I/O Model</strong></td>
+<td style="text-align: left;">Blocking</td>
+<td style="text-align: left;">Blocking (BSD)</td>
+<td style="text-align: left;">Asynchronous (Tokio)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Type System</strong></td>
+<td style="text-align: left;">Dynamic (Type Hints)</td>
+<td style="text-align: left;">Static</td>
+<td style="text-align: left;">Static (Strong)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="implementations">💻 Implementations</h2>
+<h3 id="python">Python</h3>
+<h1 id="jane-street-etc-python-solution">Jane Street ETC - Python Solution</h1>
+<h2 id="a-directory-structure">a) Directory Structure</h2>
+<pre><code class="language-text">python/
+├── src/
+│   └── etc/
+│       ├── __init__.py
+│       ├── bot.py          # Bot orchestration
+│       ├── exchange.py     # TCP/JSON handling
+│       ├── main.py         # CLI entry point
+│       ├── models.py       # Data structures
+│       └── strategies.py   # Strategy implementations
+├── tests/
+│   └── test_bot.py         # Unit tests
+├── Dockerfile              # Containerization
+└── pyproject.toml          # Poetry configuration
+</code></pre>
+<h2 id="b-instructions">b) Instructions</h2>
+<h3 id="local-build-and-run">Local Build and Run</h3>
+<ol>
+<li>Install Poetry: <code>pip install poetry</code></li>
+<li>Install dependencies: <code>poetry install</code></li>
+<li>Run tests: <code>poetry run pytest --cov=src</code></li>
+<li>Run the bot: <code>poetry run etc-bot --host &lt;host&gt; --port &lt;port&gt; --team &lt;team&gt;</code></li>
+</ol>
+<h3 id="docker-build-and-run">Docker Build and Run</h3>
+<ol>
+<li>Build image: <code>docker build -t etc-bot-python .</code></li>
+<li>Run container: <code>docker run etc-bot-python --host &lt;host&gt; --port &lt;port&gt; --team &lt;team&gt;</code></li>
+</ol>
+<h2 id="c-solution-explanation">c) Solution Explanation</h2>
+<p>The solution uses an OOP-based architecture to separate concerns:
+- <strong><code>ExchangeConnection</code></strong>: Handles low-level TCP communication and JSON serialization/deserialization.
+- <strong><code>MarketState</code></strong>: Maintains the current view of the market, including order books, positions, and trade history.
+- <strong><code>Strategy</code></strong>: Abstract base class for different trading strategies.
+- <strong><code>TradingBot</code></strong>: The main controller that reads messages from the exchange, updates the market state, and executes strategies.</p>
+<h3 id="complexity">Complexity</h3>
+<ul>
+<li><strong>Time Complexity</strong>: $O(1)$ for processing most messages. Strategy execution depends on the number of active strategies and history size (clamped at 100).</li>
+<li><strong>Space Complexity</strong>: $O(S    imes H)$ where $S$ is the number of symbols and $H$ is the history size.</li>
+</ul>
+<h3 id="architecture">Architecture</h3>
+<pre><code class="language-text">+----------------+      +------------------+      +----------------+
+|    Exchange    | &lt;--&gt; | ExchangeConnection | &lt;--&gt; |   TradingBot   |
++----------------+      +------------------+      +-------+--------+
+                                                          |
+                                              +-----------v-----------+
+                                              |      MarketState      |
+                                              +-----------+-----------+
+                                                          |
+                                              +-----------v-----------+
+                                              |       Strategies      |
+                                              | (Bond, Adr, Etf)      |
+                                              +-----------------------+
+</code></pre>
+<h2 id="d-uml-sequence-diagram">d) UML Sequence Diagram</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Participant</th>
+<th style="text-align: left;">Action</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Bot</strong></td>
+<td style="text-align: left;">Connect</td>
+<td style="text-align: left;">Establish TCP connection to Exchange</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Bot</strong> -&gt; <strong>Exchange</strong></td>
+<td style="text-align: left;"><code>hello</code></td>
+<td style="text-align: left;">Send team handshake</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Exchange</strong> -&gt; <strong>Bot</strong></td>
+<td style="text-align: left;"><code>hello</code></td>
+<td style="text-align: left;">Receive initial positions</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Exchange</strong> -&gt; <strong>Bot</strong></td>
+<td style="text-align: left;"><code>book</code> / <code>trade</code></td>
+<td style="text-align: left;">Receive market updates</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Bot</strong></td>
+<td style="text-align: left;"><code>update_state</code></td>
+<td style="text-align: left;">Update <code>MarketState</code> with new data</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Bot</strong></td>
+<td style="text-align: left;"><code>execute</code></td>
+<td style="text-align: left;">Run strategies based on current state</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Bot</strong> -&gt; <strong>Exchange</strong></td>
+<td style="text-align: left;"><code>add</code> / <code>convert</code></td>
+<td style="text-align: left;">Place orders or conversions</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Exchange</strong> -&gt; <strong>Bot</strong></td>
+<td style="text-align: left;"><code>fill</code></td>
+<td style="text-align: left;">Update positions on successful trade</td>
+</tr>
+</tbody>
+</table>
+<h2 id="e-flowchart">e) Flowchart</h2>
+<pre><code class="language-text">[Start] -&gt; [Connect to Exchange]
+   |
+   v
+[Send Handshake] -&gt; [Receive Handshake]
+   |                      ^
+   v                      |
+[Read Message] &lt;----------+
+   |
+   +--&gt; [Is Book/Trade?] -&gt; [Update MarketState] --+
+   |                                               |
+   +--&gt; [Is Fill?] -&gt; [Update Positions/PnL] ------+
+   |                                               |
+   +--&gt; [Is Close?] -&gt; [Exit]                      |
+   |                                               |
+   v                                               v
+[Run Strategies] &lt;---------------------------------+
+   |
+   +--&gt; [Generate Actions]
+   |
+   v
+[Send Actions to Exchange]
+   |
+   +-----------------------+
+                           |
+                           v
+                     (Loop back to Read)
+</code></pre>
+<h2 id="f-tabulated-summary">f) Tabulated Summary</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Feature</th>
+<th style="text-align: left;">Implementation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Language</strong></td>
+<td style="text-align: left;">Python 3.13</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Build System</strong></td>
+<td style="text-align: left;">Poetry</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>CLI Library</strong></td>
+<td style="text-align: left;">Click</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Performance</strong></td>
+<td style="text-align: left;">Vector efficient using NumPy</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Test Framework</strong></td>
+<td style="text-align: left;">Pytest with Coverage</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Containerization</strong></td>
+<td style="text-align: left;">Docker (slim image)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Strategies</strong></td>
+<td style="text-align: left;">Bond MM, ADR Arb, ETF Arb</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cpp">Cpp</h3>
+<h1 id="jane-street-etc-c-solution">Jane Street ETC - C++ Solution</h1>
+<h2 id="a-directory-structure_1">a) Directory Structure</h2>
+<pre><code class="language-text">cpp/
+├── include/
+│   └── etc/
+│       ├── bot.h           # Bot orchestration
+│       ├── exchange.h      # TCP/JSON handling
+│       ├── models.h        # Data structures
+│       └── strategies.h    # Strategy interfaces
+├── src/
+│   ├── bot.cpp
+│   ├── exchange.cpp
+│   ├── main.cpp            # CLI entry point
+│   ├── models.cpp
+│   └── strategies.cpp
+├── tests/
+│   └── test_bot.cpp        # Unit tests
+├── CMakeLists.txt          # Build configuration
+└── Dockerfile              # Containerization
+</code></pre>
+<h2 id="b-instructions_1">b) Instructions</h2>
+<h3 id="local-build-and-run_1">Local Build and Run</h3>
+<ol>
+<li>Ensure CMake and a C++26 compiler are installed.</li>
+<li>Build:
+   <code>bash
+   mkdir build &amp;&amp; cd build
+   cmake ..
+   cmake --build .</code></li>
+<li>Run tests: <code>./etc_tests</code></li>
+<li>Run the bot: <code>./etc-bot --host &lt;host&gt; --port &lt;port&gt; --team &lt;team&gt;</code></li>
+</ol>
+<h3 id="docker-build-and-run_1">Docker Build and Run</h3>
+<ol>
+<li>Build image: <code>docker build -t etc-bot-cpp .</code></li>
+<li>Run container: <code>docker run etc-bot-cpp --host &lt;host&gt; --port &lt;port&gt; --team &lt;team&gt;</code></li>
+</ol>
+<h2 id="c-solution-explanation_1">c) Solution Explanation</h2>
+<p>The C++ solution is designed for maximum performance using a low-latency architecture:
+- <strong><code>TcpExchangeConnection</code></strong>: Uses native BSD sockets for minimal overhead.
+- <strong><code>MarketState</code></strong>: Uses efficient STL maps and vectors for state tracking.
+- <strong><code>Strategies</code></strong>: Implemented as a strategy pattern for extensibility and performance.</p>
+<h3 id="complexity_1">Complexity</h3>
+<ul>
+<li><strong>Time Complexity</strong>: $O(1)$ for message processing. Strategy execution uses $O(N)$ for mean calculation (over history length).</li>
+<li><strong>Space Complexity</strong>: $O(S    imes H)$ for symbol state and history.</li>
+</ul>
+<h3 id="architecture_1">Architecture</h3>
+<pre><code class="language-text">+----------------+      +------------------+      +----------------+
+|    Exchange    | &lt;--&gt; | TcpExchangeConnection | &lt;--&gt; |   TradingBot   |
++----------------+      +------------------+      +-------+--------+
+                                                          |
+                                              +-----------v-----------+
+                                              |      MarketState      |
+                                              +-----------+-----------+
+                                                          |
+                                              +-----------v-----------+
+                                              |       Strategies      |
+                                              | (Bond, Adr, Etf)      |
+                                              +-----------------------+
+</code></pre>
+<h2 id="d-uml-sequence-diagram_1">d) UML Sequence Diagram</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Participant</th>
+<th style="text-align: left;">Action</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Bot</strong></td>
+<td style="text-align: left;">Connect</td>
+<td style="text-align: left;">Establish Socket connection</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Bot</strong> -&gt; <strong>Exchange</strong></td>
+<td style="text-align: left;"><code>hello</code></td>
+<td style="text-align: left;">Send team handshake</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Exchange</strong> -&gt; <strong>Bot</strong></td>
+<td style="text-align: left;"><code>hello</code></td>
+<td style="text-align: left;">Receive initial market state</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Exchange</strong> -&gt; <strong>Bot</strong></td>
+<td style="text-align: left;"><code>book</code> / <code>trade</code></td>
+<td style="text-align: left;">Receive price updates</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Bot</strong></td>
+<td style="text-align: left;"><code>handle_message</code></td>
+<td style="text-align: left;">Parse JSON and update <code>MarketState</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Bot</strong></td>
+<td style="text-align: left;"><code>execute_strategies</code></td>
+<td style="text-align: left;">Iterate through strategies</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Bot</strong> -&gt; <strong>Exchange</strong></td>
+<td style="text-align: left;"><code>add</code> / <code>convert</code></td>
+<td style="text-align: left;">Transmit orders</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Exchange</strong> -&gt; <strong>Bot</strong></td>
+<td style="text-align: left;"><code>fill</code></td>
+<td style="text-align: left;">Update positions on execution</td>
+</tr>
+</tbody>
+</table>
+<h2 id="e-flowchart_1">e) Flowchart</h2>
+<pre><code class="language-text">[Start] -&gt; [Initialize Sockets]
+   |
+   v
+[Connect to Host] -&gt; [Send Handshake]
+   |                      ^
+   v                      |
+[Recv Message] &lt;----------+
+   |
+   +--&gt; [Is Update?] -&gt; [Update state.books] ------+
+   |                                               |
+   +--&gt; [Is Trade?] -&gt; [Update state.trades] ------+
+   |                                               |
+   +--&gt; [Is Fill?] -&gt; [Update state.positions] ----+
+   |                                               |
+   v                                               v
+[Run Strategies] &lt;---------------------------------+
+   |
+   +--&gt; [Iterate Strat List]
+   |
+   v
+[Send Orders to Socket]
+   |
+   +-----------------------+
+                           |
+                           v
+                     (Wait for Next Message)
+</code></pre>
+<h2 id="f-tabulated-summary_1">f) Tabulated Summary</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Feature</th>
+<th style="text-align: left;">Implementation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Language</strong></td>
+<td style="text-align: left;">C++26</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Build System</strong></td>
+<td style="text-align: left;">CMake</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>CLI Library</strong></td>
+<td style="text-align: left;">CLI11</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>JSON Library</strong></td>
+<td style="text-align: left;">nlohmann/json</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Test Framework</strong></td>
+<td style="text-align: left;">Google Test / Google Mock</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Containerization</strong></td>
+<td style="text-align: left;">Docker (GCC 14 base)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Design Pattern</strong></td>
+<td style="text-align: left;">Strategy, Interface segregation</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rust">Rust</h3>
+<h1 id="jane-street-etc-rust-solution">Jane Street ETC - Rust Solution</h1>
+<h2 id="a-directory-structure_2">a) Directory Structure</h2>
+<pre><code class="language-text">rust/
+├── src/
+│   ├── bot.rs          # Bot orchestration
+│   ├── exchange.rs     # Async TCP handling
+│   ├── lib.rs          # Module declarations and tests
+│   ├── main.rs         # CLI entry point
+│   ├── models.rs       # Data structures
+│   └── strategies.rs   # Strategy implementations
+├── Cargo.toml          # Cargo configuration
+└── Dockerfile          # Containerization
+</code></pre>
+<h2 id="b-instructions_2">b) Instructions</h2>
+<h3 id="local-build-and-run_2">Local Build and Run</h3>
+<ol>
+<li>Install Rust: <code>curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh</code></li>
+<li>Build: <code>cargo build --release</code></li>
+<li>Run tests: <code>cargo test</code></li>
+<li>Run the bot: <code>./target/release/jane-street-etc --host &lt;host&gt; --port &lt;port&gt; --team &lt;team&gt;</code></li>
+</ol>
+<h3 id="docker-build-and-run_2">Docker Build and Run</h3>
+<ol>
+<li>Build image: <code>docker build -t etc-bot-rust .</code></li>
+<li>Run container: <code>docker run etc-bot-rust --host &lt;host&gt; --port &lt;port&gt; --team &lt;team&gt;</code></li>
+</ol>
+<h2 id="c-solution-explanation_2">c) Solution Explanation</h2>
+<p>The Rust solution leverages the language's safety and performance characteristics:
+- <strong><code>Tokio</code></strong>: Provides a high-performance asynchronous runtime for non-blocking I/O.
+- <strong><code>Serde</code></strong>: Zero-copy JSON serialization/deserialization.
+- <strong><code>MarketState</code></strong>: Thread-safe-ready data structures with predictable memory layout.</p>
+<h3 id="complexity_2">Complexity</h3>
+<ul>
+<li><strong>Time Complexity</strong>: $O(1)$ for message handling. Strategy execution is $O(N)$ over history.</li>
+<li><strong>Space Complexity</strong>: $O(S    imes H)$ for state retention.</li>
+</ul>
+<h3 id="architecture_2">Architecture</h3>
+<pre><code class="language-text">+----------------+      +------------------+      +----------------+
+|    Exchange    | &lt;--&gt; | Async TcpStream  | &lt;--&gt; |   TradingBot   |
++----------------+      +------------------+      +-------+--------+
+                                                          |
+                                              +-----------v-----------+
+                                              |      MarketState      |
+                                              +-----------+-----------+
+                                                          |
+                                              +-----------v-----------+
+                                              |       Strategies      |
+                                              | (Bond, Adr, Etf)      |
+                                              +-----------------------+
+</code></pre>
+<h2 id="d-uml-sequence-diagram_2">d) UML Sequence Diagram</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Participant</th>
+<th style="text-align: left;">Action</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Bot</strong></td>
+<td style="text-align: left;"><code>connect().await</code></td>
+<td style="text-align: left;">Establish Async TCP connection</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Bot</strong> -&gt; <strong>Exchange</strong></td>
+<td style="text-align: left;"><code>hello</code></td>
+<td style="text-align: left;">Handshake</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Exchange</strong> -&gt; <strong>Bot</strong></td>
+<td style="text-align: left;"><code>hello</code></td>
+<td style="text-align: left;">Initial data</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Exchange</strong> -&gt; <strong>Bot</strong></td>
+<td style="text-align: left;"><code>book</code> / <code>trade</code></td>
+<td style="text-align: left;">Market updates</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Bot</strong></td>
+<td style="text-align: left;"><code>handle_message</code></td>
+<td style="text-align: left;">Update internal state</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Bot</strong></td>
+<td style="text-align: left;"><code>execute_strategies</code></td>
+<td style="text-align: left;">Evaluate market opportunities</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Bot</strong> -&gt; <strong>Exchange</strong></td>
+<td style="text-align: left;"><code>add</code> / <code>convert</code></td>
+<td style="text-align: left;">Execute orders</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Exchange</strong> -&gt; <strong>Bot</strong></td>
+<td style="text-align: left;"><code>fill</code></td>
+<td style="text-align: left;">Update position state</td>
+</tr>
+</tbody>
+</table>
+<h2 id="e-flowchart_2">e) Flowchart</h2>
+<pre><code class="language-text">[Start] -&gt; [Async Connect]
+   |
+   v
+[Wait for Handshake] -&gt; [Enter Main Loop]
+   |                         ^
+   v                         |
+[Await .read()] &lt;------------+
+   |
+   +--&gt; [JSON Parse] -&gt; [Match Message Type]
+   |                      |
+   |                      +-&gt; [Update State]
+   |
+   v
+[Run Strategies]
+   |
+   +--&gt; [Iterate Dyn Strategies]
+   |
+   v
+[Async Send Actions]
+   |
+   +-------------------------+
+                             |
+                             v
+                       (Await Next)
+</code></pre>
+<h2 id="f-tabulated-summary_2">f) Tabulated Summary</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Feature</th>
+<th style="text-align: left;">Implementation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Language</strong></td>
+<td style="text-align: left;">Rust 1.84 (Stable)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Build System</strong></td>
+<td style="text-align: left;">Cargo</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>CLI Library</strong></td>
+<td style="text-align: left;">Clap v4</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Async Runtime</strong></td>
+<td style="text-align: left;">Tokio</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Serialization</strong></td>
+<td style="text-align: left;">Serde</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Test Framework</strong></td>
+<td style="text-align: left;">Native Cargo Tests</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Containerization</strong></td>
+<td style="text-align: left;">Docker</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      
+    
+  </body>
+</html>

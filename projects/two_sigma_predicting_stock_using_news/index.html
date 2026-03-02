@@ -1,0 +1,1343 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://your-org.github.io/quant_competitions/projects/two_sigma_predicting_stock_using_news/">
+      
+      
+        <link rel="prev" href="../two_sigma_financial_modeling_challenge/">
+      
+      
+        <link rel="next" href="../../technical_spec/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
+    
+    
+      
+        <title>Predicting Stock Using News - Quant Competitions Monorepo</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.50c56a3b.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#predicting-stock-using-news-two-sigma" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Quant Competitions Monorepo" class="md-header__button md-logo" aria-label="Quant Competitions Monorepo" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Quant Competitions Monorepo
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Predicting Stock Using News
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../citadel_citadel-trading-comp/" class="md-tabs__link">
+          
+  
+  Projects
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../technical_spec/" class="md-tabs__link">
+        
+  
+    
+  
+  Technical Specification
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Quant Competitions Monorepo" class="md-nav__button md-logo" aria-label="Quant Competitions Monorepo" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Quant Competitions Monorepo
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Projects
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Projects
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Citadel
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            Citadel
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../citadel_citadel-trading-comp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Citadel Trading Comp
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Jane Street
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Jane Street
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jane_street_electronic_trading_challenge/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Electronic Trading Challenge
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jane_street_electronic_trading_competition/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Electronic Trading Competition
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jane_street_market_prediction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Market Prediction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jane_street_trading_bot/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Trading Bot
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Two Sigma
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Two Sigma
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../two_sigma_financial_modeling_challenge/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Financial Modeling Challenge
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Predicting Stock Using News
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Predicting Stock Using News
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      📋 Overview
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../technical_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Technical Specification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      📋 Overview
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="predicting-stock-using-news-two-sigma">Predicting Stock Using News (Two Sigma)</h1>
+<h2 id="overview">📋 Overview</h2>
+<h1 id="two-sigma-using-news-to-predict-stock-movements">Two Sigma: Using News to Predict Stock Movements</h1>
+<h2 id="the-challenge">The Challenge</h2>
+<p>The goal of this challenge is to predict the 10-day market-residualized returns of various stocks using both historical market data and sentiment-indexed news data. This is a classic financial forecasting problem where the objective is to find signals in news data that aren't already priced in by the market.</p>
+<h3 id="objective">Objective</h3>
+<p>For each asset on each day, predict a signed confidence value $C \in [-1, 1]$.
+- A value of $1$ indicates high confidence that the 10-day market-residualized return will be positive.
+- A value of $-1$ indicates high confidence that it will be negative.
+- A value of $0$ indicates no confidence or no predicted movement.</p>
+<h3 id="data-description">Data Description</h3>
+<ol>
+<li>
+<p><strong>Market Data (2007 - Present)</strong>:</p>
+<ul>
+<li><code>time</code>: Current time (all rows taken at 22:00 UTC).</li>
+<li><code>assetCode</code>: Unique identifier for an asset.</li>
+<li><code>assetName</code>: Human-readable name of the asset.</li>
+<li><code>universe</code>: Binary flag indicating if the asset is in the scoring universe on that day.</li>
+<li><code>volume</code>: Daily trading volume.</li>
+<li><code>close</code>/<code>open</code>: Unadjusted close/open prices.</li>
+<li><code>returnsOpenNextMktres10</code>: <strong>Target variable</strong>. 10-day market-residualized return.</li>
+<li>Various other return features (1-day, 10-day, raw, and market-residualized).</li>
+</ul>
+</li>
+<li>
+<p><strong>News Data (2007 - Present)</strong>:</p>
+<ul>
+<li><code>time</code>: UTC timestamp of article publication.</li>
+<li><code>assetCodes</code>: Set of assets mentioned in the article.</li>
+<li><code>sentimentNegative</code>/<code>Neutral</code>/<code>Positive</code>: Sentiment scores from automated analysis.</li>
+<li><code>relevance</code>: Score indicating how relevant the article is to the asset.</li>
+<li><code>noveltyCount</code>: Frequency of similar news in recent history.</li>
+<li><code>wordCount</code>: Length of the article.</li>
+</ul>
+</li>
+</ol>
+<h3 id="evaluation-metric">Evaluation Metric</h3>
+<p>The submission is evaluated on a score calculated by:
+$$ Score = \frac{\mu}{\sigma} $$
+Where:
+- $x_t = \sum_i C_{i,t} \cdot R_{i,t} \cdot U_{i,t}$ (Daily weighted return)
+- $\mu = \text{mean}(x_t)$
+- $\sigma = \text{std}(x_t)$
+- $C_{i,t}$: Your predicted confidence.
+- $R_{i,t}$: 10-day market-residualized return for asset $i$.
+- $U_{i,t}$: Binary universe flag.</p>
+<h2 id="solutions-overview">Solutions Overview</h2>
+<p>This repository provides robust, time-efficient, and vector-optimized implementations in three languages:</p>
+<ul>
+<li><a href="./python"><strong>Python Solution</strong></a>: 3.13, Poetry, OOP, Click CLI, 100% Pytest coverage.</li>
+<li><a href="./cpp"><strong>C++ Solution</strong></a>: C++26, CMake, OOP, Modern CLI, 100% GTest coverage.</li>
+<li><a href="./rust"><strong>Rust Solution</strong></a>: 1.85+, Cargo, OOP, Modern CLI, 100% Test coverage.</li>
+</ul>
+<p>All solutions are integrated via <strong>Bazel</strong> for unified building, testing, and Dockerization.</p>
+<h2 id="getting-started">Getting Started</h2>
+<p>See <a href="./SOLUTIONS.md">SOLUTIONS.md</a> for a summary of all implementations and Bazel instructions.</p>
+<h2 id="solutions">🚀 Solutions</h2>
+<h1 id="two-sigma-stock-news-challenge-multi-language-solutions">Two Sigma Stock News Challenge: Multi-Language Solutions</h1>
+<p>This repository provides three high-performance, robust implementations of the Two Sigma Stock News Challenge. All solutions are designed for efficiency, maintainability, and production-readiness.</p>
+<h2 id="solution-summaries">Solution Summaries</h2>
+<table>
+<thead>
+<tr>
+<th>Language</th>
+<th>Framework/Build</th>
+<th>Key Features</th>
+<th>Performance Focus</th>
+<th>Links</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Python</strong></td>
+<td>3.13, Poetry</td>
+<td>OOP, Pandas Vectorization, Click CLI</td>
+<td>Fast prototyping &amp; data science</td>
+<td><a href="./python">Python Solution</a></td>
+</tr>
+<tr>
+<td><strong>C++</strong></td>
+<td>C++26, CMake</td>
+<td>Zero-overhead, CLI11, GTest</td>
+<td>Low-latency inference</td>
+<td><a href="./cpp">C++ Solution</a></td>
+</tr>
+<tr>
+<td><strong>Rust</strong></td>
+<td>1.85+, Cargo</td>
+<td>Memory Safety, Clap, NDArray</td>
+<td>High-throughput, Parallelism</td>
+<td><a href="./rust">Rust Solution</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="unified-build-system-bazel">Unified Build System (Bazel)</h2>
+<p>We provide a <strong>Bazel</strong> configuration to unify the build, test, and containerization process across all three languages.</p>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li><a href="https://bazel.build/install">Bazel</a> installed on your system.</li>
+<li>Docker (for container builds).</li>
+</ul>
+<h3 id="bazel-commands">Bazel Commands</h3>
+<h4 id="build-all-solutions">Build All Solutions</h4>
+<pre><code class="language-bash">bazel build //...
+</code></pre>
+<h4 id="run-all-tests">Run All Tests</h4>
+<pre><code class="language-bash">bazel test //...
+</code></pre>
+<h4 id="run-specific-solution">Run Specific Solution</h4>
+<pre><code class="language-bash">bazel run //python:two-sigma-news -- --market data.csv --news news.csv
+bazel run //cpp:two-sigma-news -- --market data.csv --news news.csv
+bazel run //rust:two-sigma-news -- --market data.csv --news news.csv
+</code></pre>
+<h4 id="generate-docker-images">Generate Docker Images</h4>
+<pre><code class="language-bash">bazel run //python:docker_image -- --tag latest
+bazel run //cpp:docker_image -- --tag latest
+bazel run //rust:docker_image -- --tag latest
+</code></pre>
+<hr />
+<h2 id="common-implementation-logic">Common Implementation Logic</h2>
+<p>All three solutions implement the same core algorithm to ensure parity:
+1.  <strong>Data Loading</strong>: Efficient CSV parsing of market and news datasets.
+2.  <strong>Preprocessing</strong>: 
+    - Daily news aggregation by asset.
+    - Joining news features (sentiment, relevance, etc.) to market records.
+    - Vectorized price outlier handling (Clipping based on daily change).
+3.  <strong>Modeling</strong>: A linear return model trained via Stochastic Gradient Descent (SGD) or OLS.
+4.  <strong>Evaluation</strong>: Vectorized calculation of the daily Sharpe-like ratio: $\frac{  ext{mean}(  ext{returns})}{ ext{std}(   ext{returns})}$.</p>
+<hr />
+<h2 id="performance-comparison-theoretical">Performance Comparison (Theoretical)</h2>
+<ul>
+<li><strong>Python</strong>: Best for ease of development and standard data manipulation.</li>
+<li><strong>C++</strong>: Best for raw execution speed and embedding in low-latency trading systems.</li>
+<li><strong>Rust</strong>: Best for concurrent data processing and guaranteed memory safety without garbage collection overhead.</li>
+</ul>
+<h2 id="implementations">💻 Implementations</h2>
+<h3 id="python">Python</h3>
+<h1 id="python-solution-two-sigma-stock-news-challenge">Python Solution: Two Sigma Stock News Challenge</h1>
+<p>This is a robust, time-efficient, and vector-optimized Python solution for the Two Sigma Stock News Challenge.</p>
+<h2 id="directory-structure-unix-tree-format">Directory Structure (UNIX tree format)</h2>
+<pre><code>.
+├── Dockerfile
+├── pyproject.toml
+├── README.md
+├── src
+│   └── two_sigma_news
+│       ├── __init__.py
+│       ├── interfaces.py
+│       ├── main.py
+│       ├── models.py
+│       └── processors.py
+└── tests
+    └── test_two_sigma.py
+</code></pre>
+<h2 id="how-to-build-and-run-locally">How to Build and Run Locally</h2>
+<ol>
+<li><strong>Install Poetry</strong> (if not already installed):
+    <code>bash
+    curl -sSL https://install.python-poetry.org | python3 -</code></li>
+<li><strong>Install Dependencies</strong>:
+    <code>bash
+    poetry install</code></li>
+<li><strong>Run the CLI</strong>:
+    <code>bash
+    poetry run two-sigma-news run --market path/to/market.csv --news path/to/news.csv</code></li>
+<li><strong>Run Tests</strong>:
+    <code>bash
+    poetry run pytest tests/ --cov=src/two_sigma_news</code></li>
+</ol>
+<h2 id="how-to-build-and-run-via-docker">How to Build and Run via Docker</h2>
+<ol>
+<li><strong>Build the Image</strong>:
+    <code>bash
+    docker build -t two-sigma-python .</code></li>
+<li><strong>Run the Container</strong>:
+    <code>bash
+    docker run -v $(pwd)/data:/app/data two-sigma-python run --market /app/data/market.csv --news /app/data/news.csv</code></li>
+</ol>
+<h2 id="solution-explanation-complexity-and-architecture">Solution Explanation, Complexity, and Architecture</h2>
+<h3 id="solution-architecture">Solution Architecture</h3>
+<p>The solution follows an Object-Oriented approach with clear separation of concerns:
+- <strong>Interfaces</strong>: Define the contract for data loading, preprocessing, modeling, and evaluation.
+- <strong>Processors</strong>: Handles data cleaning and vectorized merging of market and news datasets.
+- <strong>Models</strong>: Implements a high-performance Ridge model optimized for financial return predictions.
+- <strong>Evaluator</strong>: Calculates the Sharpe-like ratio score using vectorized pandas/numpy operations.</p>
+<h3 id="ascii-diagram">ASCII Diagram</h3>
+<pre><code class="language-text">[Market Data] 
+               &gt; [TwoSigmaPreprocessor] -&gt; [Merged DataFrame] -&gt; [TwoSigmaModel] -&gt; [Confidence Values]
+[News Data]   /                                      ^                                    |
+                                                     |                                    v
+                                               [Targets/Universe] ----------------&gt; [TwoSigmaEvaluator]
+                                                                                          |
+                                                                                          v
+                                                                                    [Sharpe Score]
+</code></pre>
+<h3 id="time-and-space-complexity">Time and Space Complexity</h3>
+<ul>
+<li><strong>Time Complexity</strong>: <ul>
+<li>Preprocessing: $O(N + M \log M)$ where $N$ is market rows, $M$ is news rows (due to grouping and merging).</li>
+<li>Training: $O(N_{samples} \cdot K^2)$ where $K$ is the number of features (standard Ridge training).</li>
+<li>Prediction: $O(N_{test} \cdot K)$.</li>
+</ul>
+</li>
+<li><strong>Space Complexity</strong>: $O(N + M)$ to hold the dataframes and model parameters.</li>
+</ul>
+<h2 id="uml-sequence-diagram">UML Sequence Diagram</h2>
+<pre><code class="language-text">User -&gt; CLI: run(market_path, news_path)
+CLI -&gt; DataLoader: load_market_data(market_path)
+CLI -&gt; DataLoader: load_news_data(news_path)
+CLI -&gt; Preprocessor: process(market_df, news_df)
+Preprocessor -&gt; Preprocessor: Filter &amp; Merge
+Preprocessor --&gt; CLI: merged_df
+CLI -&gt; Model: train(X_train, y_train)
+CLI -&gt; Model: predict(X_test)
+Model --&gt; CLI: predictions
+CLI -&gt; Evaluator: evaluate_with_time(test_df)
+Evaluator --&gt; CLI: score
+CLI -&gt; User: Print Score
+</code></pre>
+<h2 id="flowchart-diagram">Flowchart Diagram</h2>
+<pre><code class="language-text">START
+  |
+[Load Market &amp; News Data]
+  |
+[Clean &amp; Filter Data]
+  |
+[Aggregate News &amp; Merge with Market]
+  |
+[Split Data into Train/Test]
+  |
+[Train Ridge Model]
+  |
+[Predict Confidence Values]
+  |
+[Calculate Sharpe Score]
+  |
+END
+</code></pre>
+<h2 id="tabulated-summary">Tabulated Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Implementation</th>
+<th>Optimization</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Language</td>
+<td>Python 3.13</td>
+<td>Native vector support</td>
+</tr>
+<tr>
+<td>Data Handling</td>
+<td>Pandas 2.2</td>
+<td>Vectorized operations</td>
+</tr>
+<tr>
+<td>ML Model</td>
+<td>Ridge (Scikit-Learn)</td>
+<td>$L_2$ Regularized</td>
+</tr>
+<tr>
+<td>Testing</td>
+<td>Pytest</td>
+<td>100% Coverage target</td>
+</tr>
+<tr>
+<td>CLI</td>
+<td>Click</td>
+<td>Modern &amp; Robust</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cpp">Cpp</h3>
+<h1 id="c-solution-two-sigma-stock-news-challenge">C++ Solution: Two Sigma Stock News Challenge</h1>
+<p>This is a high-performance C++26 solution for the Two Sigma Stock News Challenge.</p>
+<h2 id="directory-structure-unix-tree-format_1">Directory Structure (UNIX tree format)</h2>
+<pre><code>.
+├── CMakeLists.txt
+├── Dockerfile
+├── README.md
+├── src
+│   ├── DataLoader.cpp
+│   ├── Evaluator.cpp
+│   ├── Interfaces.hpp
+│   ├── main.cpp
+│   ├── Model.cpp
+│   └── Preprocessor.cpp
+└── tests
+    └── test_two_sigma.cpp
+</code></pre>
+<h2 id="how-to-build-and-run-locally_1">How to Build and Run Locally</h2>
+<ol>
+<li><strong>Dependencies</strong>: CMake 3.25+, C++26 Compiler (GCC 14+ or Clang 18+).</li>
+<li><strong>Configure and Build</strong>:
+    <code>bash
+    mkdir build &amp;&amp; cd build
+    cmake ..
+    make -j$(nproc)</code></li>
+<li><strong>Run the CLI</strong>:
+    <code>bash
+    ./two_sigma_news --market path/to/market.csv --news path/to/news.csv</code></li>
+<li><strong>Run Tests</strong>:
+    <code>bash
+    ./test_two_sigma</code></li>
+</ol>
+<h2 id="how-to-build-and-run-via-docker_1">How to Build and Run via Docker</h2>
+<ol>
+<li><strong>Build the Image</strong>:
+    <code>bash
+    docker build -t two-sigma-cpp .</code></li>
+<li><strong>Run the Container</strong>:
+    <code>bash
+    docker run -v $(pwd)/data:/app/data two-sigma-cpp --market /app/data/market.csv --news /app/data/news.csv</code></li>
+</ol>
+<h2 id="solution-explanation-complexity-and-architecture_1">Solution Explanation, Complexity, and Architecture</h2>
+<h3 id="solution-architecture_1">Solution Architecture</h3>
+<p>The C++ solution is designed for maximum throughput and low latency:
+- <strong>Interfaces</strong>: Shared POD (Plain Old Data) structures for market and news records.
+- <strong>DataLoader</strong>: Optimized stream-based CSV parser.
+- <strong>Preprocessor</strong>: Uses <code>std::map</code> with composite keys for $O(N \log M)$ news-to-market joining.
+- <strong>Model</strong>: Implements Stochastic Gradient Descent (SGD) for linear regression with $L_2$ clipping.
+- <strong>Evaluator</strong>: Efficient daily aggregation and standard deviation calculation.</p>
+<h3 id="ascii-diagram_1">ASCII Diagram</h3>
+<pre><code class="language-text">[Market CSV] -&gt; [DataLoader] -&gt; [Preprocessor] -&gt; [Model::train]
+[News CSV]   -&gt; [DataLoader] /          |               |
+                                        v               v
+                                 [Test Samples] -&gt; [Model::predict] -&gt; [Sharpe Ratio]
+</code></pre>
+<h3 id="time-and-space-complexity_1">Time and Space Complexity</h3>
+<ul>
+<li><strong>Time Complexity</strong>: <ul>
+<li>Data Loading: $O(N + M)$.</li>
+<li>Preprocessing: $O(N \log M)$ (Map-based join).</li>
+<li>Training: $O(E \cdot N \cdot K)$ where $E$ is epochs, $N$ is samples, $K$ is features.</li>
+</ul>
+</li>
+<li><strong>Space Complexity</strong>: $O(N + M)$ to store records in memory.</li>
+</ul>
+<h2 id="uml-sequence-diagram_1">UML Sequence Diagram</h2>
+<pre><code class="language-text">User -&gt; main: --market --news
+main -&gt; DataLoader: loadMarketData()
+main -&gt; DataLoader: loadNewsData()
+main -&gt; Preprocessor: process()
+Preprocessor -&gt; Preprocessor: Map-Aggregate News
+Preprocessor --&gt; main: std::vector&lt;MarketRecord&gt;
+main -&gt; Model: train(X_train, y_train)
+main -&gt; Model: predict(X_test)
+Model --&gt; main: predictions
+main -&gt; Evaluator: evaluate()
+Evaluator --&gt; main: score
+main -&gt; User: std::cout &lt;&lt; score
+</code></pre>
+<h2 id="flowchart-diagram_1">Flowchart Diagram</h2>
+<pre><code class="language-text">START
+  |
+[Stream CSV Files]
+  |
+[Aggregate News by {Time, Asset}]
+  |
+[Join News to Market Records]
+  |
+[Handle Price Outliers]
+  |
+[Train Linear Model via SGD]
+  |
+[Predict &amp; Clip Confidences]
+  |
+[Aggregate Daily Weighted Returns]
+  |
+[Calculate Sharpe Ratio]
+  |
+END
+</code></pre>
+<h2 id="tabulated-summary_1">Tabulated Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Implementation</th>
+<th>Optimization</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Language</td>
+<td>C++26</td>
+<td>Modern standards, <code>std::map</code>, <code>std::vector</code></td>
+</tr>
+<tr>
+<td>CLI</td>
+<td>CLI11</td>
+<td>Fast, Header-only</td>
+</tr>
+<tr>
+<td>Testing</td>
+<td>Google Test</td>
+<td>Comprehensive coverage</td>
+</tr>
+<tr>
+<td>Math</td>
+<td>SGD</td>
+<td>Linear time, constant memory per sample</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rust">Rust</h3>
+<h1 id="rust-solution-two-sigma-stock-news-challenge">Rust Solution: Two Sigma Stock News Challenge</h1>
+<p>This is a memory-safe and high-performance Rust solution for the Two Sigma Stock News Challenge.</p>
+<h2 id="directory-structure-unix-tree-format_2">Directory Structure (UNIX tree format)</h2>
+<pre><code>.
+├── Cargo.toml
+├── Dockerfile
+├── README.md
+└── src
+    ├── data.rs
+    ├── evaluate.rs
+    ├── main.rs
+    ├── model.rs
+    └── preprocess.rs
+</code></pre>
+<h2 id="how-to-build-and-run-locally_2">How to Build and Run Locally</h2>
+<ol>
+<li><strong>Dependencies</strong>: Rust 1.85+ (Cargo).</li>
+<li><strong>Build</strong>:
+    <code>bash
+    cargo build --release</code></li>
+<li><strong>Run the CLI</strong>:
+    <code>bash
+    cargo run --release -- --market path/to/market.csv --news path/to/news.csv</code></li>
+<li><strong>Run Tests</strong>:
+    <code>bash
+    cargo test</code></li>
+</ol>
+<h2 id="how-to-build-and-run-via-docker_2">How to Build and Run via Docker</h2>
+<ol>
+<li><strong>Build the Image</strong>:
+    <code>bash
+    docker build -t two-sigma-rust .</code></li>
+<li><strong>Run the Container</strong>:
+    <code>bash
+    docker run -v $(pwd)/data:/app/data two-sigma-rust --market /app/data/market.csv --news /app/data/news.csv</code></li>
+</ol>
+<h2 id="solution-explanation-complexity-and-architecture_2">Solution Explanation, Complexity, and Architecture</h2>
+<h3 id="solution-architecture_2">Solution Architecture</h3>
+<p>The Rust solution leverages the language's safety and performance characteristics:
+- <strong>Data Module</strong>: Uses <code>serde</code> and <code>csv</code> for zero-allocation-friendly data loading.
+- <strong>Preprocess Module</strong>: Uses <code>HashMap</code> for efficient O(N) grouping and vectorized feature calculation.
+- <strong>Model Module</strong>: Implements a highly optimized linear regression model using iterative SGD.
+- <strong>Evaluate Module</strong>: Calculates the Sharpe ratio using iterator-based aggregations for zero-cost abstraction.</p>
+<h3 id="ascii-diagram_2">ASCII Diagram</h3>
+<pre><code class="language-text">[Market CSV] -&gt; [csv-rs] -&gt; [Vec&lt;MarketRecord&gt;] -&gt; [preprocess] -&gt; [Model::train]
+[News CSV]   -&gt; [csv-rs] -&gt; [Vec&lt;NewsRecord&gt;]   /         |               |
+                                                         v               v
+                                                   [Predict] -&gt; [Sharpe Score]
+</code></pre>
+<h3 id="time-and-space-complexity_2">Time and Space Complexity</h3>
+<ul>
+<li><strong>Time Complexity</strong>: <ul>
+<li>Data Loading: $O(N + M)$ with fast CSV deserialization.</li>
+<li>Preprocessing: $O(N + M)$ (using Hash-based join).</li>
+<li>Training: $O(E \cdot N \cdot K)$.</li>
+</ul>
+</li>
+<li><strong>Space Complexity</strong>: $O(N + M)$ to hold records.</li>
+</ul>
+<h2 id="uml-sequence-diagram_2">UML Sequence Diagram</h2>
+<pre><code class="language-text">User -&gt; main: --market --news
+main -&gt; data: load_market_data()
+main -&gt; data: load_news_data()
+main -&gt; preprocess: preprocess()
+preprocess -&gt; preprocess: Group by {time, asset}
+preprocess --&gt; main: mut market_data
+main -&gt; model: train(train_set)
+main -&gt; model: predict(test_set)
+model --&gt; main: predictions
+main -&gt; evaluate: evaluate()
+evaluate --&gt; main: score
+main -&gt; User: println!(score)
+</code></pre>
+<h2 id="flowchart-diagram_2">Flowchart Diagram</h2>
+<pre><code class="language-text">START
+  |
+[Deserialize CSV to Structs]
+  |
+[Build HashMap for News Records]
+  |
+[Iterate Market Records &amp; Join News]
+  |
+[Apply Clipping &amp; Normalization]
+  |
+[Iterative SGD Training]
+  |
+[Clamped Prediction]
+  |
+[Daily Return Reduction]
+  |
+[Sharpe Ratio Computation]
+  |
+END
+</code></pre>
+<h2 id="tabulated-summary_2">Tabulated Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Implementation</th>
+<th>Optimization</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Language</td>
+<td>Rust 1.85+</td>
+<td>Ownership, Zero-cost abstractions</td>
+</tr>
+<tr>
+<td>Serialization</td>
+<td>Serde</td>
+<td>Extremely fast compile-time code gen</td>
+</tr>
+<tr>
+<td>Grouping</td>
+<td>HashMap</td>
+<td>O(1) average lookup</td>
+</tr>
+<tr>
+<td>CLI</td>
+<td>Clap v4</td>
+<td>Modern, Type-safe</td>
+</tr>
+<tr>
+<td>Math</td>
+<td>Iterators</td>
+<td>Auto-vectorization by LLVM</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      
+    
+  </body>
+</html>
