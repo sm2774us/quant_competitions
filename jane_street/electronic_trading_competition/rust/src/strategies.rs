@@ -93,8 +93,8 @@ impl MACDStrategy {
 
     pub fn update_price(&mut self, price: i32, order_id: &mut i32) -> Vec<Order> {
         self.prices.push_back(price);
-        if self.prices.size() > 20 { self.prices.pop_front(); }
-        if self.prices.size() < 20 { return Vec::new(); }
+        if self.prices.len() > 20 { self.prices.pop_front(); }
+        if self.prices.len() < 20 { return Vec::new(); }
 
         if self.ema12.is_none() {
             let p_vec: Vec<i32> = self.prices.iter().cloned().collect();

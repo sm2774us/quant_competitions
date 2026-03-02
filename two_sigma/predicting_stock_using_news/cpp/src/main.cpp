@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include "CLI11.hpp"
+#include <CLI/CLI.hpp>
 #include "Interfaces.hpp"
 
 int main(int argc, char** argv) {

@@ -87,22 +87,19 @@ void TcpExchangeConnection::close() {
 
 std::optional<nlohmann::json> TcpExchangeConnection::read() {
     char buf[1024];
-    while (buffer.find('
-') == std::string::npos) {
+    while (buffer.find('\n') == std::string::npos) {
         int n = recv(sock, buf, sizeof(buf), 0);
         if (n <= 0) return std::nullopt;
         buffer.append(buf, n);
     }
-    size_t pos = buffer.find('
-');
+    size_t pos = buffer.find('\n');
     std::string line = buffer.substr(0, pos);
     buffer.erase(0, pos + 1);
     return nlohmann::json::parse(line);
 }
 
 void TcpExchangeConnection::write(const nlohmann::json& message) {
-    std::string s = message.dump() + "
-";
+    std::string s = message.dump() + "\n";
     send(sock, s.c_str(), s.size(), 0);
 }
 

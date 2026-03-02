@@ -31,7 +31,8 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(eigen)
 
-include_directories(include ${EIGEN3_INCLUDE_DIR})
+# Eigen doesn't always export a target when used with FetchContent this way
+include_directories(include ${eigen_SOURCE_DIR})
 
 # Main executable
 add_executable(two-sigma
@@ -40,7 +41,7 @@ add_executable(two-sigma
     src/environment.cpp
     src/data_generator.cpp
 )
-target_link_libraries(two-sigma CLI11::CLI11)
+target_link_libraries(two-sigma PRIVATE CLI11::CLI11)
 
 # Tests
 add_executable(two-sigma-tests
@@ -49,7 +50,7 @@ add_executable(two-sigma-tests
     src/environment.cpp
     src/data_generator.cpp
 )
-target_link_libraries(two-sigma-tests GTest::gtest_main)
+target_link_libraries(two-sigma-tests PRIVATE GTest::gtest_main)
 
 include(GoogleTest)
 gtest_discover_tests(two-sigma-tests)

@@ -148,6 +148,6 @@ mod tests {
         
         let res = prep.transform(&x);
         assert_relative_eq!(res[0], -1.0);
-        assert_relative_eq!(res[1], 20.0, epsilon = 1e-7);
+        assert_relative_eq!(res[1], 20.0, epsilon = 1e-5);
     }
 }

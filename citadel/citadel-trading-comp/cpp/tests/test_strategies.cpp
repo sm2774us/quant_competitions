@@ -10,9 +10,9 @@ class MockTradingApi : public TradingApi {
 public:
     MockTradingApi() : TradingApi("http://test", "key") {}
     MOCK_METHOD(CaseStatus, get_case, (), (override));
-    MOCK_METHOD(std::map<std::string, Security>, get_securities, (), (override));
+    MOCK_METHOD((std::map<std::string, Security>), get_securities, (), (override));
     MOCK_METHOD(OrderBook, get_order_book, (const std::string&), (override));
-    MOCK_METHOD(std::vector<News>, get_news, (int), (override));
+    MOCK_METHOD((std::vector<News>), get_news, (int), (override));
     MOCK_METHOD(OrderResponse, post_order, (const std::string&, const std::string&, const std::string&, int, std::optional<double>), (override));
 };
 

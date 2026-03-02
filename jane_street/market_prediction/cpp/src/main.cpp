@@ -38,8 +38,7 @@ int main(int argc, char** argv) {
         std::getline(file, line); // Skip header
 
         std::ofstream out(output_csv);
-        out << line << ",action
-";
+        out << line << ",action\n";
 
         while (std::getline(file, line)) {
             std::stringstream ss(line);
@@ -54,8 +53,7 @@ int main(int argc, char** argv) {
             }
             Eigen::VectorXd vec = Eigen::Map<Eigen::VectorXd>(row.data(), row.size());
             int action = engine.predict_action(vec);
-            out << line << "," << action << "
-";
+            out << line << "," << action << "\n";
         }
         std::cout << "Predictions saved to " << output_csv << std::endl;
     } else if (*validate_cmd) {

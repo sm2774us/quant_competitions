@@ -54,8 +54,7 @@ void ExchangeClient::connect() {
 }
 
 void ExchangeClient::send(const nlohmann::json& j) {
-    std::string data = j.dump() + "
-";
+    std::string data = j.dump() + "\n";
     ::send(socket_, data.c_str(), (int)data.length(), 0);
 }
 
@@ -69,8 +68,7 @@ nlohmann::json ExchangeClient::read() {
     while (true) {
         int n = recv(socket_, buffer, 1, 0);
         if (n <= 0) break;
-        if (buffer[0] == '
-') break;
+        if (buffer[0] == '\n') break;
         line += buffer[0];
     }
     if (line.empty()) return json::object();

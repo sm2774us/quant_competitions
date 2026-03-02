@@ -29,8 +29,7 @@ impl ExchangeConnection {
 
     pub async fn write(&mut self, message: Value) -> Result<()> {
         let mut data = serde_json::to_string(&message)?;
-        data.push('
-');
+        data.push('\n');
         self.writer.write_all(data.as_bytes()).await?;
         Ok(())
     }

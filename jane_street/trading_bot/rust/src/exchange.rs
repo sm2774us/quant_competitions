@@ -18,8 +18,7 @@ impl Exchange {
 
     pub fn send(&mut self, message: &ClientMessage) -> Result<()> {
         let mut data = serde_json::to_string(message)?;
-        data.push('
-');
+        data.push('\n');
         self.stream.write_all(data.as_bytes())?;
         Ok(())
     }
