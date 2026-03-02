@@ -101,7 +101,8 @@ def test_main_run(mock_eval, mock_model, mock_proc, mock_loader, mock_market_dat
     mock_proc.return_value.process.return_value = merged
     
     # Model mock
-    mock_model.return_value.predict.return_value = np.zeros(len(merged))
+    # Return an array matching the input length (X_test length)
+    mock_model.return_value.predict.side_effect = lambda x: np.zeros(len(x))
     
     # Evaluator mock
     mock_eval.return_value.evaluate_with_time.return_value = 0.5
