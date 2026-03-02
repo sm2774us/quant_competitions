@@ -2,68 +2,45 @@ load("@rules_shell//shell:sh_test.bzl", "sh_test")
 
 package(default_visibility = ["//visibility:public"])
 
-# --- Citadel ---
+# --- Automated Discovery Targets ---
+# These targets will automatically find and build/test all projects
+# within the monorepo matching the standard structure.
+
 sh_test(
-    name = "citadel_python",
-    srcs = ["run_python_build.sh"],
-    data = glob(["citadel/citadel-trading-comp/python/**"]),
-    tags = ["python"],
+    name = "all_python_projects",
+    srcs = ["discover_and_test.sh"],
+    args = ["python"],
+    data = glob(
+        ["**/*"],
+        exclude = ["bazel-*/**", ".git/**", "**/build/**", "**/target/**", "**/node_modules/**"]
+    ) + [
+        "run_python_build.sh"
+    ],
+    tags = ["python", "automated"],
 )
 
 sh_test(
-    name = "citadel_cpp",
-    srcs = ["run_cpp_build.sh"],
-    data = glob(["citadel/citadel-trading-comp/cpp/**"]),
-    tags = ["cpp"],
+    name = "all_cpp_projects",
+    srcs = ["discover_and_test.sh"],
+    args = ["cpp"],
+    data = glob(
+        ["**/*"],
+        exclude = ["bazel-*/**", ".git/**", "**/build/**", "**/target/**", "**/node_modules/**"]
+    ) + [
+        "run_cpp_build.sh"
+    ],
+    tags = ["cpp", "automated"],
 )
 
 sh_test(
-    name = "citadel_rust",
-    srcs = ["run_rust_build.sh"],
-    data = glob(["citadel/citadel-trading-comp/rust/**"]),
-    tags = ["rust"],
-)
-
-# --- Jane Street ETC ---
-sh_test(
-    name = "jane_street_etc_python",
-    srcs = ["run_python_build.sh"],
-    data = glob(["jane_street/electronic_trading_challenge/python/**"]),
-    tags = ["python"],
-)
-
-sh_test(
-    name = "jane_street_etc_cpp",
-    srcs = ["run_cpp_build.sh"],
-    data = glob(["jane_street/electronic_trading_challenge/cpp/**"]),
-    tags = ["cpp"],
-)
-
-sh_test(
-    name = "jane_street_etc_rust",
-    srcs = ["run_rust_build.sh"],
-    data = glob(["jane_street/electronic_trading_challenge/rust/**"]),
-    tags = ["rust"],
-)
-
-# --- Two Sigma FM ---
-sh_test(
-    name = "two_sigma_fm_python",
-    srcs = ["run_python_build.sh"],
-    data = glob(["two_sigma/financial_modeling_challenge/python/**"]),
-    tags = ["python"],
-)
-
-sh_test(
-    name = "two_sigma_fm_cpp",
-    srcs = ["run_cpp_build.sh"],
-    data = glob(["two_sigma/financial_modeling_challenge/cpp/**"]),
-    tags = ["cpp"],
-)
-
-sh_test(
-    name = "two_sigma_fm_rust",
-    srcs = ["run_rust_build.sh"],
-    data = glob(["two_sigma/financial_modeling_challenge/rust/**"]),
-    tags = ["rust"],
+    name = "all_rust_projects",
+    srcs = ["discover_and_test.sh"],
+    args = ["rust"],
+    data = glob(
+        ["**/*"],
+        exclude = ["bazel-*/**", ".git/**", "**/build/**", "**/target/**", "**/node_modules/**"]
+    ) + [
+        "run_rust_build.sh"
+    ],
+    tags = ["rust", "automated"],
 )

@@ -37,5 +37,6 @@ jobs:
 
       - name: Run All Tests via Bazel
         run: |
+          chmod +x discover_and_test.sh
           # Use Bazel to orchestrate the build/test of all targets defined in BUILD.bazel
           bazel test //... --test_output=errors
