@@ -7,7 +7,26 @@
 
 ---
 
-## 🏛️ Repository Architecture
+## 🏗️ Automated Build Orchestration
+
+This monorepo features a self-discovering build and documentation pipeline.
+
+```mermaid
+graph LR
+    Push[Push to Main] --> Actions[GitHub Actions]
+    Actions --> GenBuild[generate_build.py]
+    GenBuild --> BUILD[BUILD.bazel]
+    BUILD --> Bazel[Bazel Test]
+    Bazel --> Python[Poetry]
+    Bazel --> CPP[CMake/Ninja]
+    Bazel --> Rust[Cargo]
+    
+    Push --> GenDocs[generate_docs.py]
+    GenDocs --> MkDocs[MkDocs Material]
+    MkDocs --> Pages[GitHub Pages]
+```
+
+---
 
 This monorepo is managed using [Bazel](https://bazel.build/) and structured to facilitate cross-language development (Python 3.13, C++26, Rust 1.93.1).
 
