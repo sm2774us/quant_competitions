@@ -45,8 +45,8 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     match &cli.command {
         Commands::GenerateData { samples, features, instruments, output } => {
-            let gen = DataGenerator::new(*samples, *features, *instruments);
-            gen.generate(output)?;
+            let generator = DataGenerator::new(*samples, *features, *instruments);
+            generator.generate(output)?;
         }
         Commands::Train { data, model_path } => {
             let mut env = Environment::new(data)?;

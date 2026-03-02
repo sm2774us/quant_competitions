@@ -17,8 +17,8 @@ fn test_model_train_predict() {
 #[test]
 fn test_data_generation() {
     let path = "test_gen.csv";
-    let gen = DataGenerator::new(100, 10, 5);
-    gen.generate(path).unwrap();
+    let generator = DataGenerator::new(100, 10, 5);
+    generator.generate(path).unwrap();
     assert!(fs::metadata(path).is_ok());
     fs::remove_file(path).unwrap();
 }
@@ -26,8 +26,8 @@ fn test_data_generation() {
 #[test]
 fn test_environment_flow() {
     let path = "test_env.csv";
-    let gen = DataGenerator::new(200, 10, 5);
-    gen.generate(path).unwrap();
+    let generator = DataGenerator::new(200, 10, 5);
+    generator.generate(path).unwrap();
     
     let mut env = Environment::new(path).unwrap();
     let obs = env.reset();
