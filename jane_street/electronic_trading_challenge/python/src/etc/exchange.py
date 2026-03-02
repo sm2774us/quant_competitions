@@ -35,8 +35,7 @@ class ExchangeConnection:
     def write(self, message: Dict[str, Any]):
         if not self._socket:
             return
-        data = json.dumps(message) + "
-"
+        data = json.dumps(message) + "\n"
         self._socket.sendall(data.encode('utf-8'))
 
     def send_hello(self, team_name: str):

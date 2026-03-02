@@ -19,8 +19,7 @@ class Exchange:
     def send(self, message: Dict[str, Any]):
         if not self.socket:
             raise RuntimeError("Not connected to exchange")
-        data = json.dumps(message) + "
-"
+        data = json.dumps(message) + "\n"
         self.socket.sendall(data.encode('utf-8'))
 
     def receive(self) -> Optional[Dict[str, Any]]:

@@ -22,8 +22,7 @@ class ExchangeClient:
     async def send(self, message: dict):
         if not self.writer:
             raise ConnectionError("Not connected")
-        data = json.dumps(message) + "
-"
+        data = json.dumps(message) + "\n"
         self.writer.write(data.encode())
         await self.writer.drain()
 
