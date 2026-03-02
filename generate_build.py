@@ -43,7 +43,7 @@ sh_test(
     tags = ["{lang}", "auto_generated"],
     # Run locally to access system toolchains (GCC 14, Poetry, Cargo)
     local = 1,
-    timeout = "long",
+    timeout = "eternal",
 )
 """
     

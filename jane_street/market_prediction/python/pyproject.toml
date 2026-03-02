@@ -6,13 +6,18 @@ authors = ["Jane Street"]
 readme = "README.md"
 packages = [{include = "market_prediction", from = "src"}]
 
+[[tool.poetry.source]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+priority = "explicit"
+
 [tool.poetry.dependencies]
 python = "^3.12"
 click = "^8.1.7"
 numpy = "^1.26.4"
 pandas = "^2.2.0"
 scikit-learn = "^1.4.0"
-torch = "^2.2.0"
+torch = { version = "^2.2.0", source = "pytorch-cpu" }
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.0.0"

@@ -18,7 +18,7 @@ sh_test(
     tags = ["python", "auto_generated"],
     # Run locally to access system toolchains (GCC 14, Poetry, Cargo)
     local = 1,
-    timeout = "long",
+    timeout = "eternal",
 )
 
 sh_test(
@@ -31,7 +31,7 @@ sh_test(
     tags = ["cpp", "auto_generated"],
     # Run locally to access system toolchains (GCC 14, Poetry, Cargo)
     local = 1,
-    timeout = "long",
+    timeout = "eternal",
 )
 
 sh_test(
@@ -44,7 +44,7 @@ sh_test(
     tags = ["rust", "auto_generated"],
     # Run locally to access system toolchains (GCC 14, Poetry, Cargo)
     local = 1,
-    timeout = "long",
+    timeout = "eternal",
 )
 
 sh_test(
@@ -57,7 +57,7 @@ sh_test(
     tags = ["python", "auto_generated"],
     # Run locally to access system toolchains (GCC 14, Poetry, Cargo)
     local = 1,
-    timeout = "long",
+    timeout = "eternal",
 )
 
 sh_test(
@@ -70,7 +70,7 @@ sh_test(
     tags = ["cpp", "auto_generated"],
     # Run locally to access system toolchains (GCC 14, Poetry, Cargo)
     local = 1,
-    timeout = "long",
+    timeout = "eternal",
 )
 
 sh_test(
@@ -83,7 +83,7 @@ sh_test(
     tags = ["rust", "auto_generated"],
     # Run locally to access system toolchains (GCC 14, Poetry, Cargo)
     local = 1,
-    timeout = "long",
+    timeout = "eternal",
 )
 
 sh_test(
@@ -96,7 +96,7 @@ sh_test(
     tags = ["python", "auto_generated"],
     # Run locally to access system toolchains (GCC 14, Poetry, Cargo)
     local = 1,
-    timeout = "long",
+    timeout = "eternal",
 )
 
 sh_test(
@@ -109,7 +109,7 @@ sh_test(
     tags = ["cpp", "auto_generated"],
     # Run locally to access system toolchains (GCC 14, Poetry, Cargo)
     local = 1,
-    timeout = "long",
+    timeout = "eternal",
 )
 
 sh_test(
@@ -122,7 +122,7 @@ sh_test(
     tags = ["rust", "auto_generated"],
     # Run locally to access system toolchains (GCC 14, Poetry, Cargo)
     local = 1,
-    timeout = "long",
+    timeout = "eternal",
 )
 
 sh_test(
@@ -135,7 +135,7 @@ sh_test(
     tags = ["python", "auto_generated"],
     # Run locally to access system toolchains (GCC 14, Poetry, Cargo)
     local = 1,
-    timeout = "long",
+    timeout = "eternal",
 )
 
 sh_test(
@@ -148,7 +148,7 @@ sh_test(
     tags = ["cpp", "auto_generated"],
     # Run locally to access system toolchains (GCC 14, Poetry, Cargo)
     local = 1,
-    timeout = "long",
+    timeout = "eternal",
 )
 
 sh_test(
@@ -161,7 +161,7 @@ sh_test(
     tags = ["rust", "auto_generated"],
     # Run locally to access system toolchains (GCC 14, Poetry, Cargo)
     local = 1,
-    timeout = "long",
+    timeout = "eternal",
 )
 
 sh_test(
@@ -174,7 +174,7 @@ sh_test(
     tags = ["python", "auto_generated"],
     # Run locally to access system toolchains (GCC 14, Poetry, Cargo)
     local = 1,
-    timeout = "long",
+    timeout = "eternal",
 )
 
 sh_test(
@@ -187,7 +187,7 @@ sh_test(
     tags = ["cpp", "auto_generated"],
     # Run locally to access system toolchains (GCC 14, Poetry, Cargo)
     local = 1,
-    timeout = "long",
+    timeout = "eternal",
 )
 
 sh_test(
@@ -200,7 +200,7 @@ sh_test(
     tags = ["rust", "auto_generated"],
     # Run locally to access system toolchains (GCC 14, Poetry, Cargo)
     local = 1,
-    timeout = "long",
+    timeout = "eternal",
 )
 
 sh_test(
@@ -213,7 +213,7 @@ sh_test(
     tags = ["python", "auto_generated"],
     # Run locally to access system toolchains (GCC 14, Poetry, Cargo)
     local = 1,
-    timeout = "long",
+    timeout = "eternal",
 )
 
 sh_test(
@@ -226,7 +226,7 @@ sh_test(
     tags = ["cpp", "auto_generated"],
     # Run locally to access system toolchains (GCC 14, Poetry, Cargo)
     local = 1,
-    timeout = "long",
+    timeout = "eternal",
 )
 
 sh_test(
@@ -239,7 +239,7 @@ sh_test(
     tags = ["rust", "auto_generated"],
     # Run locally to access system toolchains (GCC 14, Poetry, Cargo)
     local = 1,
-    timeout = "long",
+    timeout = "eternal",
 )
 
 sh_test(
@@ -252,7 +252,7 @@ sh_test(
     tags = ["python", "auto_generated"],
     # Run locally to access system toolchains (GCC 14, Poetry, Cargo)
     local = 1,
-    timeout = "long",
+    timeout = "eternal",
 )
 
 sh_test(
@@ -265,7 +265,7 @@ sh_test(
     tags = ["cpp", "auto_generated"],
     # Run locally to access system toolchains (GCC 14, Poetry, Cargo)
     local = 1,
-    timeout = "long",
+    timeout = "eternal",
 )
 
 sh_test(
@@ -278,5 +278,5 @@ sh_test(
     tags = ["rust", "auto_generated"],
     # Run locally to access system toolchains (GCC 14, Poetry, Cargo)
     local = 1,
-    timeout = "long",
+    timeout = "eternal",
 )

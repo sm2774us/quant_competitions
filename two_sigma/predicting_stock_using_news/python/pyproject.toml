@@ -1,22 +1,29 @@
 [tool.poetry]
 name = "two_sigma_news"
 version = "0.1.0"
-description = "Two Sigma: Using News to Predict Stock Movements solution"
-authors = ["Your Name <you@example.com>"]
+description = "Two Sigma Stock News Challenge Python Solution"
+authors = ["Two Sigma"]
 readme = "README.md"
 packages = [{include = "two_sigma_news", from = "src"}]
 
+[[tool.poetry.source]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+priority = "explicit"
+
 [tool.poetry.dependencies]
-python = "^3.13"
+python = "^3.12"
+click = "^8.1.7"
+numpy = "^1.26.4"
 pandas = "^2.2.0"
-numpy = "^1.26.0"
 scikit-learn = "^1.4.0"
-click = "^8.1.0"
+torch = { version = "^2.2.0", source = "pytorch-cpu" }
 scipy = "^1.12.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.0.0"
 pytest-cov = "^4.1.0"
+pytest-mock = "^3.12.0"
 mock = "^5.1.0"
 
 [tool.poetry.scripts]

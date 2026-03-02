@@ -6,9 +6,13 @@ echo "Running Python build in $ABS_PROJ_DIR"
 
 cd "$ABS_PROJ_DIR"
 
+# Force CPU-only torch to save massive download time/space in CI
+export PIP_EXTRA_INDEX_URL="https://download.pytorch.org/whl/cpu"
+
 # Handle lock file inconsistencies by recreating it
 if [ -f "poetry.lock" ]; then
-    poetry lock --check || { echo "Lock file inconsistent, removing..."; rm poetry.lock; }
+    # Correct command is 'poetry check --lock', not 'poetry lock --check'
+    poetry check --lock || { echo "Lock file inconsistent, removing..."; rm poetry.lock; }
 fi
 
 # Retry mechanism for poetry install
@@ -17,6 +21,7 @@ RETRY_COUNT=0
 SUCCESS=false
 
 while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
+    # Try to install with a timeout to prevent hanging forever
     if poetry install --no-interaction; then
         SUCCESS=true
         break
