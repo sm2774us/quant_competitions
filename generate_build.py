@@ -41,8 +41,6 @@ sh_test(
         "generate_docs.py",
     ],
     tags = ["{lang}", "auto_generated"],
-    # Ensure the script is run from the project subdirectory
-    chdir = "{lang_path}",
 )
 """
     

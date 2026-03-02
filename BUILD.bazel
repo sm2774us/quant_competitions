@@ -18,8 +18,6 @@ sh_test(
         "generate_docs.py",
     ],
     tags = ["python", "auto_generated"],
-    # Ensure the script is run from the project subdirectory
-    chdir = "citadel\citadel-trading-comp\python",
 )
 
 sh_test(
@@ -32,8 +30,6 @@ sh_test(
         "generate_docs.py",
     ],
     tags = ["cpp", "auto_generated"],
-    # Ensure the script is run from the project subdirectory
-    chdir = "citadel\citadel-trading-comp\cpp",
 )
 
 sh_test(
@@ -46,8 +42,6 @@ sh_test(
         "generate_docs.py",
     ],
     tags = ["rust", "auto_generated"],
-    # Ensure the script is run from the project subdirectory
-    chdir = "citadel\citadel-trading-comp\rust",
 )
 
 sh_test(
@@ -60,8 +54,6 @@ sh_test(
         "generate_docs.py",
     ],
     tags = ["python", "auto_generated"],
-    # Ensure the script is run from the project subdirectory
-    chdir = "jane_street\electronic_trading_challenge\python",
 )
 
 sh_test(
@@ -74,8 +66,6 @@ sh_test(
         "generate_docs.py",
     ],
     tags = ["cpp", "auto_generated"],
-    # Ensure the script is run from the project subdirectory
-    chdir = "jane_street\electronic_trading_challenge\cpp",
 )
 
 sh_test(
@@ -88,8 +78,6 @@ sh_test(
         "generate_docs.py",
     ],
     tags = ["rust", "auto_generated"],
-    # Ensure the script is run from the project subdirectory
-    chdir = "jane_street\electronic_trading_challenge\rust",
 )
 
 sh_test(
@@ -102,8 +90,6 @@ sh_test(
         "generate_docs.py",
     ],
     tags = ["python", "auto_generated"],
-    # Ensure the script is run from the project subdirectory
-    chdir = "jane_street\electronic_trading_competition\python",
 )
 
 sh_test(
@@ -116,8 +102,6 @@ sh_test(
         "generate_docs.py",
     ],
     tags = ["cpp", "auto_generated"],
-    # Ensure the script is run from the project subdirectory
-    chdir = "jane_street\electronic_trading_competition\cpp",
 )
 
 sh_test(
@@ -130,8 +114,6 @@ sh_test(
         "generate_docs.py",
     ],
     tags = ["rust", "auto_generated"],
-    # Ensure the script is run from the project subdirectory
-    chdir = "jane_street\electronic_trading_competition\rust",
 )
 
 sh_test(
@@ -144,8 +126,6 @@ sh_test(
         "generate_docs.py",
     ],
     tags = ["python", "auto_generated"],
-    # Ensure the script is run from the project subdirectory
-    chdir = "jane_street\market_prediction\python",
 )
 
 sh_test(
@@ -158,8 +138,6 @@ sh_test(
         "generate_docs.py",
     ],
     tags = ["cpp", "auto_generated"],
-    # Ensure the script is run from the project subdirectory
-    chdir = "jane_street\market_prediction\cpp",
 )
 
 sh_test(
@@ -172,8 +150,6 @@ sh_test(
         "generate_docs.py",
     ],
     tags = ["rust", "auto_generated"],
-    # Ensure the script is run from the project subdirectory
-    chdir = "jane_street\market_prediction\rust",
 )
 
 sh_test(
@@ -186,8 +162,6 @@ sh_test(
         "generate_docs.py",
     ],
     tags = ["python", "auto_generated"],
-    # Ensure the script is run from the project subdirectory
-    chdir = "jane_street\trading_bot\python",
 )
 
 sh_test(
@@ -200,8 +174,6 @@ sh_test(
         "generate_docs.py",
     ],
     tags = ["cpp", "auto_generated"],
-    # Ensure the script is run from the project subdirectory
-    chdir = "jane_street\trading_bot\cpp",
 )
 
 sh_test(
@@ -214,8 +186,6 @@ sh_test(
         "generate_docs.py",
     ],
     tags = ["rust", "auto_generated"],
-    # Ensure the script is run from the project subdirectory
-    chdir = "jane_street\trading_bot\rust",
 )
 
 sh_test(
@@ -228,8 +198,6 @@ sh_test(
         "generate_docs.py",
     ],
     tags = ["python", "auto_generated"],
-    # Ensure the script is run from the project subdirectory
-    chdir = "two_sigma\financial_modeling_challenge\python",
 )
 
 sh_test(
@@ -242,8 +210,6 @@ sh_test(
         "generate_docs.py",
     ],
     tags = ["cpp", "auto_generated"],
-    # Ensure the script is run from the project subdirectory
-    chdir = "two_sigma\financial_modeling_challenge\cpp",
 )
 
 sh_test(
@@ -256,8 +222,6 @@ sh_test(
         "generate_docs.py",
     ],
     tags = ["rust", "auto_generated"],
-    # Ensure the script is run from the project subdirectory
-    chdir = "two_sigma\financial_modeling_challenge\rust",
 )
 
 sh_test(
@@ -270,8 +234,6 @@ sh_test(
         "generate_docs.py",
     ],
     tags = ["python", "auto_generated"],
-    # Ensure the script is run from the project subdirectory
-    chdir = "two_sigma\predicting_stock_using_news\python",
 )
 
 sh_test(
@@ -284,8 +246,6 @@ sh_test(
         "generate_docs.py",
     ],
     tags = ["cpp", "auto_generated"],
-    # Ensure the script is run from the project subdirectory
-    chdir = "two_sigma\predicting_stock_using_news\cpp",
 )
 
 sh_test(
@@ -298,6 +258,4 @@ sh_test(
         "generate_docs.py",
     ],
     tags = ["rust", "auto_generated"],
-    # Ensure the script is run from the project subdirectory
-    chdir = "two_sigma\predicting_stock_using_news\rust",
 )
