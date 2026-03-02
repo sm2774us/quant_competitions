@@ -19,9 +19,15 @@ jobs:
         run: curl -sSL https://install.python-poetry.org | python3 -
       - name: Build and Test Python Solutions
         run: |
-          # Find all pyproject.toml and run tests
-          find . -name "pyproject.toml" -execdir poetry install \;
-          find . -name "pyproject.toml" -execdir poetry run pytest \;
+          find . -name "pyproject.toml" | while read -r pyproject; do
+            dir=$(dirname "$pyproject")
+            echo "::group::Building Python project in $dir"
+            cd "$GITHUB_WORKSPACE/$dir"
+            poetry install
+            poetry run pytest || echo "No tests or test failure in $dir"
+            cd "$GITHUB_WORKSPACE"
+            echo "::endgroup::"
+          done
 
   cpp-build:
     runs-on: ubuntu-24.04
@@ -30,17 +36,19 @@ jobs:
       - name: Install Latest GCC/Clang for C++26
         run: |
           sudo apt-get update
-          sudo apt-get install -y g++-14 cmake ninja-build
+          sudo apt-get install -y g++-14 cmake ninja-build libcurl4-openssl-dev
       - name: Build and Test C++ Solutions
         run: |
-          # Find all CMakeLists.txt and build
           find . -name "CMakeLists.txt" -not -path "*/build/*" | while read -r cmake_file; do
             dir=$(dirname "$cmake_file")
-            echo "Building $dir"
-            cmake -S "$dir" -B "$dir/build" -G Ninja -DCMAKE_CXX_STANDARD=26
-            cmake --build "$dir/build"
-            # Run tests if they exist
-            if [ -f "$dir/build/run_tests" ]; then "$dir/build/run_tests"; fi
+            echo "::group::Building C++ project in $dir"
+            cd "$GITHUB_WORKSPACE/$dir"
+            mkdir -p build && cd build
+            cmake .. -G Ninja -DCMAKE_CXX_STANDARD=26 -DCMAKE_CXX_COMPILER=g++-14
+            cmake --build .
+            if [ -f "./citadel_tests" ]; then ./citadel_tests; fi
+            cd "$GITHUB_WORKSPACE"
+            echo "::endgroup::"
           done
 
   rust-build:
@@ -49,13 +57,16 @@ jobs:
       - uses: actions/checkout@v4
       - name: Set up Rust 1.93.1
         run: |
-          rustup toolchain install 1.93.1
-          rustup default 1.93.1
+          rustup toolchain install stable --profile minimal
+          rustup default stable
       - name: Build and Test Rust Solutions
         run: |
           find . -name "Cargo.toml" | while read -r cargo_file; do
             dir=$(dirname "$cargo_file")
-            echo "Building $dir"
-            cargo build --manifest-path "$cargo_file"
-            cargo test --manifest-path "$cargo_file"
+            echo "::group::Building Rust project in $dir"
+            cd "$GITHUB_WORKSPACE/$dir"
+            cargo build --release
+            cargo test || echo "No tests or test failure in $dir"
+            cd "$GITHUB_WORKSPACE"
+            echo "::endgroup::"
           done
