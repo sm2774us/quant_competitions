@@ -35,8 +35,12 @@ jobs:
         run: |
           sudo npm install -g @bazel/bazelisk
 
+      - name: Generate BUILD.bazel dynamically
+        run: |
+          chmod +x generate_build.py
+          python generate_build.py
+
       - name: Run All Tests via Bazel
         run: |
-          chmod +x discover_and_test.sh
-          # Use Bazel to orchestrate the build/test of all targets defined in BUILD.bazel
+          chmod +x discover_and_test.sh # Ensure this is executable
           bazel test //... --test_output=errors

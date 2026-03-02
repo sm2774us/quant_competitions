@@ -2,39 +2,302 @@ load("@rules_shell//shell:sh_test.bzl", "sh_test")
 
 package(default_visibility = ["//visibility:public"])
 
-# --- Automated Discovery Targets ---
-# These targets will automatically find and build/test all projects
-# within the monorepo matching the standard structure.
+# --- Auto-generated Test Targets ---
+# These targets are dynamically generated based on the monorepo's structure.
+# Any new competition projects following the standard (python/cpp/rust)
+# subdirectory conventions will automatically get build/test targets.
+
 
 sh_test(
-    name = "all_python_projects",
-    srcs = ["discover_and_test.sh"],
-    args = ["python"],
-    data = glob(
-        ["**/*"],
-        exclude = ["bazel-*/**", ".git/**", "**/build/**", "**/target/**", "**/node_modules/**"]
-    ),
-    tags = ["python", "automated"],
+    name = "citadel_citadel_trading_comp_python",
+    srcs = ["run_python_build.sh"],
+    data = glob(["citadel\citadel-trading-comp\python/**"]) + [
+        "run_python_build.sh",
+        "discover_and_test.sh",
+        "generate_build.py",
+        "generate_docs.py",
+    ],
+    tags = ["python", "auto_generated"],
+    # Ensure the script is run from the project subdirectory
+    chdir = "citadel\citadel-trading-comp\python",
 )
 
 sh_test(
-    name = "all_cpp_projects",
-    srcs = ["discover_and_test.sh"],
-    args = ["cpp"],
-    data = glob(
-        ["**/*"],
-        exclude = ["bazel-*/**", ".git/**", "**/build/**", "**/target/**", "**/node_modules/**"]
-    ),
-    tags = ["cpp", "automated"],
+    name = "citadel_citadel_trading_comp_cpp",
+    srcs = ["run_cpp_build.sh"],
+    data = glob(["citadel\citadel-trading-comp\cpp/**"]) + [
+        "run_cpp_build.sh",
+        "discover_and_test.sh",
+        "generate_build.py",
+        "generate_docs.py",
+    ],
+    tags = ["cpp", "auto_generated"],
+    # Ensure the script is run from the project subdirectory
+    chdir = "citadel\citadel-trading-comp\cpp",
 )
 
 sh_test(
-    name = "all_rust_projects",
-    srcs = ["discover_and_test.sh"],
-    args = ["rust"],
-    data = glob(
-        ["**/*"],
-        exclude = ["bazel-*/**", ".git/**", "**/build/**", "**/target/**", "**/node_modules/**"]
-    ),
-    tags = ["rust", "automated"],
+    name = "citadel_citadel_trading_comp_rust",
+    srcs = ["run_rust_build.sh"],
+    data = glob(["citadel\citadel-trading-comp\rust/**"]) + [
+        "run_rust_build.sh",
+        "discover_and_test.sh",
+        "generate_build.py",
+        "generate_docs.py",
+    ],
+    tags = ["rust", "auto_generated"],
+    # Ensure the script is run from the project subdirectory
+    chdir = "citadel\citadel-trading-comp\rust",
+)
+
+sh_test(
+    name = "jane_street_electronic_trading_challenge_python",
+    srcs = ["run_python_build.sh"],
+    data = glob(["jane_street\electronic_trading_challenge\python/**"]) + [
+        "run_python_build.sh",
+        "discover_and_test.sh",
+        "generate_build.py",
+        "generate_docs.py",
+    ],
+    tags = ["python", "auto_generated"],
+    # Ensure the script is run from the project subdirectory
+    chdir = "jane_street\electronic_trading_challenge\python",
+)
+
+sh_test(
+    name = "jane_street_electronic_trading_challenge_cpp",
+    srcs = ["run_cpp_build.sh"],
+    data = glob(["jane_street\electronic_trading_challenge\cpp/**"]) + [
+        "run_cpp_build.sh",
+        "discover_and_test.sh",
+        "generate_build.py",
+        "generate_docs.py",
+    ],
+    tags = ["cpp", "auto_generated"],
+    # Ensure the script is run from the project subdirectory
+    chdir = "jane_street\electronic_trading_challenge\cpp",
+)
+
+sh_test(
+    name = "jane_street_electronic_trading_challenge_rust",
+    srcs = ["run_rust_build.sh"],
+    data = glob(["jane_street\electronic_trading_challenge\rust/**"]) + [
+        "run_rust_build.sh",
+        "discover_and_test.sh",
+        "generate_build.py",
+        "generate_docs.py",
+    ],
+    tags = ["rust", "auto_generated"],
+    # Ensure the script is run from the project subdirectory
+    chdir = "jane_street\electronic_trading_challenge\rust",
+)
+
+sh_test(
+    name = "jane_street_electronic_trading_competition_python",
+    srcs = ["run_python_build.sh"],
+    data = glob(["jane_street\electronic_trading_competition\python/**"]) + [
+        "run_python_build.sh",
+        "discover_and_test.sh",
+        "generate_build.py",
+        "generate_docs.py",
+    ],
+    tags = ["python", "auto_generated"],
+    # Ensure the script is run from the project subdirectory
+    chdir = "jane_street\electronic_trading_competition\python",
+)
+
+sh_test(
+    name = "jane_street_electronic_trading_competition_cpp",
+    srcs = ["run_cpp_build.sh"],
+    data = glob(["jane_street\electronic_trading_competition\cpp/**"]) + [
+        "run_cpp_build.sh",
+        "discover_and_test.sh",
+        "generate_build.py",
+        "generate_docs.py",
+    ],
+    tags = ["cpp", "auto_generated"],
+    # Ensure the script is run from the project subdirectory
+    chdir = "jane_street\electronic_trading_competition\cpp",
+)
+
+sh_test(
+    name = "jane_street_electronic_trading_competition_rust",
+    srcs = ["run_rust_build.sh"],
+    data = glob(["jane_street\electronic_trading_competition\rust/**"]) + [
+        "run_rust_build.sh",
+        "discover_and_test.sh",
+        "generate_build.py",
+        "generate_docs.py",
+    ],
+    tags = ["rust", "auto_generated"],
+    # Ensure the script is run from the project subdirectory
+    chdir = "jane_street\electronic_trading_competition\rust",
+)
+
+sh_test(
+    name = "jane_street_market_prediction_python",
+    srcs = ["run_python_build.sh"],
+    data = glob(["jane_street\market_prediction\python/**"]) + [
+        "run_python_build.sh",
+        "discover_and_test.sh",
+        "generate_build.py",
+        "generate_docs.py",
+    ],
+    tags = ["python", "auto_generated"],
+    # Ensure the script is run from the project subdirectory
+    chdir = "jane_street\market_prediction\python",
+)
+
+sh_test(
+    name = "jane_street_market_prediction_cpp",
+    srcs = ["run_cpp_build.sh"],
+    data = glob(["jane_street\market_prediction\cpp/**"]) + [
+        "run_cpp_build.sh",
+        "discover_and_test.sh",
+        "generate_build.py",
+        "generate_docs.py",
+    ],
+    tags = ["cpp", "auto_generated"],
+    # Ensure the script is run from the project subdirectory
+    chdir = "jane_street\market_prediction\cpp",
+)
+
+sh_test(
+    name = "jane_street_market_prediction_rust",
+    srcs = ["run_rust_build.sh"],
+    data = glob(["jane_street\market_prediction\rust/**"]) + [
+        "run_rust_build.sh",
+        "discover_and_test.sh",
+        "generate_build.py",
+        "generate_docs.py",
+    ],
+    tags = ["rust", "auto_generated"],
+    # Ensure the script is run from the project subdirectory
+    chdir = "jane_street\market_prediction\rust",
+)
+
+sh_test(
+    name = "jane_street_trading_bot_python",
+    srcs = ["run_python_build.sh"],
+    data = glob(["jane_street\trading_bot\python/**"]) + [
+        "run_python_build.sh",
+        "discover_and_test.sh",
+        "generate_build.py",
+        "generate_docs.py",
+    ],
+    tags = ["python", "auto_generated"],
+    # Ensure the script is run from the project subdirectory
+    chdir = "jane_street\trading_bot\python",
+)
+
+sh_test(
+    name = "jane_street_trading_bot_cpp",
+    srcs = ["run_cpp_build.sh"],
+    data = glob(["jane_street\trading_bot\cpp/**"]) + [
+        "run_cpp_build.sh",
+        "discover_and_test.sh",
+        "generate_build.py",
+        "generate_docs.py",
+    ],
+    tags = ["cpp", "auto_generated"],
+    # Ensure the script is run from the project subdirectory
+    chdir = "jane_street\trading_bot\cpp",
+)
+
+sh_test(
+    name = "jane_street_trading_bot_rust",
+    srcs = ["run_rust_build.sh"],
+    data = glob(["jane_street\trading_bot\rust/**"]) + [
+        "run_rust_build.sh",
+        "discover_and_test.sh",
+        "generate_build.py",
+        "generate_docs.py",
+    ],
+    tags = ["rust", "auto_generated"],
+    # Ensure the script is run from the project subdirectory
+    chdir = "jane_street\trading_bot\rust",
+)
+
+sh_test(
+    name = "two_sigma_financial_modeling_challenge_python",
+    srcs = ["run_python_build.sh"],
+    data = glob(["two_sigma\financial_modeling_challenge\python/**"]) + [
+        "run_python_build.sh",
+        "discover_and_test.sh",
+        "generate_build.py",
+        "generate_docs.py",
+    ],
+    tags = ["python", "auto_generated"],
+    # Ensure the script is run from the project subdirectory
+    chdir = "two_sigma\financial_modeling_challenge\python",
+)
+
+sh_test(
+    name = "two_sigma_financial_modeling_challenge_cpp",
+    srcs = ["run_cpp_build.sh"],
+    data = glob(["two_sigma\financial_modeling_challenge\cpp/**"]) + [
+        "run_cpp_build.sh",
+        "discover_and_test.sh",
+        "generate_build.py",
+        "generate_docs.py",
+    ],
+    tags = ["cpp", "auto_generated"],
+    # Ensure the script is run from the project subdirectory
+    chdir = "two_sigma\financial_modeling_challenge\cpp",
+)
+
+sh_test(
+    name = "two_sigma_financial_modeling_challenge_rust",
+    srcs = ["run_rust_build.sh"],
+    data = glob(["two_sigma\financial_modeling_challenge\rust/**"]) + [
+        "run_rust_build.sh",
+        "discover_and_test.sh",
+        "generate_build.py",
+        "generate_docs.py",
+    ],
+    tags = ["rust", "auto_generated"],
+    # Ensure the script is run from the project subdirectory
+    chdir = "two_sigma\financial_modeling_challenge\rust",
+)
+
+sh_test(
+    name = "two_sigma_predicting_stock_using_news_python",
+    srcs = ["run_python_build.sh"],
+    data = glob(["two_sigma\predicting_stock_using_news\python/**"]) + [
+        "run_python_build.sh",
+        "discover_and_test.sh",
+        "generate_build.py",
+        "generate_docs.py",
+    ],
+    tags = ["python", "auto_generated"],
+    # Ensure the script is run from the project subdirectory
+    chdir = "two_sigma\predicting_stock_using_news\python",
+)
+
+sh_test(
+    name = "two_sigma_predicting_stock_using_news_cpp",
+    srcs = ["run_cpp_build.sh"],
+    data = glob(["two_sigma\predicting_stock_using_news\cpp/**"]) + [
+        "run_cpp_build.sh",
+        "discover_and_test.sh",
+        "generate_build.py",
+        "generate_docs.py",
+    ],
+    tags = ["cpp", "auto_generated"],
+    # Ensure the script is run from the project subdirectory
+    chdir = "two_sigma\predicting_stock_using_news\cpp",
+)
+
+sh_test(
+    name = "two_sigma_predicting_stock_using_news_rust",
+    srcs = ["run_rust_build.sh"],
+    data = glob(["two_sigma\predicting_stock_using_news\rust/**"]) + [
+        "run_rust_build.sh",
+        "discover_and_test.sh",
+        "generate_build.py",
+        "generate_docs.py",
+    ],
+    tags = ["rust", "auto_generated"],
+    # Ensure the script is run from the project subdirectory
+    chdir = "two_sigma\predicting_stock_using_news\rust",
 )

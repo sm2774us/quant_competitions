@@ -6,12 +6,14 @@ LANG=$1
 set -e
 
 # Base directory (monorepo root)
-ROOT_DIR=$PWD
+ROOT_DIR=$(pwd)
 EXIT_CODE=0
 
 case $LANG in
   python)
     echo "--- Discovering Python projects ---"
+    # Set executable bit for the build script
+    chmod +x "$ROOT_DIR/run_python_build.sh"
     # Find all directories containing pyproject.toml
     find . -name "pyproject.toml" -not -path "*/.venv/*" | while read -r pyproj; do
       proj_dir=$(dirname "$pyproj")
@@ -25,6 +27,8 @@ case $LANG in
     ;;
   cpp)
     echo "--- Discovering C++ projects ---"
+    # Set executable bit for the build script
+    chmod +x "$ROOT_DIR/run_cpp_build.sh"
     # Find all directories containing CMakeLists.txt
     find . -name "CMakeLists.txt" -not -path "*/build/*" | while read -r cmakelist; do
       proj_dir=$(dirname "$cmakelist")
@@ -37,6 +41,8 @@ case $LANG in
     ;;
   rust)
     echo "--- Discovering Rust projects ---"
+    # Set executable bit for the build script
+    chmod +x "$ROOT_DIR/run_rust_build.sh"
     # Find all directories containing Cargo.toml
     find . -name "Cargo.toml" -not -path "*/target/*" | while read -r cargo; do
       proj_dir=$(dirname "$cargo")

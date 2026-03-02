@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+export CXX=g++-14
 mkdir -p build && cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release -G Ninja -DCMAKE_CXX_STANDARD=26
 cmake --build .
