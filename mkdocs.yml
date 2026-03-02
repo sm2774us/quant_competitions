@@ -12,29 +12,14 @@ theme:
 nav:
   - Home: index.md
   - Projects:
-    - Citadel: projects/citadel.md
-    - Jane Street: projects/jane_street.md
-    - Two Sigma: projects/two_sigma.md
+    - Citadel:
+      - Citadel Trading Comp: projects/citadel_citadel-trading-comp.md
+    - Jane Street:
+      - Electronic Trading Challenge: projects/jane_street_electronic_trading_challenge.md
+      - Electronic Trading Competition: projects/jane_street_electronic_trading_competition.md
+      - Market Prediction: projects/jane_street_market_prediction.md
+      - Trading Bot: projects/jane_street_trading_bot.md
+    - Two Sigma:
+      - Financial Modeling Challenge: projects/two_sigma_financial_modeling_challenge.md
+      - Predicting Stock Using News: projects/two_sigma_predicting_stock_using_news.md
   - Technical Specification: technical_spec.md
-
-markdown_extensions:
-  - pymdownx.arithmatex:
-      generic: true
-  - pymdownx.superfences:
-      custom_fences:
-        - name: mermaid
-          class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
-  - pymdownx.highlight:
-      anchor_linenums: true
-  - pymdownx.inlinehilite
-  - pymdownx.snippets
-  - admonition
-  - footnotes
-  - attr_list
-  - md_in_html
-
-extra_javascript:
-  - javascripts/mathjax.js
-  - https://polyfill.io/v3/polyfill.min.js?features=es6
-  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js

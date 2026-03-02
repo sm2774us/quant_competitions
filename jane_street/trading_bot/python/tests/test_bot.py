@@ -7,10 +7,10 @@ from trading_bot.bot import TradingBot
 
 # Tests for models
 def test_order_model():
-    order = Order(1, "BOND", Direction.BUY, 999, 10)
+    order = Order(1, "BOND", Direction::BUY, 999, 10)
     assert order.order_id == 1
     assert order.symbol == "BOND"
-    assert order.dir == Direction.BUY
+    assert order.dir == Direction::BUY
     assert order.price == 999
     assert order.size == 10
 
@@ -23,11 +23,11 @@ def test_strategy_on_hello():
 def test_strategy_on_fill():
     strategy = Strategy()
     strategy.positions["BOND"] = 10
-    fill = FillUpdate(1, "BOND", Direction.BUY, 999, 5)
+    fill = FillUpdate(1, "BOND", Direction::BUY, 999, 5)
     strategy.on_fill(fill)
     assert strategy.positions["BOND"] == 15
     
-    fill_sell = FillUpdate(2, "BOND", Direction.SELL, 1001, 3)
+    fill_sell = FillUpdate(2, "BOND", Direction::SELL, 1001, 3)
     strategy.on_fill(fill_sell)
     assert strategy.positions["BOND"] == 12
 
@@ -41,7 +41,7 @@ def test_bond_strategy_buy():
     # Orders will include the buy at 998 AND the passive orders
     buy_orders = [o for o in orders if o.price == 998]
     assert len(buy_orders) == 1
-    assert buy_orders[0].dir == Direction.BUY
+    assert buy_orders[0].dir == Direction::BUY
     assert buy_orders[0].size == 5
 
 def test_bond_strategy_sell():
@@ -53,7 +53,7 @@ def test_bond_strategy_sell():
     
     sell_orders = [o for o in orders if o.price == 1002]
     assert len(sell_orders) == 1
-    assert sell_orders[0].dir == Direction.SELL
+    assert sell_orders[0].dir == Direction::SELL
     assert sell_orders[0].size == 5
 
 def test_bond_strategy_passive():
@@ -63,8 +63,8 @@ def test_bond_strategy_passive():
     orders = strategy.decide(book)
     
     # Should place passive buy at 999 and sell at 1001
-    assert any(o.price == 999 and o.dir == Direction.BUY for o in orders)
-    assert any(o.price == 1001 and o.dir == Direction.SELL for o in orders)
+    assert any(o.price == 999 and o.dir == Direction::BUY for o in orders)
+    assert any(o.price == 1001 and o.dir == Direction::SELL for o in orders)
 
 # Tests for Exchange
 @patch('socket.socket')
@@ -93,7 +93,7 @@ def test_bot_handle_message_book(mock_exchange_class):
     mock_exchange = mock_exchange_class.return_value
     
     # Mock strategy to return one order
-    bot.strategy.decide = MagicMock(return_value=[Order(1, "BOND", Direction.BUY, 999, 1)])
+    bot.strategy.decide = MagicMock(return_value=[Order(1, "BOND", Direction::BUY, 999, 1)])
     
     bot.handle_message({"type": "book", "symbol": "BOND", "buy": [], "sell": []})
     
