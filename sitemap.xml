@@ -3,21 +3,26 @@
     <url>
          <loc>https://your-org.github.io/quant_competitions/</loc>
          <lastmod>2026-03-02</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://your-org.github.io/quant_competitions/technical_spec/</loc>
          <lastmod>2026-03-02</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://your-org.github.io/quant_competitions/projects/citadel/</loc>
          <lastmod>2026-03-02</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://your-org.github.io/quant_competitions/projects/jane_street/</loc>
          <lastmod>2026-03-02</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://your-org.github.io/quant_competitions/projects/two_sigma/</loc>
          <lastmod>2026-03-02</lastmod>
+         <changefreq>daily</changefreq>
     </url>
 </urlset>
