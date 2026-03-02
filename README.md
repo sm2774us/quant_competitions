@@ -1,7 +1,7 @@
 # 📉 Quant Competitions Monorepo: Production-Grade Trading Solutions
 
-[![CI](https://github.com/your-org/quant_competitions/actions/workflows/ci.yml/badge.svg)](https://github.com/your-org/quant_competitions/actions/workflows/ci.yml)
-[![Docs](https://github.com/your-org/quant_competitions/actions/workflows/docs.yml/badge.svg)](https://your-org.github.io/quant_competitions/)
+[![CI](https://github.com/sm2774us/quant_competitions/actions/workflows/ci.yml/badge.svg)](https://github.com/sm2774us/quant_competitions/actions/workflows/ci.yml)
+[![Docs](https://github.com/sm2774us/quant_competitions/actions/workflows/docs.yml/badge.svg)](https://sm2774us.github.io/quant_competitions/)
 
 > **A curated collection of high-performance trading solutions for elite quantitative competitions (Citadel, Jane Street, Two Sigma, HRT).**
 
@@ -100,7 +100,7 @@ bazel test //...
 ## 📚 References & Further Reading
 1. [Avellaneda, M., & Lee, J. H. (2010). Statistical arbitrage in the US equities market. *Quantitative Finance*.](https://www.tandfonline.com/doi/abs/10.1080/14697680802595650)
 2. [Lopez de Prado, M. (2018). *Advances in Financial Machine Learning*. Wiley.](https://www.wiley.com/en-us/Advances+in+Financial+Machine+Learning-p-9781119482086)
-3. [Citadel, Jane Street, & HRT Interview Preparation Wiki.](https://github.com/your-org/quant-wiki)
+3. [Citadel, Jane Street, & HRT Interview Preparation Wiki.](https://github.com/sm2774us/quant-wiki)
 
 ---
 
