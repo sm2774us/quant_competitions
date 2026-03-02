@@ -45,5 +45,5 @@ target_link_libraries(etc-bot PRIVATE etc_lib CLI11::CLI11)
 
 enable_testing()
 add_executable(etc_tests tests/test_bot.cpp)
-target_link_libraries(etc_tests PRIVATE etc_lib GTest::gtest_main)
+target_link_libraries(etc_tests PRIVATE etc_lib GTest::gtest_main GTest::gmock)
 add_test(NAME etc_tests COMMAND etc_tests)

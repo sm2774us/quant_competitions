@@ -77,7 +77,7 @@ def test_evaluator_with_time():
     evaluator = TwoSigmaEvaluator()
     df = pd.DataFrame({
         'time': [1, 1, 2, 2],
-        'conf': [0.5, 0.5, -0.5, -0.5],
+        'conf': [0.5, 0.6, -0.5, -0.4], # Vary conf slightly to avoid zero std
         'target': [0.1, 0.1, -0.1, -0.1],
         'universe': [1, 1, 1, 1]
     })

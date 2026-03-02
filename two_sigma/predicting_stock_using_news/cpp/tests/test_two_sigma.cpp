@@ -4,10 +4,8 @@
 
 TEST(DataLoaderTest, LoadMarketData) {
     std::ofstream file("test_market.csv");
-    file << "time,assetName,open,close,returnsOpenNextMktres10,universe,f1,f2
-";
-    file << "2024-01-01,AAPL,150.0,155.0,0.02,1,0.1,0.2
-";
+    file << "time,assetName,open,close,returnsOpenNextMktres10,universe,f1,f2\n";
+    file << "2024-01-01,AAPL,150.0,155.0,0.02,1,0.1,0.2\n";
     file.close();
 
     DataLoader loader;

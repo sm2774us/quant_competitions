@@ -1,7 +1,7 @@
 use std::fs::File;
 use std::io::Write;
 use rand::prelude::*;
-use rand_distr::Normal;
+use rand_distr::{Normal, Distribution};
 
 pub struct DataGenerator {
     pub n_samples: usize,

@@ -35,7 +35,7 @@ target_link_libraries(two_sigma_news PRIVATE CLI11::CLI11)
 
 # Tests
 add_executable(test_two_sigma tests/test_two_sigma.cpp ${SOURCE_FILES})
-target_link_libraries(test_two_sigma PRIVATE GTest::gtest_main)
+target_link_libraries(test_two_sigma PRIVATE GTest::gtest_main GTest::gmock)
 
 enable_testing()
 add_test(NAME AllTests COMMAND test_two_sigma)

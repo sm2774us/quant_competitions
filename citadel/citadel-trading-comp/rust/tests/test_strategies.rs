@@ -13,6 +13,9 @@ fn test_exchange_arbitrage_market() {
     mock_api.expect_get_order_book().with(eq("WMT-M")).returning(move |_| Ok(mbook.clone()));
     mock_api.expect_get_order_book().with(eq("WMT-A")).returning(move |_| Ok(abook.clone()));
     
+    // Add defaults for other tickers to avoid mock failure
+    mock_api.expect_get_order_book().returning(|_| Ok(OrderBook { bids: vec![], asks: vec![] }));
+    
     mock_api.expect_post_order().with(eq("WMT-M"), eq("MARKET"), eq("SELL"), eq(1000), eq(None)).returning(|_, _, _, _, _| Ok(OrderResponse { order_id: 1, status: "OPEN".into(), ticker: "WMT-M".into(), order_type: "MARKET".into(), action: "SELL".into(), quantity: 1000, price: None, vwap: None }));
     mock_api.expect_post_order().with(eq("WMT-A"), eq("MARKET"), eq("BUY"), eq(1000), eq(None)).returning(|_, _, _, _, _| Ok(OrderResponse { order_id: 2, status: "OPEN".into(), ticker: "WMT-A".into(), order_type: "MARKET".into(), action: "BUY".into(), quantity: 1000, price: None, vwap: None }));
 

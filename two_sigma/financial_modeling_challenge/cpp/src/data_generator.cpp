@@ -19,8 +19,7 @@ void DataGenerator::generate(const std::string& output_path) {
     for (int i = 0; i < n_features_; ++i) {
         out << ",technical_" << i;
     }
-    out << "
-";
+    out << "\n";
 
     std::mt19937 gen(42);
     std::normal_distribution<double> dist_y(0.0, 0.02);
@@ -33,8 +32,7 @@ void DataGenerator::generate(const std::string& output_path) {
             for (int f = 0; f < n_features_; ++f) {
                 out << "," << dist_feat(gen);
             }
-            out << "
-";
+            out << "\n";
         }
     }
     std::cout << "Generated synthetic data at " << output_path << std::endl;

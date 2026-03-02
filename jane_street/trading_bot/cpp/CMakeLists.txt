@@ -27,7 +27,8 @@ FetchContent_MakeAvailable(cli11)
 # GTest
 FetchContent_Declare(
   googletest
-  URL https://github.com/google/googletest/archive/03597a01ee9d7941a87677d33d937085b30b05b3.zip
+  GIT_REPOSITORY https://github.com/google/googletest.git
+  GIT_TAG v1.14.0
 )
 FetchContent_MakeAvailable(googletest)
 
