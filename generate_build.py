@@ -29,18 +29,20 @@ package(default_visibility = ["//visibility:public"])
                     for lang in ["python", "cpp", "rust"]:
                         lang_path = comp_path / lang
                         if lang_path.is_dir():
+                            # Use forward slashes for Bazel/Linux compatibility
+                            posix_lang_path = str(lang_path).replace("\\", "/")
                             target_name = f"{comp_id}_{lang}"
                             build_file_content += f"""
 sh_test(
     name = "{target_name}",
     srcs = ["run_{lang}_build.sh"],
-    data = glob(["{lang_path}/**"]) + [
+    args = ["{posix_lang_path}"],
+    data = glob(["{posix_lang_path}/**"]) + [
         "run_{lang}_build.sh",
-        "discover_and_test.sh",
-        "generate_build.py",
-        "generate_docs.py",
     ],
     tags = ["{lang}", "auto_generated"],
+    # Run locally to access system toolchains (GCC 14, Poetry, Cargo)
+    local = 1,
 )
 """
     
