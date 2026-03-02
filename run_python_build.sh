@@ -6,10 +6,12 @@ echo "Running Python build in $ABS_PROJ_DIR"
 
 cd "$ABS_PROJ_DIR"
 
-# Ensure lock file is consistent without upgrading dependencies
-poetry lock --no-update
+# Handle lock file inconsistencies by recreating it
+if [ -f "poetry.lock" ]; then
+    poetry lock --check || { echo "Lock file inconsistent, removing..."; rm poetry.lock; }
+fi
 
-# Retry mechanism for poetry install to handle BadZipFile or network flakes
+# Retry mechanism for poetry install
 MAX_RETRIES=3
 RETRY_COUNT=0
 SUCCESS=false

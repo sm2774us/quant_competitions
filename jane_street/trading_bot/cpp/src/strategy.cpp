@@ -17,7 +17,7 @@ void Strategy::on_hello(const std::vector<Position>& initial_positions) {
 }
 
 void Strategy::on_fill(const FillUpdate& fill) {
-    int delta = (fill.dir == Direction.BUY) ? fill.size : -fill.size;
+    int delta = (fill.dir == Direction::BUY) ? fill.size : -fill.size;
     positions_[fill.symbol] += delta;
 }
 

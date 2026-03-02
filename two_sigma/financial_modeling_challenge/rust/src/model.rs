@@ -5,6 +5,7 @@ use std::io::{BufReader, BufWriter};
 
 #[derive(Serialize, Deserialize, Default)]
 pub struct FinancialModel {
+    #[serde(skip)]
     pub weights: Option<Array1<f64>>,
     pub alpha: f64,
 }

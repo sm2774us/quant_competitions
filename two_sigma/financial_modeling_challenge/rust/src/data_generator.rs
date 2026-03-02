@@ -1,6 +1,7 @@
 use std::fs::File;
 use std::io::Write;
-use rand::prelude::*;
+use rand::SeedableRng;
+use rand::rngs::StdRng;
 use rand_distr::{Normal, Distribution};
 
 pub struct DataGenerator {

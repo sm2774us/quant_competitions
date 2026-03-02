@@ -69,8 +69,7 @@ void Exchange::connect() {
 }
 
 void Exchange::send(const json& message) {
-    std::string data = message.dump() + "
-";
+    std::string data = message.dump() + "\n";
 #ifdef _WIN32
     if (::send(socket_, data.c_str(), (int)data.length(), 0) == SOCKET_ERROR) {
         throw std::runtime_error("Send failed");
@@ -84,8 +83,7 @@ void Exchange::send(const json& message) {
 
 json Exchange::receive() {
     while (true) {
-        size_t newline_pos = buffer_.find('
-');
+        size_t newline_pos = buffer_.find('\n');
         if (newline_pos != std::string::npos) {
             std::string line = buffer_.substr(0, newline_pos);
             buffer_.erase(0, newline_pos + 1);
