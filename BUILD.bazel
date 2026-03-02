@@ -2,7 +2,7 @@ load("@rules_shell//shell:sh_test.bzl", "sh_test")
 
 package(default_visibility = ["//visibility:public"])
 
-# --- Python ---
+# --- Citadel ---
 sh_test(
     name = "citadel_python",
     srcs = ["run_python_build.sh"],
@@ -11,18 +11,25 @@ sh_test(
 )
 
 sh_test(
-    name = "jane_street_etc_python",
-    srcs = ["run_python_build.sh"],
-    data = glob(["jane_street/electronic_trading_challenge/python/**"]),
-    tags = ["python"],
-)
-
-# --- C++ ---
-sh_test(
     name = "citadel_cpp",
     srcs = ["run_cpp_build.sh"],
     data = glob(["citadel/citadel-trading-comp/cpp/**"]),
     tags = ["cpp"],
+)
+
+sh_test(
+    name = "citadel_rust",
+    srcs = ["run_rust_build.sh"],
+    data = glob(["citadel/citadel-trading-comp/rust/**"]),
+    tags = ["rust"],
+)
+
+# --- Jane Street ETC ---
+sh_test(
+    name = "jane_street_etc_python",
+    srcs = ["run_python_build.sh"],
+    data = glob(["jane_street/electronic_trading_challenge/python/**"]),
+    tags = ["python"],
 )
 
 sh_test(
@@ -32,14 +39,6 @@ sh_test(
     tags = ["cpp"],
 )
 
-# --- Rust ---
-sh_test(
-    name = "citadel_rust",
-    srcs = ["run_rust_build.sh"],
-    data = glob(["citadel/citadel-trading-comp/rust/**"]),
-    tags = ["rust"],
-)
-
 sh_test(
     name = "jane_street_etc_rust",
     srcs = ["run_rust_build.sh"],
@@ -47,7 +46,7 @@ sh_test(
     tags = ["rust"],
 )
 
-# --- Two Sigma ---
+# --- Two Sigma FM ---
 sh_test(
     name = "two_sigma_fm_python",
     srcs = ["run_python_build.sh"],
