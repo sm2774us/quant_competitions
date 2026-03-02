@@ -105,7 +105,10 @@ def test_main_run(mock_eval, mock_model, mock_proc, mock_loader, mock_market_dat
     mock_eval.return_value.evaluate_with_time.return_value = 0.5
     
     runner = CliRunner()
-    with patch('os.path.exists', return_value=True):
+    # Create real dummy files to satisfy click.Path(exists=True)
+    with runner.isolated_filesystem():
+        with open('m.csv', 'w') as f: f.write('dummy')
+        with open('n.csv', 'w') as f: f.write('dummy')
         from two_sigma_news.main import main
         result = runner.invoke(main, ['run', '--market', 'm.csv', '--news', 'n.csv'])
         assert result.exit_code == 0
