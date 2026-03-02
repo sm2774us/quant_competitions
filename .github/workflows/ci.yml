@@ -7,66 +7,35 @@ on:
     branches: [ main ]
 
 jobs:
-  python-build:
-    runs-on: ubuntu-latest
+  bazel-build:
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
+
+      # --- Toolchain Setup ---
       - name: Set up Python 3.13
         uses: actions/setup-python@v5
         with:
           python-version: '3.13'
       - name: Install Poetry
         run: curl -sSL https://install.python-poetry.org | python3 -
-      - name: Build and Test Python Solutions
-        run: |
-          find . -name "pyproject.toml" | while read -r pyproject; do
-            dir=$(dirname "$pyproject")
-            echo "::group::Building Python project in $dir"
-            cd "$GITHUB_WORKSPACE/$dir"
-            poetry install
-            poetry run pytest || echo "No tests or test failure in $dir"
-            cd "$GITHUB_WORKSPACE"
-            echo "::endgroup::"
-          done
 
-  cpp-build:
-    runs-on: ubuntu-24.04
-    steps:
-      - uses: actions/checkout@v4
-      - name: Install Latest GCC/Clang for C++26
+      - name: Install C++ Tools (GCC 14, CMake, Ninja)
         run: |
           sudo apt-get update
           sudo apt-get install -y g++-14 cmake ninja-build libcurl4-openssl-dev
-      - name: Build and Test C++ Solutions
-        run: |
-          find . -name "CMakeLists.txt" -not -path "*/build/*" | while read -r cmake_file; do
-            dir=$(dirname "$cmake_file")
-            echo "::group::Building C++ project in $dir"
-            cd "$GITHUB_WORKSPACE/$dir"
-            mkdir -p build && cd build
-            cmake .. -G Ninja -DCMAKE_CXX_STANDARD=26 -DCMAKE_CXX_COMPILER=g++-14
-            cmake --build .
-            if [ -f "./citadel_tests" ]; then ./citadel_tests; fi
-            cd "$GITHUB_WORKSPACE"
-            echo "::endgroup::"
-          done
 
-  rust-build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
       - name: Set up Rust 1.93.1
         run: |
           rustup toolchain install stable --profile minimal
           rustup default stable
-      - name: Build and Test Rust Solutions
+
+      # --- Bazel Setup & Execution ---
+      - name: Install Bazelisk
         run: |
-          find . -name "Cargo.toml" | while read -r cargo_file; do
-            dir=$(dirname "$cargo_file")
-            echo "::group::Building Rust project in $dir"
-            cd "$GITHUB_WORKSPACE/$dir"
-            cargo build --release
-            cargo test || echo "No tests or test failure in $dir"
-            cd "$GITHUB_WORKSPACE"
-            echo "::endgroup::"
-          done
+          npm install -g @bazel/bazelisk
+
+      - name: Run All Tests via Bazel
+        run: |
+          # Use Bazel to orchestrate the build/test of all targets defined in BUILD.bazel
+          bazel test //... --test_output=errors

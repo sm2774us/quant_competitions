@@ -1,16 +1,68 @@
-# Global BUILD file for the monorepo
-
 package(default_visibility = ["//visibility:public"])
 
-# Aliases to sub-projects for easier access
-alias(
-    name = "citadel_trading_comp",
-    actual = "//citadel/citadel-trading-comp:build",
+# --- Python ---
+sh_test(
+    name = "citadel_python",
+    srcs = ["run_python_build.sh"],
+    data = glob(["citadel/citadel-trading-comp/python/**"]),
+    tags = ["python"],
 )
 
-alias(
-    name = "jane_street_etc",
-    actual = "//jane_street/electronic_trading_challenge:build",
+sh_test(
+    name = "jane_street_etc_python",
+    srcs = ["run_python_build.sh"],
+    data = glob(["jane_street/electronic_trading_challenge/python/**"]),
+    tags = ["python"],
 )
 
-# ... further aliases as needed
+# --- C++ ---
+sh_test(
+    name = "citadel_cpp",
+    srcs = ["run_cpp_build.sh"],
+    data = glob(["citadel/citadel-trading-comp/cpp/**"]),
+    tags = ["cpp"],
+)
+
+sh_test(
+    name = "jane_street_etc_cpp",
+    srcs = ["run_cpp_build.sh"],
+    data = glob(["jane_street/electronic_trading_challenge/cpp/**"]),
+    tags = ["cpp"],
+)
+
+# --- Rust ---
+sh_test(
+    name = "citadel_rust",
+    srcs = ["run_rust_build.sh"],
+    data = glob(["citadel/citadel-trading-comp/rust/**"]),
+    tags = ["rust"],
+)
+
+sh_test(
+    name = "jane_street_etc_rust",
+    srcs = ["run_rust_build.sh"],
+    data = glob(["jane_street/electronic_trading_challenge/rust/**"]),
+    tags = ["rust"],
+)
+
+# --- Two Sigma ---
+sh_test(
+    name = "two_sigma_fm_python",
+    srcs = ["run_python_build.sh"],
+    data = glob(["two_sigma/financial_modeling_challenge/python/**"]),
+    tags = ["python"],
+)
+
+sh_test(
+    name = "two_sigma_fm_cpp",
+    srcs = ["run_cpp_build.sh"],
+    data = glob(["two_sigma/financial_modeling_challenge/cpp/**"]),
+    tags = ["cpp"],
+)
+
+sh_test(
+    name = "two_sigma_fm_rust",
+    srcs = ["run_rust_build.sh"],
+    data = glob(["two_sigma/financial_modeling_challenge/rust/**"]),
+    tags = ["rust"],
+)
