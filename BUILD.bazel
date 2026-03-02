@@ -13,9 +13,7 @@ sh_test(
     data = glob(
         ["**/*"],
         exclude = ["bazel-*/**", ".git/**", "**/build/**", "**/target/**", "**/node_modules/**"]
-    ) + [
-        "run_python_build.sh"
-    ],
+    ),
     tags = ["python", "automated"],
 )
 
@@ -26,9 +24,7 @@ sh_test(
     data = glob(
         ["**/*"],
         exclude = ["bazel-*/**", ".git/**", "**/build/**", "**/target/**", "**/node_modules/**"]
-    ) + [
-        "run_cpp_build.sh"
-    ],
+    ),
     tags = ["cpp", "automated"],
 )
 
@@ -39,8 +35,6 @@ sh_test(
     data = glob(
         ["**/*"],
         exclude = ["bazel-*/**", ".git/**", "**/build/**", "**/target/**", "**/node_modules/**"]
-    ) + [
-        "run_rust_build.sh"
-    ],
+    ),
     tags = ["rust", "automated"],
 )
