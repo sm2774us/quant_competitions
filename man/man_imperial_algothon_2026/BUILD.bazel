@@ -1,0 +1,98 @@
+load("@rules_python//python:defs.bzl", "py_binary", "py_library", "py_test")
+load("@pip_deps//:requirements.bzl", "requirement")
+
+# ============================================================================
+# Python libraries
+# ============================================================================
+
+py_library(
+    name = "data_loader",
+    srcs = ["src/python/data/loader.py"],
+    deps = [
+        requirement("numpy"),
+        requirement("polars"),
+    ],
+    visibility = ["//visibility:public"],
+)
+
+py_library(
+    name = "momentum_signals",
+    srcs = ["src/python/signals/momentum.py"],
+    deps = [
+        ":data_loader",
+        requirement("numpy"),
+        requirement("polars"),
+        requirement("scipy"),
+    ],
+    visibility = ["//visibility:public"],
+)
+
+py_library(
+    name = "portfolio_optimizer",
+    srcs = [
+        "src/python/portfolio/optimizer.py",
+        "src/python/portfolio/risk.py",
+    ],
+    deps = [
+        requirement("numpy"),
+        requirement("polars"),
+        requirement("scipy"),
+        requirement("scikit-learn"),
+    ],
+    visibility = ["//visibility:public"],
+)
+
+# ============================================================================
+# Main binary
+# ============================================================================
+
+py_binary(
+    name = "algothon",
+    srcs = ["src/python/execution/engine.py"],
+    main = "src/python/execution/engine.py",
+    deps = [
+        ":data_loader",
+        ":momentum_signals",
+        ":portfolio_optimizer",
+        requirement("numpy"),
+        requirement("polars"),
+        requirement("scipy"),
+        requirement("scikit-learn"),
+    ],
+    data = ["//data/sample:all_csvs"],
+)
+
+# ============================================================================
+# Python tests
+# ============================================================================
+
+py_test(
+    name  = "test_loader",
+    srcs  = ["tests/python/test_loader.py"],
+    deps  = [
+        ":data_loader",
+        requirement("pytest"),
+    ],
+    data  = ["//data/sample:all_csvs"],
+)
+
+py_test(
+    name  = "test_signals",
+    srcs  = ["tests/python/test_signals.py"],
+    deps  = [
+        ":data_loader",
+        ":momentum_signals",
+        requirement("pytest"),
+    ],
+    data  = ["//data/sample:all_csvs"],
+)
+
+py_test(
+    name  = "test_optimizer",
+    srcs  = ["tests/python/test_optimizer.py"],
+    deps  = [
+        ":portfolio_optimizer",
+        requirement("pytest"),
+        requirement("numpy"),
+    ],
+)

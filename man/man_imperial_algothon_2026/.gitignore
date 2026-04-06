@@ -1,0 +1,87 @@
+# ============================================================
+# Algothon 2026 .gitignore
+# ============================================================
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+htmlcov/
+.coverage
+coverage.xml
+*.log
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints/
+
+# C++ build artifacts
+build_cpp/
+build/
+cmake-build-*/
+*.o
+*.a
+*.out
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+install_manifest.txt
+_deps/
+
+# Bazel
+bazel-*
+.bazel/
+
+# Docker
+.dockerignore
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Secrets & credentials
+.env
+.env.local
+*.pem
+*.key
+secrets/
+
+# Generated submission files (keep template, not actuals)
+submissions/
+!submissions/.gitkeep
+
+# Data (large CSVs — store in DVC or separately)
+data/sample/*.csv
+
+# LaTeX build artifacts
+research/*.aux
+research/*.log
+research/*.out
+research/*.toc
+research/*.bbl
+research/*.blg
+research/*.synctex.gz
+research/*.fls
+research/*.fdb_latexmk
+research/_minted*/
+
+# Nanobind / wheel output
+*.whl
+src/python/algothon_cpp*.so
+src/python/algothon_cpp*.pyd

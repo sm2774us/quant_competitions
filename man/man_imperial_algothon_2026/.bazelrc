@@ -1,0 +1,40 @@
+# .bazelrc — Bazel configuration for algothon-2026
+
+# ============================================================================
+# Common settings
+# ============================================================================
+common --enable_bzlmod=false          # Use WORKSPACE-based dependency management
+
+# ============================================================================
+# Build settings
+# ============================================================================
+build --cxxopt=-std=c++26
+build --cxxopt=-O3
+build --cxxopt=-march=native
+build --cxxopt=-ffast-math
+build --cxxopt=-Wall
+build --cxxopt=-Wextra
+build --compilation_mode=opt
+
+# Python 3.13
+build --python_version=PY3
+build --extra_toolchains=@python_3_13//:all
+
+# ============================================================================
+# Test settings
+# ============================================================================
+test --test_output=all
+test --test_verbose_timeout_warnings
+
+# ============================================================================
+# CI settings (used in GitHub Actions)
+# ============================================================================
+build:ci --loading_phase_threads=4
+build:ci --jobs=4
+build:ci --show_progress_rate_limit=10
+
+# ============================================================================
+# Docker/sandbox settings
+# ============================================================================
+build:docker --spawn_strategy=sandboxed
+build:docker --sandbox_debug=false

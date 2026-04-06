@@ -70,6 +70,10 @@ graph TD
 - **[financial-modeling-challenge](./two_sigma/financial_modeling_challenge/)**: Predictive modeling for global markets.
 - **[predicting-stock-using-news](./two_sigma/predicting_stock_using_news/)**: NLP-driven sentiment analysis for stock movement.
 
+### :busts_in_silhouette: [MAN Group](./man/)
+- **[financial-modeling-challenge](./two_sigma/financial_modeling_challenge/)**: Predictive modeling for global markets.
+- **[predicting-stock-using-news](./two_sigma/predicting_stock_using_news/)**: NLP-driven sentiment analysis for stock movement.
+
 ---
 
 ## 📐 Quantitative Foundations

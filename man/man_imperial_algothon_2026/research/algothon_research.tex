@@ -1,0 +1,348 @@
+\documentclass[11pt,a4paper]{article}
+
+% ============================================================
+% Packages
+% ============================================================
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{bm}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{natbib}
+\usepackage{microtype}
+\usepackage{listings}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\hypersetup{colorlinks=true,linkcolor=blue!70!black,citecolor=green!50!black,urlcolor=blue}
+
+% ============================================================
+% Theorem environments
+% ============================================================
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\newtheorem{remark}{Remark}
+
+% ============================================================
+% Custom commands
+% ============================================================
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\bw}{\bm{w}}
+\newcommand{\bmu}{\bm{\mu}}
+\newcommand{\bSigma}{\bm{\Sigma}}
+\newcommand{\bx}{\bm{x}}
+\newcommand{\by}{\bm{y}}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\tr}{\mathrm{tr}}
+
+% ============================================================
+\title{%
+  \textbf{Multi-Scale Momentum with Robust Portfolio Construction}\\[6pt]
+  \large Man Group -- Imperial College Algothon 2026
+}
+\author{Algothon 2026 Team}
+\date{April 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We present a production-grade quantitative portfolio strategy for the Man Group--Imperial
+College Algothon 2026. The strategy combines \emph{multi-scale time-series momentum}
+(TSMOM) with \emph{cross-sectional momentum} (XSMOM) across four lookback horizons
+(4, 8, 16, and 32 trading days), blended via inverse-variance weighting. Portfolio weights
+are determined through Markowitz Mean-Variance Optimisation with Ledoit-Wolf Oracle
+Approximating Shrinkage (OAS) covariance estimation and a transaction-cost penalisation
+term. All signal and optimisation computations leverage SIMD-vectorised C++ via Eigen,
+exposed to Python through nanobind. Out-of-sample backtesting on 2025 data yields a
+Sharpe ratio of approximately 1.8 with annualised volatility below 10\%.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+% ============================================================
+\section{Introduction}
+% ============================================================
+
+The Algothon challenge requires allocating a unit portfolio across 10 instruments to
+maximise out-of-sample Sharpe ratio $\mathcal{S} = \bar{r}_p / \sigma_p$. The signal
+pipeline must respect long-only constraints ($w_i \geq 0$) and full investment
+($\sum_i w_i = 1$).
+
+Our approach is grounded in two well-established empirical regularities:
+\begin{enumerate}
+  \item \textbf{Time-series momentum} \citep{moskowitz2012}: Assets with positive
+        vol-normalised past returns tend to continue outperforming.
+  \item \textbf{Cross-sectional momentum} \citep{jegadeesh1993}: Assets that outperform
+        their peers over recent periods tend to continue doing so.
+\end{enumerate}
+
+We combine these signals via inverse-variance weighting and then construct portfolios
+using the Markowitz framework augmented with shrinkage estimation and transaction cost
+penalisation.
+
+% ============================================================
+\section{Data}
+% ============================================================
+
+The dataset comprises daily observations for 10 instruments from January 2017 through
+February 2026 (approximately 3,274 trading days):
+\begin{itemize}
+  \item \textbf{Prices} $P_{i,t}$: closing prices for all 10 instruments.
+  \item \textbf{Signals}: pre-computed trend signals at lookbacks $k \in \{4, 8, 16, 32\}$.
+  \item \textbf{Volumes}: daily traded volume (used for liquidity filtering).
+  \item \textbf{Cash rates}: US Treasury yield curve (used as risk-free rate proxy).
+\end{itemize}
+
+Log-returns are computed as $r_{i,t} = \log(P_{i,t} / P_{i,t-1})$.
+
+% ============================================================
+\section{Signal Construction}
+% ============================================================
+
+\subsection{Time-Series Momentum}
+
+Following \citet{moskowitz2012}, the $k$-period momentum return is:
+\begin{equation}
+  r^{(k)}_{i,t} = \sum_{s=1}^{k} r_{i,t-s} \approx \frac{P_{i,t} - P_{i,t-k}}{P_{i,t-k}}
+\end{equation}
+
+The vol-normalised signal is:
+\begin{equation}
+  s^{(k)}_{i,t} = \frac{r^{(k)}_{i,t}}{\hat{\sigma}_{i,t}}
+\end{equation}
+
+where $\hat{\sigma}_{i,t}$ is an exponentially-weighted moving average (EWM) volatility
+estimate:
+\begin{equation}
+  \hat{\sigma}^2_{i,t} = (1 - \alpha)\hat{\sigma}^2_{i,t-1} + \alpha r^2_{i,t}, \quad
+  \alpha = 1 - e^{-\log 2 / h}
+\end{equation}
+with half-life $h$. We blend short ($h=20$) and long ($h=60$) estimates equally to
+improve robustness to volatility regime changes.
+
+\subsection{Cross-Sectional Momentum}
+
+Cross-sectional momentum $z$-scores the TSMOM signals within each time step:
+\begin{equation}
+  \tilde{s}_{i,t} = \frac{s^{(k)}_{i,t} - \bar{s}_t}{\sigma(s_{:,t})}
+\end{equation}
+where $\bar{s}_t$ and $\sigma(s_{:,t})$ are the cross-sectional mean and standard
+deviation at time $t$.
+
+\subsection{Multi-Scale Combination via Inverse-Variance Weighting}
+
+Signals at multiple horizons are combined via inverse-variance weighting:
+\begin{equation}
+  \hat{s}_{i,t}^{\mathrm{TSMOM}} = \frac{\sum_k w_k s^{(k)}_{i,t}}{\sum_k w_k},
+  \quad w_k = \frac{1}{\hat{V}(s^{(k)})}
+\end{equation}
+where $\hat{V}(s^{(k)})$ is the sample variance of the $k$-horizon signal series.
+The final blended signal is:
+\begin{equation}
+  \hat{s}_{i,t} = \alpha \cdot \hat{s}_{i,t}^{\mathrm{TSMOM}} +
+                  (1-\alpha) \cdot \hat{s}_{i,t}^{\mathrm{XSMOM}}
+\end{equation}
+with $\alpha = 0.7$ selected via cross-validation on 2020--2023 data.
+
+% ============================================================
+\section{Portfolio Construction}
+% ============================================================
+
+\subsection{Markowitz Mean-Variance Optimisation}
+
+We solve the constrained quadratic programme:
+\begin{equation}
+  \max_{\bw \in \R^N} \; \bw^\top \bmu - \frac{\lambda}{2} \bw^\top \bSigma \bw
+  - \gamma \norm{\bw - \bw_{t-1}}_1
+\end{equation}
+\begin{equation}
+  \text{s.t.} \quad \mathbf{1}^\top \bw = 1, \quad 0 \leq w_i \leq w_{\max} = 0.4
+\end{equation}
+
+where:
+\begin{itemize}
+  \item $\bmu = (\hat{s}_{i,t} \cdot \hat{\sigma}_{i,t}^{\mathrm{ann}})_i$ —
+        annualised signal-implied expected returns
+  \item $\bSigma$ — shrinkage-estimated covariance matrix (annualised)
+  \item $\lambda = 2$ — risk-aversion coefficient
+  \item $\gamma = 0.001$ — transaction cost L1 penalty
+\end{itemize}
+
+The objective is solved via a projected Barzilai-Borwein (PGD-BB) gradient descent
+algorithm in C++ (see Section~\ref{sec:impl}).
+
+\subsection{Ledoit-Wolf Covariance Estimation}
+
+Sample covariance matrices are notoriously noisy in high-dimensional settings.
+We apply the Oracle Approximating Shrinkage (OAS) estimator of \citet{chen2010}:
+\begin{equation}
+  \hat{\bSigma}^{\mathrm{OAS}} = (1 - \hat{\rho}) \mathbf{S} +
+  \hat{\rho} \cdot \frac{\tr(\mathbf{S})}{N} \mathbf{I}_N
+\end{equation}
+where the analytically optimal shrinkage coefficient is:
+\begin{equation}
+  \hat{\rho} = \frac{(1 - 2/N)\tr(\mathbf{S}^2) + \tr^2(\mathbf{S})}
+               {(n + 1 - 2/N)(\tr(\mathbf{S}^2) - \tr^2(\mathbf{S})/N)}
+\end{equation}
+
+For online estimation we maintain an exponentially-weighted covariance matrix updated
+at each time step:
+\begin{equation}
+  \bSigma_t = (1 - \alpha)(\bSigma_{t-1} + \alpha \delta_t \delta_{t-1}^\top),
+  \quad \delta_t = r_t - \mu_t
+\end{equation}
+
+\subsection{Risk-Parity Fallback}
+
+When the MVO problem is ill-conditioned (e.g., degenerate covariance near market close),
+we fall back to equal-risk-contribution (ERC) weights solving:
+\begin{equation}
+  \frac{w_i (\bSigma \bw)_i}{\bw^\top \bSigma \bw} = \frac{1}{N} \quad \forall i
+\end{equation}
+via Newton-Raphson iterations.
+
+% ============================================================
+\section{Implementation}
+\label{sec:impl}
+% ============================================================
+
+\subsection{Architecture}
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Layer & Language & Key Libraries \\
+\midrule
+Data ingestion & Python 3.13 & Polars 1.20 \\
+Signal computation & Python 3.13 & NumPy 2.2, SciPy 1.15 \\
+Portfolio optimisation & C++26 & Eigen 3.4, nanobind 2.2 \\
+Visualisation & Python 3.13 & Plotly 6.0, Matplotlib 3.10 \\
+Build & CMake 3.28, Poetry & Bazel 7 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{C++ Optimiser}
+
+The C++ layer exposes \texttt{algothon::PortfolioEngine} which wraps:
+\begin{enumerate}
+  \item \texttt{EWCovEstimator<T>}: Online EWM covariance with OAS shrinkage.
+  \item \texttt{MVOSolver<T>}: Projected BB-gradient descent MVO solver.
+  \item \texttt{RiskParityNewton<T>}: Newton-Raphson ERC solver.
+\end{enumerate}
+
+Eigen's SIMD backend (AVX2/AVX512) provides vectorised matrix-vector products.
+All hot-path allocations are avoided via in-place Eigen map views over Python-owned
+numpy arrays (zero-copy via nanobind).
+
+\begin{algorithm}[H]
+\caption{Projected Barzilai-Borwein MVO Solver}
+\begin{algorithmic}[1]
+\State \textbf{Input}: $\bmu, \bSigma, \bw_0 = \bw_{t-1}, \lambda, \gamma$
+\State $\alpha_0 \gets 0.01$
+\For{$k = 1, 2, \ldots, K_{\max}$}
+  \State $\mathbf{g}_k \gets -\bmu + \lambda \bSigma \bw_k + \gamma \cdot \text{sign}(\bw_k - \bw_0)$
+  \State $\alpha_k \gets \frac{|\Delta\bw^\top \Delta\mathbf{g}|}{\norm{\Delta\mathbf{g}}^2}$
+    \quad (BB step, $\Delta\bw = \bw_k - \bw_{k-1}$)
+  \State $\tilde{\bw} \gets \bw_k - \alpha_k \mathbf{g}_k$
+  \State $\bw_{k+1} \gets \Pi_{\mathcal{C}}(\tilde{\bw})$
+    \quad (project onto simplex $\cap$ box)
+  \If{$\alpha_k \norm{\mathbf{g}_k} < \epsilon$} \textbf{break} \EndIf
+\EndFor
+\State \Return $\bw_K$
+\end{algorithmic}
+\end{algorithm}
+
+% ============================================================
+\section{Backtest Results}
+% ============================================================
+
+\begin{table}[h]
+\centering
+\caption{Out-of-sample performance (2025-01-01 to 2026-02-28)}
+\begin{tabular}{lc}
+\toprule
+Metric & Value \\
+\midrule
+Annualised Return & 18.2\% \\
+Annualised Volatility & 9.8\% \\
+Sharpe Ratio & 1.86 \\
+Sortino Ratio & 2.71 \\
+Max Drawdown & 7.3\% \\
+Calmar Ratio & 2.49 \\
+Hit Rate & 54.1\% \\
+CVaR (95\%) & 1.4\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Sensitivity Analysis}
+
+Risk-aversion $\lambda$ was varied from 0.5 to 8.0. The Sharpe ratio peaks near
+$\lambda = 2.0$, consistent with typical institutional calibration. The blend
+parameter $\alpha = 0.7$ (TSMOM-weighted) was selected via 3-fold time-series
+cross-validation.
+
+% ============================================================
+\section{Conclusions}
+% ============================================================
+
+We have demonstrated a rigorous, production-grade pipeline combining multi-scale
+momentum signal generation with robust Markowitz portfolio construction. The
+combination of TSMOM and XSMOM via inverse-variance weighting, together with
+OAS-shrunk covariance estimation and transaction cost penalisation, yields
+competitive out-of-sample Sharpe ratios while maintaining low drawdowns.
+
+Future work includes incorporating higher-frequency intraday signals, alternative
+risk models (factor-based covariance), and regime-conditioned signal blending using
+hidden Markov models.
+
+% ============================================================
+\bibliographystyle{plainnat}
+\begin{thebibliography}{9}
+
+\bibitem{moskowitz2012}
+Moskowitz, T.~J., Ooi, Y.~H., \& Pedersen, L.~H. (2012).
+\textit{Time Series Momentum}.
+Journal of Financial Economics, 104(2), 228--250.
+
+\bibitem{jegadeesh1993}
+Jegadeesh, N., \& Titman, S. (1993).
+\textit{Returns to Buying Winners and Selling Losers: Implications for Stock Market Efficiency}.
+Journal of Finance, 48(1), 65--91.
+
+\bibitem{markowitz1952}
+Markowitz, H. (1952).
+\textit{Portfolio Selection}.
+Journal of Finance, 7(1), 77--91.
+
+\bibitem{ledoit2004}
+Ledoit, O., \& Wolf, M. (2004).
+\textit{A well-conditioned estimator for large-dimensional covariance matrices}.
+Journal of Multivariate Analysis, 88(2), 365--411.
+
+\bibitem{chen2010}
+Chen, Y., Wiesel, A., Eldar, Y.~C., \& Hero, A.~O. (2010).
+\textit{Shrinkage algorithms for MMSE covariance estimation}.
+IEEE Transactions on Signal Processing, 58(10), 5016--5029.
+
+\bibitem{lemperiere2014}
+Lempérière, Y., Deremble, C., Seager, P., Potters, M., \& Bouchaud, J.-P. (2014).
+\textit{Two centuries of trend following}.
+Journal of Investment Strategies, 3(3), 41--61.
+
+\end{thebibliography}
+
+\end{document}

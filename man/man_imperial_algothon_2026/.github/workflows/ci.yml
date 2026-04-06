@@ -1,0 +1,201 @@
+name: Algothon 2026 CI/CD
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      round_number:
+        description: "Hackathon round number"
+        required: false
+        default: "1"
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}/algothon-2026
+
+jobs:
+  # ── Python linting & type-checking ────────────────────────────────────────
+  lint:
+    name: Lint & Type Check
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: "pip"
+
+      - name: Install dev dependencies
+        run: |
+          pip install poetry
+          poetry install --only dev
+
+      - name: Ruff lint
+        run: poetry run ruff check src/python
+
+      - name: Mypy type check
+        run: poetry run mypy src/python --ignore-missing-imports
+
+      - name: Black format check
+        run: poetry run black --check src/python
+
+  # ── C++ build & unit tests ────────────────────────────────────────────────
+  cpp-tests:
+    name: C++ Build & Tests
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake ninja-build gcc-14 g++-14 \
+            python3.13 python3.13-dev libpython3.13-dev
+
+      - name: Configure CMake
+        run: |
+          cmake -S . -B build \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_CXX_COMPILER=g++-14 \
+            -GNinja
+
+      - name: Build
+        run: cmake --build build --parallel 4
+
+      - name: Run C++ tests
+        run: cd build && ctest --output-on-failure --parallel 4
+
+  # ── Python tests via Bazel ─────────────────────────────────────────────────
+  python-tests:
+    name: Python Tests (Bazel)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Mount Bazel cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/bazel
+          key: bazel-${{ runner.os }}-${{ hashFiles('WORKSPACE', 'BUILD.bazel') }}
+
+      - name: Install Bazel
+        uses: bazel-contrib/setup-bazel@0.8.1
+        with:
+          bazelisk-version: "1.x"
+
+      - name: Run Python tests
+        run: |
+          bazel test //... \
+            --config=ci \
+            --test_output=all \
+            --build_tests_only
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./coverage.xml
+          flags: python
+
+  # ── Docker build & push ────────────────────────────────────────────────────
+  docker:
+    name: Build & Push Docker Image
+    needs: [lint, cpp-tests, python-tests]
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=sha,prefix=sha-
+            type=ref,event=branch
+            type=semver,pattern={{version}}
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          target: runtime
+
+  # ── Generate hackathon submission ─────────────────────────────────────────
+  generate-submission:
+    name: Generate Submission
+    needs: [docker]
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install runtime deps
+        run: |
+          pip install poetry
+          poetry install --only main
+
+      - name: Generate submission CSV
+        run: |
+          poetry run python -m src.python.execution.engine \
+            --data-dir data/sample \
+            --team ${{ vars.TEAM_NAME || 'algothon_team' }} \
+            --round ${{ github.event.inputs.round_number || '1' }} \
+            --backtest \
+            --output-dir submissions
+
+      - name: Upload submission artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: submission-round-${{ github.event.inputs.round_number || '1' }}
+          path: submissions/*.csv
+
+      - name: Notify Slack – Success
+        if: success()
+        uses: slackapi/slack-github-action@v1.27.0
+        with:
+          payload: |
+            {
+              "text": "✅ *Algothon 2026 – Round ${{ github.event.inputs.round_number || '1' }}*\nSubmission generated successfully!\n• Branch: `${{ github.ref_name }}`\n• Commit: `${{ github.sha }}`\n• <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Run>"
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+
+      - name: Notify Slack – Failure
+        if: failure()
+        uses: slackapi/slack-github-action@v1.27.0
+        with:
+          payload: |
+            {
+              "text": "❌ *Algothon 2026 – CI FAILED*\n• Branch: `${{ github.ref_name }}`\n• Commit: `${{ github.sha }}`\n• <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Failure>"
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK

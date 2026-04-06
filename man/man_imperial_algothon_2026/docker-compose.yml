@@ -1,0 +1,56 @@
+version: "3.9"
+
+services:
+  # ── Strategy Engine ──────────────────────────────────────────────────────
+  algothon:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runtime
+    container_name: algothon_engine
+    volumes:
+      - ./data:/app/data:ro
+      - ./submissions:/app/submissions
+    environment:
+      - TEAM_NAME=${TEAM_NAME:-algothon_team}
+      - ROUND_NUMBER=${ROUND_NUMBER:-1}
+      - RISK_AVERSION=${RISK_AVERSION:-2.0}
+      - BLEND_ALPHA=${BLEND_ALPHA:-0.7}
+    command: >
+      --data-dir /app/data/sample
+      --team ${TEAM_NAME:-algothon_team}
+      --round ${ROUND_NUMBER:-1}
+      --backtest
+    networks:
+      - algothon_net
+
+  # ── JupyterLab ────────────────────────────────────────────────────────────
+  jupyter:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: builder
+    container_name: algothon_jupyter
+    volumes:
+      - ./notebooks:/app/notebooks
+      - ./data:/app/data:ro
+      - ./submissions:/app/submissions
+    ports:
+      - "8888:8888"
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+    command: >
+      bash -c "poetry run jupyter lab
+      --ip=0.0.0.0
+      --port=8888
+      --no-browser
+      --allow-root
+      --NotebookApp.token=''
+      --NotebookApp.password=''
+      --notebook-dir=/app/notebooks"
+    networks:
+      - algothon_net
+
+networks:
+  algothon_net:
+    driver: bridge
