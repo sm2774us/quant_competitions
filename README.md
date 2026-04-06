@@ -71,8 +71,7 @@ graph TD
 - **[predicting-stock-using-news](./two_sigma/predicting_stock_using_news/)**: NLP-driven sentiment analysis for stock movement.
 
 ### :busts_in_silhouette: [MAN Group](./man/)
-- **[financial-modeling-challenge](./two_sigma/financial_modeling_challenge/)**: Predictive modeling for global markets.
-- **[predicting-stock-using-news](./two_sigma/predicting_stock_using_news/)**: NLP-driven sentiment analysis for stock movement.
+- **[man_imperial_algothon_2026](./man/man_imperial_algothon_2026/)**: Man Group's Quant Hackthon with Imperial University 2026.
 
 ---
 
