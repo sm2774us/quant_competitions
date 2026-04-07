@@ -1,13 +1,85 @@
+# ==============================================================================
+# BUILD.bazel — root-level unified Bazel gateway for algothon-2026
+#
+# Design principle: THIS FILE IS THE SINGLE ENTRY-POINT for all operations.
+#
+# Compile:  bazel build //...
+# C++ ext:  bazel build //src/cpp:algothon_cpp_ext
+# Test all: bazel test  //...
+# Run:      bazel run  //:backtest
+#           bazel run  //:submit   [-- --round 2]
+#           bazel run  //:jupyter
+#           bazel run  //:docker_build
+#           bazel run  //:docker_jupyter
+#
+# Convenience aliases:
+#           bazel build //:all          — build every artifact
+#           bazel test  //:test_py      — Python tests only
+#           bazel test  //src/cpp:...   — C++ tests only
+#
+# Cross-platform note:
+#   All run targets use py_binary (scripts/runner.py), NOT sh_binary.
+#   This ensures `bazel run` works identically on Windows 11, Linux, macOS
+#   without requiring MSYS2, Cygwin, or any POSIX shell.
+# ==============================================================================
+
 load("@rules_python//python:defs.bzl", "py_binary", "py_library", "py_test")
 load("@pip_deps//:requirements.bzl", "requirement")
 
-# ============================================================================
-# Python libraries
-# ============================================================================
+# ==============================================================================
+# 0. Shared dep list — avoids repetition across algothon + runner targets
+# ==============================================================================
+
+_ALGOTHON_RUNTIME_DEPS = [
+    ":data_loader",
+    ":momentum_signals",
+    ":portfolio_optimizer",
+    requirement("numpy"),
+    requirement("polars"),
+    requirement("scipy"),
+    requirement("scikit-learn"),
+    requirement("loguru"),
+    requirement("rich"),
+]
+
+# ==============================================================================
+# 0b. Filegroups used by //src/cpp:algothon_cpp_ext (cmake() source set)
+# ==============================================================================
+
+# All C++ source/header files plus CMakeLists.txt — passed as lib_source to
+# rules_foreign_cc cmake().  Adding CMakeLists.txt here ensures Bazel
+# re-runs cmake when any of these files change (correct invalidation).
+filegroup(
+    name = "cpp_srcs_and_cmake",
+    srcs = glob([
+        "src/cpp/**/*.cpp",
+        "src/cpp/**/*.h",
+        "CMakeLists.txt",
+    ]),
+    visibility = ["//src/cpp:__pkg__"],
+)
+
+# All CSV data files used by run targets and py_test data deps.
+filegroup(
+    name = "sample_data",
+    srcs = glob(["data/sample/*.csv"]),
+    visibility = ["//visibility:public"],
+)
+
+# ==============================================================================
+# 1. Python libraries
+#    imports = ["src/python"] adds src/python to PYTHONPATH for every target
+#    that depends on these libs — eliminating all sys.path manipulation.
+# ==============================================================================
 
 py_library(
     name = "data_loader",
-    srcs = ["src/python/data/loader.py"],
+    srcs = [
+        "src/python/__init__.py",
+        "src/python/data/__init__.py",
+        "src/python/data/loader.py",
+    ],
+    imports = ["src/python"],
     deps = [
         requirement("numpy"),
         requirement("polars"),
@@ -17,7 +89,11 @@ py_library(
 
 py_library(
     name = "momentum_signals",
-    srcs = ["src/python/signals/momentum.py"],
+    srcs = [
+        "src/python/signals/__init__.py",
+        "src/python/signals/momentum.py",
+    ],
+    imports = ["src/python"],
     deps = [
         ":data_loader",
         requirement("numpy"),
@@ -30,9 +106,11 @@ py_library(
 py_library(
     name = "portfolio_optimizer",
     srcs = [
+        "src/python/portfolio/__init__.py",
         "src/python/portfolio/optimizer.py",
         "src/python/portfolio/risk.py",
     ],
+    imports = ["src/python"],
     deps = [
         requirement("numpy"),
         requirement("polars"),
@@ -42,57 +120,134 @@ py_library(
     visibility = ["//visibility:public"],
 )
 
-# ============================================================================
-# Main binary
-# ============================================================================
+# ==============================================================================
+# 2. Main Python binary — the core CLI engine.
+#    imports = ["src/python"] propagates to all transitive dependents,
+#    making `from data.loader import DataLoader` work everywhere.
+# ==============================================================================
 
 py_binary(
     name = "algothon",
-    srcs = ["src/python/execution/engine.py"],
-    main = "src/python/execution/engine.py",
+    srcs = [
+        "src/python/execution/__init__.py",
+        "src/python/execution/engine.py",
+    ],
+    main    = "src/python/execution/engine.py",
+    imports = ["src/python"],
+    data    = [":sample_data"],
+    deps    = _ALGOTHON_RUNTIME_DEPS,
+    visibility = ["//visibility:public"],
+)
+
+# ==============================================================================
+# 3. Unified runner — py_binary gateway targets (cross-platform: Win/Lin/Mac)
+#
+#    scripts/runner.py reads sys.argv[1] to dispatch:
+#      backtest | submit | jupyter | docker_build | docker_jupyter | docker_down
+#
+#    `bazel run //:backtest` passes "backtest" as the first arg via `args`.
+#    Environment variables TEAM_NAME, ROUND_NUMBER, RISK_AVERSION, BLEND_ALPHA,
+#    DATA_DIR, OUTPUT_DIR are forwarded from the calling shell transparently.
+#
+#    Delta from original: sh_binary → py_binary.
+#    Rationale: sh_binary requires a POSIX shell (breaks on Windows 11 without
+#    MSYS2).  py_binary + rules_python toolchain works on all platforms.
+# ==============================================================================
+
+py_binary(
+    name = "backtest",
+    srcs = ["scripts/runner.py"],
+    main = "scripts/runner.py",
+    args = ["backtest"],
+    imports = ["src/python"],
+    data  = [":sample_data"],
+    deps  = _ALGOTHON_RUNTIME_DEPS,
+)
+
+py_binary(
+    name = "submit",
+    srcs = ["scripts/runner.py"],
+    main = "scripts/runner.py",
+    args = ["submit"],
+    imports = ["src/python"],
+    data  = [":sample_data"],
+    deps  = _ALGOTHON_RUNTIME_DEPS,
+)
+
+py_binary(
+    name = "jupyter",
+    srcs = ["scripts/runner.py"],
+    main = "scripts/runner.py",
+    args = ["jupyter"],
+    imports = ["src/python"],
+    data  = [":sample_data"],
+    deps  = _ALGOTHON_RUNTIME_DEPS + [requirement("jupyterlab")],
+)
+
+py_binary(
+    name = "docker_build",
+    srcs = ["scripts/runner.py"],
+    main = "scripts/runner.py",
+    args = ["docker_build"],
+    deps = [],
+)
+
+py_binary(
+    name = "docker_jupyter",
+    srcs = ["scripts/runner.py"],
+    main = "scripts/runner.py",
+    args = ["docker_jupyter"],
+    deps = [],
+)
+
+py_binary(
+    name = "docker_down",
+    srcs = ["scripts/runner.py"],
+    main = "scripts/runner.py",
+    args = ["docker_down"],
+    deps = [],
+)
+
+# ==============================================================================
+# 4. Python tests
+# ==============================================================================
+
+py_test(
+    name = "test_py",
+    srcs = ["tests/python/test_all.py"],
+    main = "tests/python/test_all.py",
+    imports = ["src/python"],
+    data = [":sample_data"],
     deps = [
         ":data_loader",
         ":momentum_signals",
         ":portfolio_optimizer",
+        requirement("pytest"),
         requirement("numpy"),
         requirement("polars"),
         requirement("scipy"),
         requirement("scikit-learn"),
     ],
-    data = ["//data/sample:all_csvs"],
+    args = [
+        "--tb=short",
+        "-v",
+        "tests/python/test_all.py",
+    ],
+    python_version = "PY3",
 )
 
-# ============================================================================
-# Python tests
-# ============================================================================
+# ==============================================================================
+# 5. Convenience aliases and meta-targets
+# ==============================================================================
 
-py_test(
-    name  = "test_loader",
-    srcs  = ["tests/python/test_loader.py"],
-    deps  = [
-        ":data_loader",
-        requirement("pytest"),
-    ],
-    data  = ["//data/sample:all_csvs"],
+# //:all  — build every artifact in one shot
+alias(
+    name = "all",
+    actual = "//src/cpp:algothon_cpp_ext",
 )
 
-py_test(
-    name  = "test_signals",
-    srcs  = ["tests/python/test_signals.py"],
-    deps  = [
-        ":data_loader",
-        ":momentum_signals",
-        requirement("pytest"),
-    ],
-    data  = ["//data/sample:all_csvs"],
-)
-
-py_test(
-    name  = "test_optimizer",
-    srcs  = ["tests/python/test_optimizer.py"],
-    deps  = [
-        ":portfolio_optimizer",
-        requirement("pytest"),
-        requirement("numpy"),
-    ],
+# //:test_cpp — proxy to the C++ test suite in //src/cpp
+alias(
+    name = "test_cpp",
+    actual = "//src/cpp:cpp_tests",
 )

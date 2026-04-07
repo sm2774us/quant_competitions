@@ -17,14 +17,19 @@ import numpy as np
 import polars as pl
 import pytest
 
-_ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(_ROOT / "src" / "python"))
+# Internal imports — resolvable because:
+#   • Bazel:  `imports = ["src/python"]` in py_test propagates PYTHONPATH.
+#   • Poetry: top-level packages installed via pyproject.toml `packages` declaration.
+# No sys.path manipulation required.
+# _ROOT = Path(__file__).resolve().parents[2]
+# sys.path.insert(0, str(_ROOT / "src" / "python"))
 
 from data.loader import DataLoader, AlgothonDataset, _INSTRUMENTS
 from signals.momentum import MomentumEngine, MomentumSignals
 from portfolio.optimizer import MVOOptimizer
 from portfolio.risk import PerformanceAnalytics
 
+_ROOT = Path(__file__).resolve().parents[2]
 _DATA_DIR = _ROOT / "data" / "sample"
 
 

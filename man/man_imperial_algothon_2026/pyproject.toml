@@ -1,76 +1,93 @@
 [tool.poetry]
 name        = "algothon-2026"
 version     = "1.0.0"
-description = "Man Group Imperial Algothon 2026 – Quantitative Portfolio Strategy"
-authors     = ["Algothon 2026 Team <algothon@example.com>"]
+description = "Algothon 2026 — Man Group × Imperial quantitative strategy engine"
+authors     = ["Algothon 2026 Team"]
+license     = "Proprietary"
 readme      = "README.md"
-license     = "Apache-2.0"
-packages    = [{ include = "src/python" }]
+python      = "^3.13"
+
+# ---------------------------------------------------------------------------
+# src-layout: all importable packages live under src/python/.
+# After `poetry install`, the following top-level imports resolve without
+# any sys.path manipulation:
+#
+#   from data.loader        import DataLoader
+#   from signals.momentum   import MomentumEngine
+#   from portfolio.optimizer import MVOOptimizer
+#   from portfolio.risk      import PerformanceAnalytics
+#   from execution.engine    import AlgothonEngine
+# ---------------------------------------------------------------------------
+packages = [
+    { include = "data",      from = "src/python" },
+    { include = "signals",   from = "src/python" },
+    { include = "portfolio", from = "src/python" },
+    { include = "execution", from = "src/python" },
+]
 
 [tool.poetry.dependencies]
-python          = "^3.13"
+python        = "^3.13"
+numpy         = "^2.1"
+polars        = "^1.9"
+scipy         = "^1.14"
+scikit-learn  = "^1.5"
+loguru        = "^0.7"
+rich          = "^13.9"
+jupyterlab    = { version = "^4.3", optional = true }
 
-# Core scientific stack
-numpy           = "^2.2"
-polars          = "^1.20"
-scipy           = "^1.15"
-scikit-learn    = "^1.6"
-
-# Portfolio & finance
-cvxpy           = "^1.6"            # Convex optimisation fallback
-
-# Plotting
-plotly          = "^6.0"
-matplotlib      = "^3.10"
-seaborn         = "^0.13"
-kaleido         = "^0.2"            # plotly static export
-
-# Jupyter
-jupyterlab      = "^4.3"
-ipywidgets      = "^8.1"
-nbformat        = "^5.10"
-
-# Utilities
-loguru          = "^0.7"
-click           = "^8.1"
-pydantic        = "^2.10"
-rich            = "^13.9"
-tqdm            = "^4.67"
+[tool.poetry.extras]
+jupyter = ["jupyterlab"]
 
 [tool.poetry.group.dev.dependencies]
-pytest          = "^8.3"
-pytest-cov      = "^6.0"
-ruff            = "^0.9"
-mypy            = "^1.14"
-black           = "^25.1"
-pre-commit      = "^4.0"
-hypothesis      = "^6.122"
+pytest        = "^8.3"
+pytest-cov    = "^5.0"
+ruff          = "^0.7"
+mypy          = "^1.13"
+black         = "^24.10"
 
 [tool.poetry.scripts]
-algothon        = "src.python.execution.engine:main"
+# Direct CLI entry-point: `poetry run algothon --backtest`
+algothon = "execution.engine:main"
 
-[build-system]
-requires        = ["poetry-core>=1.9"]
-build-backend   = "poetry.core.masonry.api"
-
-# ============================================================================
-# Tool configurations
-# ============================================================================
-
+# ---------------------------------------------------------------------------
+# Ruff (linter / formatter)
+# ---------------------------------------------------------------------------
 [tool.ruff]
 line-length    = 100
 target-version = "py313"
-select         = ["E", "F", "I", "N", "W", "UP", "B"]
+src            = ["src/python", "tests/python", "scripts"]
 
+[tool.ruff.lint]
+select  = ["E", "F", "I", "N", "UP", "ANN", "PLC", "PLR", "PLW"]
+ignore  = ["ANN101", "ANN102", "ANN401"]
+
+# ---------------------------------------------------------------------------
+# Mypy
+# ---------------------------------------------------------------------------
 [tool.mypy]
 python_version         = "3.13"
 strict                 = true
 ignore_missing_imports = true
 
+[[tool.mypy.overrides]]
+module = ["scipy.*", "sklearn.*", "polars.*"]
+ignore_missing_imports = true
+
+# ---------------------------------------------------------------------------
+# Pytest
+# ---------------------------------------------------------------------------
 [tool.pytest.ini_options]
 testpaths    = ["tests/python"]
-addopts      = "-v --cov=src/python --cov-report=term-missing --cov-report=xml"
+addopts      = "--tb=short -v"
+python_files = ["test_*.py"]
 
+# ---------------------------------------------------------------------------
+# Black
+# ---------------------------------------------------------------------------
 [tool.black]
 line-length    = 100
 target-version = ["py313"]
+
+[build-system]
+requires      = ["poetry-core>=1.9"]
+build-backend = "poetry.core.masonry.api"

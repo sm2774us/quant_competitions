@@ -1,0 +1,135 @@
+# ==============================================================================
+# src/cpp/BUILD.bazel
+#
+# C++ build targets — Bazel owns TWO concerns here:
+#
+#   1. algothon_cpp_ext (cmake)  — builds the nanobind Python extension (.so)
+#      via rules_foreign_cc.  This is the ONLY place cmake is invoked.
+#      `bazel build //src/cpp:algothon_cpp_ext` replaces `cmake --build`.
+#
+#   2. cpp_tests (cc_test)       — unit tests compiled with native Bazel cc_*
+#      rules (no cmake, no Python needed).
+#      `bazel test //src/cpp:cpp_tests` replaces `ctest`.
+#
+#   3. portfolio_engine_hdrs (cc_library) — header-only library used by
+#      cc_test and available for IDE tooling / downstream cc targets.
+#
+# Separation rationale:
+#   - cmake() owns the Python extension because it needs nanobind's own
+#     CMake machinery (FetchContent, configure_file, STABLE_ABI, etc.).
+#   - cc_test owns unit testing because pure C++ tests have no Python dep
+#     and compile ~10x faster via native Bazel incremental builds.
+# ==============================================================================
+
+load("@rules_foreign_cc//foreign_cc:defs.bzl", "cmake")
+
+# ==============================================================================
+# 1. Header-only cc_library — portfolio_engine.h
+#    Exposes the four core C++ templates to both cmake() and cc_test.
+# ==============================================================================
+
+cc_library(
+    name = "portfolio_engine_hdrs",
+    hdrs = ["include/portfolio_engine.h"],
+    includes = ["include"],
+    deps = [
+        "@eigen//:eigen",
+        "@nanobind//:nanobind_headers",
+    ],
+    copts = [
+        "-std=c++23",           # C++23 widely supported; upgrade to 26 when GCC 15 ships
+        "-O3",
+        "-march=native",
+        "-ffast-math",
+        "-fvisibility=hidden",  # required by nanobind ABI
+        "-Wall",
+        "-Wextra",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+# ==============================================================================
+# 2. cmake() — nanobind Python extension compiled via rules_foreign_cc.
+#
+# Flow:
+#   Bazel sandbox copies all :cpp_srcs_and_cmake sources into a temp dir
+#   → cmake -S . -B <build_dir> [cache_entries]
+#   → cmake --build <build_dir> --target algothon_cpp
+#   → cmake --install <build_dir> --prefix <install_dir>
+#   → Bazel captures install_dir/lib/algothon_cpp.so as the output
+#
+# The out_shared_libs entry tells rules_foreign_cc what to capture from
+# the cmake install tree.  CMakeLists.txt must install to DESTINATION lib
+# (see the updated CMakeLists.txt delta).
+#
+# Usage:
+#   bazel build //src/cpp:algothon_cpp_ext
+#   cp bazel-bin/src/cpp/algothon_cpp_ext/algothon_cpp.so src/python/
+# ==============================================================================
+
+cmake(
+    name = "algothon_cpp_ext",
+    lib_source = "//:cpp_srcs_and_cmake",
+    install     = True,
+    cache_entries = {
+        # Compiler flags baked into the cmake build
+        "CMAKE_BUILD_TYPE"                        : "Release",
+        "CMAKE_CXX_STANDARD"                      : "23",
+        "CMAKE_CXX_STANDARD_REQUIRED"             : "ON",
+        "CMAKE_CXX_EXTENSIONS"                    : "OFF",
+        # rules_foreign_cc sets CMAKE_INSTALL_PREFIX automatically;
+        # we install algothon_cpp.so → ${CMAKE_INSTALL_PREFIX}/lib/
+        "CMAKE_INSTALL_LIBDIR"                    : "lib",
+        # Skip building the C++ unit test binary inside cmake (Bazel cc_test handles that)
+        "BUILD_TESTING"                           : "OFF",
+        # Expose Python executable from the registered rules_python toolchain
+        "Python3_EXECUTABLE"                      : "$$PYTHON3",
+    },
+    env = {
+        # Pass the Bazel-managed Python interpreter into the cmake sandbox
+        "PYTHON3"     : "$(PYTHON3)",
+        # SIMD flags: AVX2 baseline + AVX512 if available on host
+        "CXXFLAGS"    : "-O3 -march=native -ffast-math -fvisibility=hidden -fPIC",
+        "LDFLAGS"     : "",
+    },
+    # rules_foreign_cc looks for this file in ${INSTALLDIR}/lib/
+    out_shared_libs = select({
+        "@platforms//os:windows" : ["algothon_cpp.pyd"],
+        "@platforms//os:macos"   : ["algothon_cpp.so"],
+        "//conditions:default"   : ["algothon_cpp.so"],
+    }),
+    visibility = ["//visibility:public"],
+    # Inherit the Bazel C++ toolchain so the same compiler flags apply
+    # across cmake() and cc_* targets (consistency guarantee).
+    generate_crosstool_file = True,
+)
+
+# ==============================================================================
+# 3. cc_test — C++ unit tests (native Bazel, no cmake, no Python).
+#
+# These compile and run in ~seconds via Bazel's incremental cache.
+# They test EWCovEstimator, OAShrinkage, RiskParityNewton, MVOSolver
+# and the integrated PortfolioEngine end-to-end.
+#
+# Run:  bazel test //src/cpp:cpp_tests
+#       bazel test //src/cpp:cpp_tests --test_output=streamed
+# ==============================================================================
+
+cc_test(
+    name = "cpp_tests",
+    srcs = ["../../tests/cpp/test_portfolio_engine.cpp"],
+    deps = [
+        ":portfolio_engine_hdrs",
+        "@googletest//:gtest_main",
+        "@eigen//:eigen",
+    ],
+    copts = [
+        "-std=c++23",
+        "-O2",           # Slightly relaxed vs Release — better error messages in tests
+        "-march=native",
+        "-Wall",
+        "-Wextra",
+    ],
+    size = "medium",     # < 60 s expected
+    visibility = ["//visibility:public"],
+)

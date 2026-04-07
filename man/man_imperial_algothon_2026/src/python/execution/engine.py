@@ -27,9 +27,14 @@ from typing import Final
 import numpy as np
 import polars as pl
 
-# Internal imports
-_ROOT = Path(__file__).resolve().parents[3]
-sys.path.insert(0, str(_ROOT / "src" / "python"))
+# Internal imports — resolvable because:
+#   • Bazel:  `imports = ["src/python"]` in py_binary/py_library propagates PYTHONPATH.
+#   • Poetry: `packages = [{include = "data", from = "src/python"}, ...]` installs them
+#             as top-level packages after `poetry install`.
+# No sys.path manipulation required.
+# # Internal imports
+# _ROOT = Path(__file__).resolve().parents[3]
+# sys.path.insert(0, str(_ROOT / "src" / "python"))
 
 from data.loader import DataLoader, _INSTRUMENTS
 from signals.momentum import MomentumEngine, MomentumSignals

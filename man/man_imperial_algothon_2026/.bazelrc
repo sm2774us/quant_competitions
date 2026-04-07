@@ -1,40 +1,116 @@
-# .bazelrc — Bazel configuration for algothon-2026
+# ==============================================================================
+# .bazelrc — Bazel build/test/run configuration for algothon-2026
+#
+# This file is the CONFIGURATION LAYER of the Bazel gateway.
+# Every named --config corresponds to a discrete operation the team performs.
+#
+# Quick reference
+# ──────────────────────────────────────────────────────
+# bazel build  //...                       → build everything
+# bazel build  //src/cpp:algothon_cpp_ext  → compile C++ extension
+# bazel test   //...                       → run all tests
+# bazel test   //:test_py  --config=py     → Python tests only
+# bazel test   //src/cpp:cpp_tests --config=cpp  → C++ tests only
+# bazel run    //:backtest                 → run backtest pipeline
+# bazel run    //:submit   -- --round 2    → generate round-2 submission
+# bazel run    //:jupyter                  → launch JupyterLab
+# bazel run    //:docker_build             → docker compose build
+# bazel run    //:docker_jupyter           → docker compose up jupyter
+# bazel run    //:docker_down              → docker compose down
+# ==============================================================================
 
-# ============================================================================
-# Common settings
-# ============================================================================
-common --enable_bzlmod=false          # Use WORKSPACE-based dependency management
+# ==============================================================================
+# Common — applies to ALL bazel commands
+# ==============================================================================
+common --enable_bzlmod=false    # WORKSPACE-based deps (not bzlmod)
+common --color=yes
+common --curses=yes
 
-# ============================================================================
-# Build settings
-# ============================================================================
-build --cxxopt=-std=c++26
+# ==============================================================================
+# Build defaults — C++23 + Python 3.13 + aggressive SIMD
+# ==============================================================================
+build --cxxopt=-std=c++23           # C++23 (upgrade to 26 when GCC 15 stabilises)
 build --cxxopt=-O3
-build --cxxopt=-march=native
+build --cxxopt=-march=native        # AVX2 / AVX512 where available
 build --cxxopt=-ffast-math
+build --cxxopt=-fvisibility=hidden  # nanobind ABI requirement
 build --cxxopt=-Wall
 build --cxxopt=-Wextra
 build --compilation_mode=opt
 
-# Python 3.13
+# Python 3.13 toolchain from rules_python
 build --python_version=PY3
 build --extra_toolchains=@python_3_13//:all
 
-# ============================================================================
-# Test settings
-# ============================================================================
-test --test_output=all
-test --test_verbose_timeout_warnings
+# Timestamp-based file change detection (faster than MD5 for large repos)
+build --watchfs
 
-# ============================================================================
-# CI settings (used in GitHub Actions)
-# ============================================================================
+# ==============================================================================
+# --config=release  (explicit production build, same flags as default)
+# ==============================================================================
+build:release --compilation_mode=opt
+build:release --cxxopt=-O3
+build:release --cxxopt=-DNDEBUG
+
+# ==============================================================================
+# --config=debug  (debug build — assertions on, no optimisation)
+# ==============================================================================
+build:debug --compilation_mode=dbg
+build:debug --cxxopt=-O0
+build:debug --cxxopt=-g3
+build:debug --cxxopt=-UNDEBUG
+build:debug --strip=never
+
+# ==============================================================================
+# --config=cpp  (C++ only: builds + tests the C++ targets)
+#   Usage: bazel test //src/cpp:cpp_tests --config=cpp
+# ==============================================================================
+build:cpp  --cxxopt=-std=c++23
+build:cpp  --cxxopt=-O2             # Slightly relaxed for better test diagnostics
+test:cpp   --test_output=streamed
+test:cpp   --test_verbose_timeout_warnings
+test:cpp   --build_tests_only
+
+# ==============================================================================
+# --config=py  (Python only: run/test Python targets)
+#   Usage: bazel test //:test_py --config=py
+# ==============================================================================
+test:py --test_output=all
+test:py --test_verbose_timeout_warnings
+test:py --build_tests_only
+
+# ==============================================================================
+# --config=ci  (GitHub Actions: reproducible, no local cache pollution)
+# ==============================================================================
 build:ci --loading_phase_threads=4
 build:ci --jobs=4
-build:ci --show_progress_rate_limit=10
+build:ci --show_progress_rate_limit=5
+build:ci --compilation_mode=opt
+build:ci --remote_cache=          # no remote cache in CI by default; set URL to enable
+test:ci  --test_output=errors
+test:ci  --keep_going             # don't abort on first test failure
 
-# ============================================================================
-# Docker/sandbox settings
-# ============================================================================
+# ==============================================================================
+# --config=docker  (hermetic sandbox: used when building inside containers)
+# ==============================================================================
 build:docker --spawn_strategy=sandboxed
 build:docker --sandbox_debug=false
+build:docker --compilation_mode=opt
+
+# ==============================================================================
+# Test defaults — always print timing + verbose on warning
+# ==============================================================================
+test --test_output=all
+test --test_verbose_timeout_warnings
+test --test_summary=detailed
+
+# ==============================================================================
+# Run defaults
+# ==============================================================================
+run --color=yes
+
+# ==============================================================================
+# Startup options
+# ==============================================================================
+startup --output_base=/tmp/bazel_algothon_output   # shared across checkouts
+startup --host_jvm_args=-Xmx4g                     # larger heap for big dependency graphs

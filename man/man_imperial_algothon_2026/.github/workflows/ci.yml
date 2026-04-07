@@ -17,7 +17,9 @@ env:
   IMAGE_NAME: ${{ github.repository }}/algothon-2026
 
 jobs:
-  # ── Python linting & type-checking ────────────────────────────────────────
+  # ── Static Analysis ────────────────────────────────────────────────────────
+  # Keeping Poetry strictly for fetching dev-dependencies (Ruff/Mypy/Black)
+  # since Bazel rules_lint is not configured in the workspace.
   lint:
     name: Lint & Type Check
     runs-on: ubuntu-24.04
@@ -43,67 +45,45 @@ jobs:
       - name: Black format check
         run: poetry run black --check src/python
 
-  # ── C++ build & unit tests ────────────────────────────────────────────────
-  cpp-tests:
-    name: C++ Build & Tests
+  # ── Unified Bazel Build & Test Gateway ─────────────────────────────────────
+  bazel-tests:
+    name: Build & Test (Bazel)
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install build dependencies
+      - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y cmake ninja-build gcc-14 g++-14 \
-            python3.13 python3.13-dev libpython3.13-dev
-
-      - name: Configure CMake
-        run: |
-          cmake -S . -B build \
-            -DCMAKE_BUILD_TYPE=Release \
-            -DCMAKE_CXX_COMPILER=g++-14 \
-            -GNinja
-
-      - name: Build
-        run: cmake --build build --parallel 4
-
-      - name: Run C++ tests
-        run: cd build && ctest --output-on-failure --parallel 4
-
-  # ── Python tests via Bazel ─────────────────────────────────────────────────
-  python-tests:
-    name: Python Tests (Bazel)
-    runs-on: ubuntu-24.04
-    steps:
-      - uses: actions/checkout@v4
+          sudo apt-get install -y gcc-14 g++-14 python3.13 python3.13-dev libpython3.13-dev
 
       - name: Mount Bazel cache
         uses: actions/cache@v4
         with:
           path: ~/.cache/bazel
-          key: bazel-${{ runner.os }}-${{ hashFiles('WORKSPACE', 'BUILD.bazel') }}
+          key: bazel-${{ runner.os }}-${{ hashFiles('WORKSPACE', 'BUILD.bazel', 'src/cpp/BUILD.bazel') }}
 
       - name: Install Bazel
         uses: bazel-contrib/setup-bazel@0.8.1
         with:
           bazelisk-version: "1.x"
 
-      - name: Run Python tests
+      - name: Bazel Test //... (Compiles C++ & runs all Python/C++ tests)
         run: |
           bazel test //... \
             --config=ci \
-            --test_output=all \
-            --build_tests_only
+            --test_output=all
 
       - name: Upload coverage
         uses: codecov/codecov-action@v4
         with:
           files: ./coverage.xml
-          flags: python
+          flags: bazel
 
   # ── Docker build & push ────────────────────────────────────────────────────
   docker:
     name: Build & Push Docker Image
-    needs: [lint, cpp-tests, python-tests]
+    needs: [lint, bazel-tests]
     runs-on: ubuntu-24.04
     permissions:
       contents: read
@@ -143,7 +123,7 @@ jobs:
           cache-to: type=gha,mode=max
           target: runtime
 
-  # ── Generate hackathon submission ─────────────────────────────────────────
+  # ── Generate hackathon submission via Bazel ────────────────────────────────
   generate-submission:
     name: Generate Submission
     needs: [docker]
@@ -152,23 +132,31 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-14 g++-14 python3.13 python3.13-dev libpython3.13-dev
+
+      - name: Mount Bazel cache
+        uses: actions/cache@v4
         with:
-          python-version: "3.13"
+          path: ~/.cache/bazel
+          key: bazel-${{ runner.os }}-${{ hashFiles('WORKSPACE', 'BUILD.bazel', 'src/cpp/BUILD.bazel') }}
 
-      - name: Install runtime deps
-        run: |
-          pip install poetry
-          poetry install --only main
+      - name: Install Bazel
+        uses: bazel-contrib/setup-bazel@0.8.1
+        with:
+          bazelisk-version: "1.x"
 
-      - name: Generate submission CSV
+      - name: Generate submission CSV via Bazel target
         run: |
-          poetry run python -m src.python.execution.engine \
+          mkdir -p ${{ github.workspace }}/submissions
+          bazel run //:submit --config=ci -- \
             --data-dir data/sample \
-            --team ${{ vars.TEAM_NAME || 'algothon_team' }} \
-            --round ${{ github.event.inputs.round_number || '1' }} \
+            --team "${{ vars.TEAM_NAME || 'algothon_team' }}" \
+            --round "${{ github.event.inputs.round_number || '1' }}" \
             --backtest \
-            --output-dir submissions
+            --output-dir "${{ github.workspace }}/submissions"
 
       - name: Upload submission artifact
         uses: actions/upload-artifact@v4
