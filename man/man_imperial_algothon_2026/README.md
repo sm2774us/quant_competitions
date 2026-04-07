@@ -113,11 +113,11 @@ Projection onto $\{\mathbf{w} : \mathbf{1}^\top\mathbf{w}=1,\; 0\leq w_i\leq 0.4
 ### 2.10 Performance Metrics
 
 | Metric | Formula |
-|--------|---------|
-| Sharpe | $\frac{\bar{r}_p - r_f}{\sigma_p}\sqrt{252}$ |
-| Sortino | $\frac{\bar{r}_p - r_f}{\sigma_{\text{down}}}\sqrt{252}$ |
-| Calmar | $\frac{\text{Ann.Return}}{\text{MaxDD}}$ |
-| CVaR(95%) | $-\mathbb{E}[r \mid r \leq \text{VaR}_{0.05}]$ |
+| :--- | :--- |
+| Sharpe | $$ \frac{\bar{r}_p - r_f}{\sigma_p}\sqrt{252} $$ |
+| Sortino | $$ \frac{\bar{r}_p - r_f}{\sigma_{\text{down}}}\sqrt{252} $$ |
+| Calmar | $$ \frac{\text{Ann.Return}}{\text{MaxDD}} $$ |
+| CVaR(95%) | $$ -\mathbb{E}[r \mid r \leq \text{VaR}_{0.05}] $$ |
 
 ---
 
