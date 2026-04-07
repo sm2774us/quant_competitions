@@ -41,14 +41,42 @@ check_prerequisite() {
 
 # ── Build C++ extension ────────────────────────────────────────────────────
 build_cpp() {
+    #info "Building C++ portfolio engine..."
+    #CMAKE_BIN=$(command -v cmake3 2>/dev/null || command -v cmake)
+    #${CMAKE_BIN} -S . -B build_cpp \
+    #    -DCMAKE_BUILD_TYPE=Release \
+    #    -GNinja 2>/dev/null || \
+    #${CMAKE_BIN} -S . -B build_cpp -DCMAKE_BUILD_TYPE=Release
+    #${CMAKE_BIN} --build build_cpp --parallel "$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || echo 4)"
+    #${CMAKE_BIN} --install build_cpp
+    #success "C++ extension built and installed."
+
     info "Building C++ portfolio engine..."
-    CMAKE_BIN=$(command -v cmake3 2>/dev/null || command -v cmake)
-    ${CMAKE_BIN} -S . -B build_cpp \
-        -DCMAKE_BUILD_TYPE=Release \
-        -GNinja 2>/dev/null || \
-    ${CMAKE_BIN} -S . -B build_cpp -DCMAKE_BUILD_TYPE=Release
-    ${CMAKE_BIN} --build build_cpp --parallel "$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || echo 4)"
-    ${CMAKE_BIN} --install build_cpp
+
+    # 1. Identify which binary to use
+    local cmake_cmd
+    cmake_cmd=$(command -v cmake3 || command -v cmake)
+
+    # 2. Use your existing check_prerequisite to validate/fail
+    check_prerequisite "${cmake_cmd:-cmake}"
+
+    # 3. Detect cores for parallel build
+    local cores
+    cores=$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || echo 4)
+
+    # 4. Configure: Try Ninja first, fallback to default
+    if ! "$cmake_cmd" -S . -B build_cpp -DCMAKE_BUILD_TYPE=Release -GNinja 2>/dev/null; then
+        warn "Ninja not found or failed, falling back to default generator..."
+        "$cmake_cmd" -S . -B build_cpp -DCMAKE_BUILD_TYPE=Release || {
+            error "CMake configuration failed."
+            return 1
+        }
+    fi
+
+    # 5. Build and Install (with explicit failure handling)
+    "$cmake_cmd" --build build_cpp --parallel "$cores" || { error "Build failed."; return 1; }
+    "$cmake_cmd" --install build_cpp || { error "Install failed."; return 1; }
+
     success "C++ extension built and installed."
 }
 
